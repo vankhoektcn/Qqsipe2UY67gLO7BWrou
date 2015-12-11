@@ -16,12 +16,19 @@
 	.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
     top: 0px !important;
 	}
+	#site_title a {
+	    padding: 38px 33px;
+	    display: block;
+	}
 }
 @media (min-width:769px){
 	.header{
 		padding-top:2px;
 	}
-	.header {padding: 1em 0;}
+	.header {
+		padding: 0 0;
+		background-color: #8BCA30
+	}
 
 	.header .container .logo{
 		display: none !important;
@@ -32,7 +39,7 @@
 	}
 	.head-nav{
 	    background-color: #345578;
-	    width: 100%;
+	    /*width: 100%;*/
 	}
 	.head-nav ul li a {
     color: #FFF;
@@ -51,6 +58,7 @@
 }
 html,body{background-color: #345578;/*background-image: url(/frontend/images/bg.png);http://startbootstrap.com/template-overviews/full/*/}
 .main-container{margin: 0;padding: 0;margin-right: auto;margin-left: auto;background-color: #f6f6f6;}
+.page-content{padding-top: 1em;}
 .blog-content-right{ padding: 10px;}
 .blo-top li a {
      padding: 0em; 
@@ -123,3 +131,60 @@ b.searchKey{color:#f53f1a;}
 .p-yahoo-support{color: Red; margin: 5px 0px; font-weight: bold;}
 .footer h4,.footer li a,.copyright p {color: #fff;}
 .b-search{border: 1px solid #76C007;}
+
+
+.head-nav{
+	padding: 5px 5px;
+	margin: 5px 0px;
+}
+.head-nav ul li a{
+	padding: 10px 10px;
+    text-transform: uppercase;
+	border-radius: 5px;
+}
+.head-nav ul li a:hover{
+	background-color: #8BCA30;
+	color: #fff;
+}
+#site_title {
+    font-size: 9px;
+    line-height: 1.32em;
+    font-weight: bold;
+    color: #111;
+    margin: 0;
+    text-align: center;
+}
+#site_title a {
+    color: rgba(255, 255, 255, 0);
+    padding: 40px 100px;
+    background: #8BCA30 url(../images/logo.png) center no-repeat;
+    background-size: 65%;
+    border-radius: 5px;
+}
+#top-header li a span {
+    color: #3b8ced;
+}
+#top-header li a {
+    padding: 2px 11.5px 2px;
+    border-radius: 4px;
+}
+#top-header li a#a-hotline:hover{
+    border: 1px solid #3b8ced;
+}
+#top-header .top-menu {
+	font-size: 25px;
+    min-height: 42px;
+    float: right;
+    /*margin: 0px 30px;
+    padding-right: 30px;*/
+}
+#top-header .top-menu li {
+    list-style: none;
+    float: left;
+	padding-top: 2px;
+}
+.top-menu li a i.fa {
+    -webkit-animation: poke 0.6s infinite;
+    -moz-animation: poke 0.6s infinite;
+    animation: poke 0.6s infinite;
+}

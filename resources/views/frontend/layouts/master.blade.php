@@ -12,10 +12,20 @@
 </head>
 <body>
 <!-- header -->
-<div class="container main-container">
-	<div class="header">
+<div class="main-container">
+	<div id="top-header">
 		<div class="container">
-			<div class="barner-top">
+			<ul class="top-menu">
+				<li>
+					<a href="javascript:;"><i class="fa fa-hand-o-right greenMain"></i>
+					<a id="a-hotline" href="tel:0932622017"><span>Hotline : 0932 622 017</span></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="header">
+		<div class="full container">
+			<!-- <div class="barner-top">
 				@inject('navigationCategory', 'App\NavigationCategory')
 				<?php $navigations = $navigationCategory->findByKey('banner-chinh')->first()->navigations()->where('is_publish', 1)->orderBy('priority')->get(); ?>
 				<ul id="banner-slide" class="rslides">
@@ -23,31 +33,34 @@
 						<li><a href="{{ $navigation->link }}"><img src="{{ Image::url($navigation->getFirstAttachment(),1140,200,array('crop')) }}" alt="{{ $navigation->summary }}"></a></li>
 					@endforeach
 				</ul>
-			</div>
+			</div> 
 	
 			<div class="logo">
 				<a href="{{ route('homepage') }}"><img src="{{ Image::url('/frontend/images/logo.png',131,48,array('crop')) }}" class="img-responsive" alt=""></a>
+			</div>-->
+			<div id="logo" class="col-sm-3">
+				<h1 id="site_title"><a href="http://myvanland.com"></a></h1>
 			</div>
-			
-				<div class="head-nav">
-					<span class="menu"> </span>
-						<ul class="cl-effect-1">
-							<li class="{{ Route::is('homepage') ? 'active' : null }}"><a href="{{ route('homepage') }}">Trang chủ</a></li>
-							<li class="{{ ends_with(Request::url(),'gioi-thieu.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'gioi-thieu'])}}">Giới thiệu</a></li>
-							<li class="{{ Route::is('newClass') ? 'active' : null }}"><a href="{{ route('newClass') }}">Lớp mới</a></li>
-							<li class="{{ ends_with(Request::url(),'hoc-phi.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'hoc-phi'])}}">Học phí</a></li>
-							<li class="{{ ends_with(Request::url(),'gia-su-hien-co.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'gia-su-hien-co'])}}">Gia sư hiện có</a></li>
-							<li class="{{ ends_with(Request::url(),'tuyen-dung.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'tuyen-dung'])}}">Tuyển dụng</a></li>
-							<li class="{{ Route::is('contact') ? 'active' : null }}"><a href="{{ route('contact') }}">Liên hệ</a></li>
-							<li class="{{ ends_with(Request::url(),'tai-khoan-giao-dich.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'tai-khoan-giao-dich'])}}">Tài khoản giao dịch</a></li>
-							<div class="clearfix"></div>
-						</ul>
-				</div>
-					<div class="clearfix"> </div>
+			<div class="head-nav col-sm-9">
+				<span class="menu"> </span>
+					<ul class="cl-effect-1">
+						<li class="{{ Route::is('homepage') ? 'active' : null }}"><a href="{{ route('homepage') }}">Tổng quan</a></li>
+						<li class="{{ ends_with(Request::url(),'gioi-thieu.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'gioi-thieu'])}}">Vị trí</a></li>
+						<li class="{{ Route::is('newClass') ? 'active' : null }}"><a href="{{ route('newClass') }}">Tiện ích</a></li>
+						<li class="{{ ends_with(Request::url(),'hoc-phi.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'hoc-phi'])}}">Mặt bằng</a></li>
+						<li class="{{ ends_with(Request::url(),'gia-su-hien-co.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'gia-su-hien-co'])}}">Nhà mẫu</a></li>
+						<li class="{{ ends_with(Request::url(),'tuyen-dung.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'tuyen-dung'])}}">Thực tế</a></li>
+						<li class="{{ Route::is('contact') ? 'active' : null }}"><a href="{{ route('contact') }}">Thanh toán</a></li>
+						<li class="{{ Route::is('contact') ? 'active' : null }}"><a href="{{ route('contact') }}">Liên hệ</a></li>
+						<!-- <li class="{{ ends_with(Request::url(),'tai-khoan-giao-dich.html') ? 'active' : null }}"><a href="{{ route('article', ['categorykey' => 'bai-viet', 'articlekey' => 'tai-khoan-giao-dich'])}}">Tài khoản giao dịch</a></li> -->
+						<div class="clearfix"></div>
+					</ul>
+			</div>
+			<div class="clearfix"> </div>
 		</div>
 	</div>
 <!-- header -->
-	<div class="container">
+	<div class="container page-content">
 		@yield('body.content')	
 		@include('frontend.layouts.footer')
 
