@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Province;
+use App\ProvinceTranslation;
+use App\Common;
+
+class ProvincesTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $provinces = ['Hồ Chí Minh', 'Hà Nội'];
+
+        foreach ($provinces as $key => $value) 
+        {
+	        $province = Province::create([
+				'key' => Common::createKeyURL($value),
+				'priority' => 0,
+				'is_publish' => 1,
+				'created_by' => 'vankhoe',
+				'updated_by' => 'vankhoe'
+			]);
+			ProvinceTranslation::create([
+				'province_id' => $province->id,
+				'locale' => 'vi',
+				'name' => $value
+			]);
+        }
+    }
+}
