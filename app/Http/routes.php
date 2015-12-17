@@ -194,4 +194,10 @@ Route::group(['namespace' => 'Frontend'], function()
 			'as' => 'searchNewClass',
 			'uses' => 'SiteControllers@searchNewClass'
 		]);
+
+	// for projects	
+	Route::get('/du-an/{key}/{projectkey}.html', [
+			'as' => 'project',
+			'uses' => 'SiteControllers@project'
+		]);
 });

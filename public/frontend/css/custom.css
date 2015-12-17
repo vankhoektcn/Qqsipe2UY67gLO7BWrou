@@ -20,6 +20,11 @@
 	    padding: 38px 33px;
 	    display: block;
 	}
+	#logo {
+	    position: absolute;
+	    right: 1px;
+	    z-index: 99;
+	}
 }
 @media (min-width:769px){
 	.header{
@@ -187,4 +192,20 @@ b.searchKey{color:#f53f1a;}
     -webkit-animation: poke 0.6s infinite;
     -moz-animation: poke 0.6s infinite;
     animation: poke 0.6s infinite;
+}
+.flex-control-nav {
+    bottom: 25px !important;
+    line-height: 11px;
+    z-index: 99;
+    right: 10px;
+    display: block;
+    width: auto !important;
+    opacity: 1;
+}
+.flex-control-paging li a{
+	background: #fff;
+}
+.flex-caption{
+	background: #8BCA30;
+	min-height: 50px;
 }

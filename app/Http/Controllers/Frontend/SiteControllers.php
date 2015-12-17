@@ -303,4 +303,17 @@ class SiteControllers extends Controller
 		OpenGraph::addProperty('type', 'articles');
 		// end metadata
 	}
+
+
+	//FOR PROJECTS
+
+	public function project($key,$projectkey)
+	{
+		// if($projectkey != null){
+			return view('frontend.sites.project');
+		// }
+		// else
+		// 	return view('errors.404');
+	}
+
 }
