@@ -14,7 +14,7 @@ crazyify.project = {
 		$('.flexslider').flexslider({
             animation: "slide"
         });
-        jQuery('#rightMenuScrollspy a:not(.dropdown-toggle), #home a').bind('click', function(event) {
+        jQuery('#rightMenuScrollspy a:not(.dropdown-toggle), ul#project-menu a.scroll, #home a').bind('click', function(event) {
 			var $anchor = $(this);
 			jQuery('html, body').stop().animate({
 				scrollTop: $($anchor.attr('href')).offset().top
@@ -25,12 +25,19 @@ crazyify.project = {
 			crazyify.project.CheckShowRightMenu();
 		})
 	},
-	CheckShowRightMenu: function () {
-		if ($('ul.cl-effect-1').is(":inView")) {
-			$('nav#rightMenuScrollspy').removeClass('in');
+	CheckShowRightMenu: function () {		
+		if (!$('ul.cl-effect-1').is(":inView")) {
+			var page_content_width = $(".page-content").width();
+			if(window.innerWidth > ( page_content_width + 240))
+			{
+				$('nav#rightMenuScrollspy').addClass('in');
+			}
+			else{
+				$('nav#rightMenuScrollspy').removeClass('in');
+			}
 		}
 		else{
-			$('nav#rightMenuScrollspy').addClass('in');
+			$('nav#rightMenuScrollspy').removeClass('in');
 		}
 	},
 };

@@ -27,6 +27,8 @@ use SEOMeta;
 use Image;
 use Mail;
 
+use App\Project;
+
 class SiteControllers extends Controller
 {
 	/**
@@ -307,13 +309,59 @@ class SiteControllers extends Controller
 
 	//FOR PROJECTS
 
-	public function project($key,$projectkey)
+	public function project($projectid,$districtkey,$projectkey)
 	{
-		// if($projectkey != null){
-			return view('frontend.sites.project');
-		// }
-		// else
-		// 	return view('errors.404');
+		$project = Project::where('key',$projectkey)->first();
+		if($project != null){
+			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
+			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
+			$project_images = $project->project_images()->where('active',1)->orderBy('priority')->take(5)->get();
+			$other_projects = Project::where('active',1)->orderBy('priority')->take(5)->get();
+			$project_agents = $project->agents()->get();
+			return view('frontend.sites.project',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents'));
+		}
+		else
+			return view('errors.404');
 	}
+
+	public function test()
+	{
+
+		return view('frontend.sites.test');
+	}
+
+
+	public function article__($categorykey, $articlekey)
+	{
+		$article = Article::where('key',$articlekey)->first();
+		if($article != null){
+			// metadata
+			$site_title = $article->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			SEOMeta::setTitle($site_title);
+			SEOMeta::setDescription($article->meta_description);
+			SEOMeta::addKeyword([$article->meta_keywords]);
+			SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
+			if (isset($article->categories->first()->name)) {
+				SEOMeta::addMeta('article:section', $article->categories->first()->name, 'property');
+			}
+
+			OpenGraph::setTitle($site_title);
+			OpenGraph::setDescription($article->meta_description);
+			OpenGraph::setUrl(route('article', ['categorykey' => $categorykey, 'articlekey' => $articlekey]));
+			OpenGraph::addProperty('type', 'article');
+			OpenGraph::addProperty('locale', app()->getLocale());
+			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
+
+			OpenGraph::addImage($article->getFirstAttachment());
+			OpenGraph::addImage($article->attachments->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($article->getFirstAttachment(),300,300,array('crop')), 'size' => 300]);
+			// end metadata
+
+			return view('frontend.sites.article',compact('article'));
+		}
+		else
+			return view('errors.404');
+	}
+
 
 }

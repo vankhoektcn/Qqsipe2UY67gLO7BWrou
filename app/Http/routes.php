@@ -39,6 +39,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 		Route::resource('articles', 'ArticlesController');
 	});
 
+	Route::group(['namespace' => 'Projects'], function()
+	{
+		Route::resource('projects', 'ProjectsController');
+	});
+
 	Route::group(['namespace' => 'Configs'], function()
 	{
 		Route::resource('configs', 'ConfigsController');
@@ -196,8 +201,12 @@ Route::group(['namespace' => 'Frontend'], function()
 		]);
 
 	// for projects	
-	Route::get('/du-an/{key}/{projectkey}.html', [
+	Route::get('/du-an/{projectid}/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
 			'uses' => 'SiteControllers@project'
+		]);
+	Route::get('/du-an.html', [
+			'as' => 'test',
+			'uses' => 'SiteControllers@test'
 		]);
 });

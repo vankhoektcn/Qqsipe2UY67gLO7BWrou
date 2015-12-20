@@ -21,30 +21,34 @@
     }
   }
   #rightMenuScrollspy {
-    width: 117px !important;
+    width: 115px !important;
     height: 100%;
     background-color: #fff !important;
     position: fixed;
     top: 0px;
-    right: -185px;
-    -webkit-transition: right 0.2s ease-in;
-    transition: right 0.2s ease-in;
+    left: -185px;
+    -webkit-transition: left 0.2s ease-in;
+    transition: left 0.2s ease-in;
     -webkit-backface-visibility: hidden !important;
     -webkit-box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
     /*box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);*/
-    box-shadow: -10px 0px 15px rgba(0, 0, 0, 0.15);
+    /*box-shadow: -10px 0px 15px rgba(0, 0, 0, 0.15);*/
+    box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
     display: block;
     z-index: 100;
     padding: 5px 0 0;
 }
+#rightMenuScrollspy ul {
+    width: 115px !important;
+}
 #rightMenuScrollspy.in {
-    right: 0px;
+    left: 0px;
 }
 #rightMenuScrollspy ul li {
     display: block;
     list-style-type: none;
-    font-size: 14px;
+    font-size: 17px;
     padding: 10px 0;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -52,7 +56,8 @@
     padding: 0px !important;
 }
 #rightMenuScrollspy a:hover, #rightMenuScrollspy a.active {
-    color: #1fa67a;
+    background-color: #8BCA30;
+    color: #fff;
 }
 #rightMenuScrollspy a {
     text-decoration: none;
@@ -63,7 +68,7 @@
     text-align: center;
 }
 #rightMenuScrollspy a i {
-    font-size: 25px;
+    font-size: 30px;
     display: block;
 }
 a.smoothScroll span {
