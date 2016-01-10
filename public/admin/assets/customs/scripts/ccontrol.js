@@ -175,12 +175,12 @@ var CControl = function () {
 							<label class="control-label col-md-3">{0}</label>\
 							<div class="col-md-9">\
 								<input id="{1}-upload" name="{2}-upload" type="file" multiple class="file-loading input-images {3}" data-languagecontrol="{4}" data-dbfieldname="{5}">\
-								<input id="{1}" name="{6}" type="hidden" data-languagecontrol="{4}" data-dbfieldname="{5}">\
+								<input id="{1}" name="{6}" type="hidden" data-languagecontrol="{4}" data-dbfieldname="{5}" data-listafter="{8}" data-lisaftertemplate="{9}">\
 								<span id="help-block-{1}" class="help-block">{7}</span>\
 							</div>\
 						</div>';
 		var nameUpload = options.name.replace('[', '').replace(']', '').toLowerCase();
-		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.name, options.help_block);
+		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.name, options.help_block, options.show_list_after_upload ? 1:0, options.listTemplate);
 		return resutlHtml;
 	}
 
@@ -189,12 +189,12 @@ var CControl = function () {
 							<label class="control-label col-md-3">{0}</label>\
 							<div class="col-md-9">\
 								<input id="{1}-upload" name="{2}-upload" type="file" multiple class="file-loading input-images {3}" data-languagecontrol="{4}" data-dbfieldname="{5}" data-initpreview="{6}">\
-								<input id="{1}" name="{7}" type="hidden" data-languagecontrol="{4}" data-dbfieldname="{5}" value="{6}">\
+								<input id="{1}" name="{7}" type="hidden" data-languagecontrol="{4}" data-dbfieldname="{5}" value="{6}" data-listafter="{9}" data-lisaftertemplate="{10}">\
 								<span id="help-block-{1}" class="help-block">{8}</span>\
 							</div>\
 						</div>';
 		var nameUpload = options.name.replace('[', '').replace(']', '').toLowerCase();
-		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.value, options.name, options.help_block);
+		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.value, options.name, options.help_block, options.show_list_after_upload ? 1:0, options.listTemplate);
 		return resutlHtml;
 	};
 
@@ -280,10 +280,18 @@ var CControl = function () {
 			var newValue = data.response.initialPreview[0];
 			newValue = newValue.match(/src=[\"'](.+?)[\"']/g).toString();
 			newValue = newValue.replace('src=', '').replace(/"/g, '');
+			var newOne = newValue;
 			if (typeof currentValue != 'undefined' && currentValue != 'undefined' && currentValue != '') {
 				newValue = $.format('{0},{1}', currentValue, newValue);
 			};
 			$control.val(newValue);
+			//alert("dã load");
+			var lisaftertemplate= $control.data('lisaftertemplate'); 
+			if($control.data('listafter') == '1' && !$.isEmptyObject(lisaftertemplate))
+			{
+				var temp_i = $.format(lisaftertemplate,newOne, '');
+				$control.parent().append(temp_i);				
+			}
 		});
 
 		$(_dom).find("input.input-images").on('filedeleted', function(event, key, jqXHR, data) {

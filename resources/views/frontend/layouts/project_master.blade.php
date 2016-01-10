@@ -13,7 +13,8 @@
 <link href="/frontend/css/flexslider.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/project.css" rel="stylesheet" type="text/css">
   <script src="/frontend/js/jquery1.11.3.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <!--<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+  <script src="/frontend/js/jquery-ui.min.js" type="text/javascript"></script>
   <script src="/frontend/js/bootstrap.min.js"></script>
   <script src="/frontend/js/crazyify.core.js"></script>
 <!-- <link rel="stylesheet" href="/frontend/css/bootstrap.css">

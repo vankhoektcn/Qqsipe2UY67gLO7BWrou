@@ -214,6 +214,27 @@
 						</li>
 					</ul>
 				</li>
+
+				<li class="{{ Request::is('admin/agents*') ? 'active open' : null }}">
+					<a href="javascript:;">
+					<i class="icon-docs"></i>
+					<span class="title">Môi giới</span>
+					<span class="arrow {{ Request::is('admin/agents*') ? 'open' : null }}"></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="{{ Request::is('admin/agents/create') ? 'active' : null }}">
+							<a href="{{ route('admin.agents.create') }}">
+							<i class="icon-note"></i>
+							Tạo mới</a>
+						</li>
+						<li class="{{ Request::is('admin/agents') ? 'active' : null }}">
+							<a href="{{ route('admin.agents.index') }}">
+							<i class="icon-list"></i>
+							Danh sách</a>
+						</li>
+					</ul>
+				</li>
+
 				<li class="{{ Request::is('admin/articlecategories*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>

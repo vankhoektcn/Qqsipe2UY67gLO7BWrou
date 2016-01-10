@@ -30,6 +30,12 @@ class districtsController extends Controller
         return view('admin.districts.index', ['districts' => $districts]);
     }
 
+    public function districtsByProvince($province_id)
+    {
+        $districts = District::where('province_id',$province_id)->orderBy('priority')->get();
+        return $districts->toArray();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -6,13 +6,29 @@ if (typeof crazyify.articles == 'undefined')
 crazyify.articles.entry = {
 	commonControls: [
 		{
-			'label': 'Thông tin chung',
+			'label': 'Thông tin dự án',
 			'type': 'divider'
+		},
+		{
+			'label': 'Tên dự án',
+			'id': 'name',
+			'name': 'Project[name]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'Tên dự án',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'name'
 		},
 		{
 			'label': 'Key',
 			'id': 'key',
-			'name': 'Article[key]',
+			'name': 'Project[key]',
 			'type': 'static',
 			'placeholder': '',
 			'cssclass': '',
@@ -25,59 +41,105 @@ crazyify.articles.entry = {
 			'dbfieldname': 'key'
 		},
 		{
-			'label': 'Danh mục',
-			'id': 'categories',
-			'name': 'Article[categories]',
-			'type': 'treecheckbox',
-			'required': false,
+			'label': 'Tỉnh/thành phố',
+			'id': 'province_id',
+			'name': 'Project[province_id]',
+			'type': 'select',
+			'required': true,
 			'placeholder': '',
 			'cssclass': '',
 			'value': '',
 			'disabled': false,
 			'readonly': false,
 			'datas': [],
-			'url': '/admin/articlecategories',
 			'help_block': '',
 			'input_icon': '',
-			'dbfieldname': 'categories'
+			'dbfieldname': 'province_id'
 		},
 		{
-			'label': 'Thứ tự ưu tiên',
-			'id': 'priority',
-			'name': 'Article[priority]',
-			'type': 'number',
-			'required': false,
+			'label': 'Quận/huyện',
+			'id': 'district_id',
+			'name': 'Project[district_id]',
+			'type': 'select',
+			'required': true,
 			'placeholder': '',
 			'cssclass': '',
-			'value': '0',
+			'value': '',
 			'disabled': false,
 			'readonly': false,
 			'datas': [],
 			'help_block': '',
 			'input_icon': '',
-			'dbfieldname': 'priority'
+			'dbfieldname': 'district_id'
 		},
 		{
-			'label': 'Xuất bản',
-			'id': 'is_publish',
-			'name': 'Article[is_publish]',
-			'type': 'checkbox',
-			'required': false,
-			'placeholder': '',
-			'cssclass': 'checkbox-inline',
-			'value': '1',
+			'label': 'Địa chỉ',
+			'id': 'address',
+			'name': 'Project[address]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'địa chỉ dự án',
+			'cssclass': '',
+			'value': '',
 			'disabled': false,
 			'readonly': false,
 			'datas': [],
 			'help_block': '',
 			'input_icon': '',
-			'dbfieldname': 'is_publish',
-			'selected': true
+			'dbfieldname': 'address'
+		},
+		{
+			'label': 'Hotlime',
+			'id': 'hotline',
+			'name': 'Project[hotline]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'đường dây nóng',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'hotline'
+		},
+		{
+			'label': 'Biểu tượng hotline',
+			'id': 'hotline_fa_icon',
+			'name': 'Project[hotline_fa_icon]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'hotline icon',
+			'cssclass': '',
+			'value': 'fa fa-phone',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'hotline_fa_icon'
+		},
+		{
+			'label': 'Email',
+			'id': 'email',
+			'name': 'Project[email]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'email liên hệ',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'email'
 		},
 		{
 			'label': 'Hình ảnh',
-			'id': 'attachments',
-			'name': 'Article[attachments]',
+			'id': 'project_images',
+			'name': 'Project[project_images]',
 			'type': 'inputimages',
 			'required': false,
 			'placeholder': '',
@@ -88,77 +150,66 @@ crazyify.articles.entry = {
 			'datas': [],
 			'help_block': '',
 			'input_icon': '',
-			'dbfieldname': 'attachments',
+			'dbfieldname': 'project_images',
+			'selected': true,
+			'show_list_after_upload': true,
+			'listTemplate':"<div class='form-inline' role='form'>\
+    <div class='form-group no-margin'>\
+      <label>image path:</label>\
+      <input type='text' class='form-control'  value='{0}' name='project_image[link][]' readonly='true'>\
+      <input type='hidden' value='{1}'  name='project_image[id][]'/>\
+    </div>\
+    <div class='form-group no-margin'>\
+      <label>Tên ảnh:</label>\
+      <input type='text' class='form-control'  name='project_image[title][]' placeholder='Tên ảnh'>\
+    </div>\
+    <div class='form-group no-margin'>\
+      <label>Mô tả:</label>\
+      <input type='text' class='form-control'  name='project_image[caption][]' placeholder='Mô tả ảnh'>\
+    </div>\
+    <div class='checkbox'>\
+      <label><input type='checkbox' name='project_image[active][]'> xuất bản?</label>\
+    </div>\
+    <input type='button' class='btn btn-default' value='Xóa'/>\
+  </div>"
+		},
+		{
+			'label': 'Logo dự án',
+			'id': 'logo',
+			'name': 'Project[logo]',
+			'type': 'text',
+			'required': true,
+			'placeholder': 'hình logo dự án',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': true,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'logo'
+		},
+		{
+			'label': 'Hiển thị slide show ?',
+			'id': 'show_slide',
+			'name': 'Project[show_slide]',
+			'type': 'checkbox',
+			'required': false,
+			'placeholder': '',
+			'cssclass': 'checkbox-inline',
+			'value': '1',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'show_slide',
 			'selected': true
 		},
 		{
-			'label': 'Tạo bởi',
-			'id': 'created_by',
-			'name': 'Article[created_by]',
-			'type': 'static',
-			'placeholder': 'Tạo bởi',
-			'cssclass': '',
-			'value': '',
-			'disabled': true,
-			'readonly': true,
-			'datas': [],
-			'help_block': '',
-			'input_icon': '',
-			'dbfieldname': 'created_by'
-		},
-		{
-			'label': 'Cập nhật bởi',
-			'id': 'updated_by',
-			'name': 'Article[updated_by]',
-			'type': 'static',
-			'placeholder': 'Cập nhật bởi',
-			'cssclass': '',
-			'value': '',
-			'disabled': true,
-			'readonly': true,
-			'datas': [],
-			'help_block': '',
-			'input_icon': '',
-			'dbfieldname': 'updated_by'
-		}
-	],
-	languageControls: [
-		{
-			'label': 'Tên bài viết',
-			'id': 'name',
-			'name': 'ArticleTranslation[locale][name]',
-			'type': 'text',
-			'required': true,
-			'placeholder': 'Tên bài viết',
-			'cssclass': '',
-			'value': '',
-			'disabled': false,
-			'readonly': false,
-			'datas': [],
-			'help_block': '',
-			'input_icon': '',
-			'dbfieldname': 'name'
-		},
-		{
-			'label': 'Tóm tắt',
-			'id': 'summary',
-			'name': 'ArticleTranslation[locale][summary]',
-			'type': 'textarea',
-			'required': false,
-			'placeholder': '',
-			'cssclass': '',
-			'value': '',
-			'disabled': false,
-			'readonly': false,
-			'datas': [],
-			'help_block': '',
-			'input_icon': '',
-			'dbfieldname': 'summary'
-		},
-		{
-			'label': 'Nội dung',
+			'label': 'Mô tả dự án',
 			'id': 'content',
-			'name': 'ArticleTranslation[locale][content]',
+			'name': 'Project[content]',
 			'type': 'editor',
 			'required': false,
 			'placeholder': '',
@@ -172,9 +223,58 @@ crazyify.articles.entry = {
 			'dbfieldname': 'content'
 		},
 		{
+			'label': 'Bản đồ - latitude',
+			'id': 'map_latitude',
+			'name': 'Project[map_latitude]',
+			'type': 'number',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'map_latitude'
+		},
+		{
+			'label': 'Bản đồ - longitude',
+			'id': 'map_longitude',
+			'name': 'Project[map_longitude]',
+			'type': 'number',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'map_longitude'
+		},
+		{
+			'label': 'Nhân viên môi giới',
+			'id': 'agents',
+			'name': 'Article[agents]',
+			'type': 'treecheckbox',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'url': '/admin/agents',
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'agents'
+		},
+		{
 			'label': 'Meta Description',
 			'id': 'meta_description',
-			'name': 'ArticleTranslation[locale][meta_description]',
+			'name': 'Project[meta_description]',
 			'type': 'textarea',
 			'required': false,
 			'placeholder': '',
@@ -190,7 +290,7 @@ crazyify.articles.entry = {
 		{
 			'label': 'Meta Keywords',
 			'id': 'meta_keywords',
-			'name': 'ArticleTranslation[locale][meta_keywords]',
+			'name': 'Project[meta_keywords]',
 			'type': 'textarea',
 			'required': false,
 			'placeholder': '',
@@ -202,15 +302,90 @@ crazyify.articles.entry = {
 			'help_block': '',
 			'input_icon': '',
 			'dbfieldname': 'meta_keywords'
+		},
+		{
+			'label': 'Thứ tự ưu tiên',
+			'id': 'priority',
+			'name': 'Project[priority]',
+			'type': 'number',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'priority'
+		},
+		{
+			'label': 'Xuất bản',
+			'id': 'active',
+			'name': 'Project[active]',
+			'type': 'checkbox',
+			'required': false,
+			'placeholder': '',
+			'cssclass': 'checkbox-inline',
+			'value': '1',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'active',
+			'selected': true
+		},
+		{
+			'label': 'Tạo bởi',
+			'id': 'created_by',
+			'name': 'Project[created_by]',
+			'type': 'static',
+			'placeholder': 'Tạo bởi',
+			'cssclass': '',
+			'value': '',
+			'disabled': true,
+			'readonly': true,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'created_by'
+		},
+		{
+			'label': 'Cập nhật bởi',
+			'id': 'updated_by',
+			'name': 'Project[updated_by]',
+			'type': 'static',
+			'placeholder': 'Cập nhật bởi',
+			'cssclass': '',
+			'value': '',
+			'disabled': true,
+			'readonly': true,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'updated_by'
 		}
+	],
+	languageControls: [
+		
 	],
 	init: function () {
 		var thisObj = crazyify.articles.entry;
-		if ($('#article-form input[name="_method"]').length && $('#article-form input[name="_method"]').val() != 'POST') {
+		if ($('#project-form input[name="_method"]').length && $('#project-form input[name="_method"]').val() != 'POST') {
 			$.crazyifyAjax({
-				url: $('#article-form').attr('action'),
+				url: $('#project-form').attr('action'),
 				type: 'GET',
 				success: function (data, textStatus, jqXHR) {
+					$.each(thisObj.commonControls, function(index, item){
+						if(item.id =='province_id')
+						{
+							$.each(data.provinces, function(indexPro, itemPro){
+								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
+							});
+							return false;
+						}
+					});
 					CControl.init({
 						dom:$('.form-body'), 
 						commonControls: thisObj.commonControls, 
@@ -222,12 +397,47 @@ crazyify.articles.entry = {
 			});
 		}
 		else{
-			CControl.init({
-				dom:$('.form-body'), 
-				commonControls: thisObj.commonControls, 
-				languageControls: thisObj.languageControls
+			$.crazyifyAjax({
+				url: '/admin/provinces',
+				type: 'GET',
+				success: function (data, textStatus, jqXHR) {
+					$.each(thisObj.commonControls, function(index, item){
+						if(item.id =='province_id')
+						{
+							$.each(data, function(indexPro, itemPro){
+								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
+							});
+							return false;
+						}
+					});
+					CControl.init({
+						dom:$('.form-body'), 
+						commonControls: thisObj.commonControls,
+						languageControls: thisObj.languageControls
+					});
+				}
 			});
 		}
+
+		// Event
+		$(document).on('change', '#province_id', function(){
+			if(this.value && !$.isEmptyObject(this.value))
+			{
+				$.crazyifyAjax({
+					url: '/admin/districts-by-province/'+this.value,
+					type: 'GET',
+					success: function (data, textStatus, jqXHR) {
+						var output = [];
+						output.push('<option value="0">Chọn quận/huyện</option>');
+						$.each(data, function(indexPro, itemPro)
+						{
+						  output.push('<option value="'+ itemPro.id +'">'+ itemPro.name +'</option>');
+						});
+						$('#district_id').html(output.join(''));
+					}
+				});
+			}
+		});
 	}
 };
 

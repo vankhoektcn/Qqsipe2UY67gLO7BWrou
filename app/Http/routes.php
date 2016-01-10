@@ -38,12 +38,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 	{
 		Route::resource('articles', 'ArticlesController');
 	});
-
+// project
 	Route::group(['namespace' => 'Projects'], function()
 	{
 		Route::resource('projects', 'ProjectsController');
 	});
 
+	Route::group(['namespace' => 'Agents'], function()
+	{
+		Route::resource('agents', 'AgentsController');
+	});
+// end project
 	Route::group(['namespace' => 'Configs'], function()
 	{
 		Route::resource('configs', 'ConfigsController');
@@ -95,6 +100,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 		Route::resource('districts', 'DistrictsController');
 		Route::resource('teachtimes', 'TeachTimesController');
 		Route::resource('newclass', 'NewClassController');
+
+		Route::get('/districts-by-province/{province_id}', [
+			'as' => 'admin.districts.byprovince',
+			'uses' => 'DistrictsController@districtsByProvince'
+		]);
 	});
 
 	Route::group(['namespace' => 'Uploads'], function()

@@ -28,6 +28,8 @@ class CreateProjectsTable extends Migration
             $table->string('map_latitude',50)->nullable();          
             $table->string('map_longitude',50)->nullable();
             $table->text('content')->nullable();
+            $table->string('meta_description', 500);
+            $table->string('meta_keywords', 500);
 
             $table->integer('priority');
             $table->boolean('active')->default(0);

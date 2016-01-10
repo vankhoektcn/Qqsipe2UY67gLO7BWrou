@@ -1,10 +1,10 @@
 @extends('admin.layouts.master')
 
-@section('head.title', 'Tạo mới dự án')
+@section('head.title', 'Thêm mới môi giới')
 
 @section('head.pluginstyle')
 <link href="/admin/assets/global/plugins/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" type="text/css">
-<link href="/admin/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css" >
+<link href="/admin/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css">
 <link href="/admin/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
 @endsection
 
@@ -14,7 +14,7 @@
 <div class="page-head">
 	<!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-		<h1>Dự án <small>Tạo mới</small></h1>
+		<h1>Thêm mới nhân viên môi giới <small></small></h1>
 	</div>
 	<!-- END PAGE TITLE -->
 </div>
@@ -26,11 +26,11 @@
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.projects.index') }}">Dự án</a>
+		<a href="{{ route('admin.agents.index') }}">Nhân viên môi giới</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.projects.create') }}">Tạo mới</a>
+		<a href="{{ route('admin.agents.create') }}">Tạo mới</a>
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -42,8 +42,8 @@
 			<div class="portlet-body form">
 				@include('admin.partials.errors')
 				{!! Form::open([
-					'id' => 'project-form',
-					'route' => 'admin.projects.store',
+					'id' => 'agent-form',
+					'route' => 'admin.agents.store',
 					'class' => 'form-horizontal',
 					'role'	=>	'form'
 				]) !!}
@@ -76,5 +76,5 @@
 	var _manualInitLayout = true;
 </script>
 <script src="/admin/assets/customs/scripts/ccontrol.js" type="text/javascript"></script>
-<script src="/admin/assets/pages/projects/crazyify.projects.entry.js" type="text/javascript"></script>
+<script src="/admin/assets/pages/Agents/crazyify.Agents.entry.js" type="text/javascript"></script>
 @endsection
