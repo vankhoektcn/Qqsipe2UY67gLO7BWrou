@@ -61,7 +61,11 @@ class AgentsController extends Controller
         $agent->name = $request->input('Agent.name');
         $agent->email = $request->input('Agent.email');
         $agent->mobile = $request->input('Agent.mobile');
+
+        // get thumnail 
         $agent->thumnail = $request->input('Agent.thumnail');
+
+
         $agent->priority = $request->input('Agent.priority');
         $agent->active = $request->input('Agent.active');
         $agent->created_by = $user->name;

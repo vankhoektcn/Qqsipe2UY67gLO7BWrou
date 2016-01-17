@@ -290,3 +290,4 @@ b.searchKey{color:#f53f1a;}
 	min-height: 50px;
 }
 .flexslider{margin: 0 0 10px;}
+.flexslider .slides img{max-height: 600px; }

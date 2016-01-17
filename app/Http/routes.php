@@ -38,17 +38,49 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 	{
 		Route::resource('articles', 'ArticlesController');
 	});
-// project
+
+// PROJECT
 	Route::group(['namespace' => 'Projects'], function()
 	{
 		Route::resource('projects', 'ProjectsController');
+		Route::resource('project_images', 'Project_imagesController');
+		//Route::resource('project_parts', 'Project_partsController');
+		Route::get('/{project_id}/project_parts', [
+			'as' => 'admin.project_parts.index',
+			'uses' => 'Project_partsController@index'
+		]);
+		//create project_parts
+		Route::post('/{project_id}/project_parts/create', [
+			'as' => 'admin.project_parts.create',
+			'uses' => 'Project_partsController@create'
+		]);
+		// show project_parts
+		Route::get('/project_parts/{id}', [
+			'as' => 'admin.project_parts.show',
+			'uses' => 'Project_partsController@show'
+		]);
+		// get edit project_parts
+		Route::get('/project_parts/{id}/edit', [
+			'as' => 'admin.project_parts.edit',
+			'uses' => 'Project_partsController@edit'
+		]);
+		// update project_parts
+		Route::put('/project_parts/{id}', [
+			'as' => 'admin.project_parts.update',
+			'uses' => 'Project_partsController@update'
+		]);
+		// delete project_parts
+		Route::delete('/project_parts/{id}', [
+			'as' => 'admin.project_parts.delete',
+			'uses' => 'Project_partsController@destroy'
+		]);
 	});
 
 	Route::group(['namespace' => 'Agents'], function()
 	{
 		Route::resource('agents', 'AgentsController');
 	});
-// end project
+// END PROJECT
 	Route::group(['namespace' => 'Configs'], function()
 	{
 		Route::resource('configs', 'ConfigsController');

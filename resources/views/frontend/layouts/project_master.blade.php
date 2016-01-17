@@ -37,7 +37,7 @@
 	<nav class="rightMenuScrollspy" id="rightMenuScrollspy">
 	  <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
         @if (!empty($project->content))
-            <li><a href="#project-about"><i class="fa fa-phone"></i>Tổng quan</a></li>
+            <li><a href="#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
         @endif
         @foreach ($project_parts as $key => $part)
             <li><a href="#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
@@ -91,7 +91,7 @@
 		<ul class="slides">
             @foreach ($project_images as $key => $image)
 			<li>
-				<img src="{{$image->link}}" />
+				<img src="{{$image->path}}" />
 				<p class="flex-caption">{{$image->caption}}</p>
 			</li>
             @endforeach

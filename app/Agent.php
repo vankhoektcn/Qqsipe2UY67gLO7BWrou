@@ -11,6 +11,7 @@ class Agent extends BaseModel
 	protected $table = "agents";
 	protected $fillable = ['name', 'priority', 'active', 'created_by', 'updated_by'];
 	public static $rules = [
+		'thumnail' => 'required',
 		'priority' => 'integer',
 		'active' => 'boolean'
 	];

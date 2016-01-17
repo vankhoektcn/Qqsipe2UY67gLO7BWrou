@@ -1,9 +1,9 @@
 if (typeof crazyify == 'undefined')
 	var crazyify = {};
-if (typeof crazyify.articles == 'undefined')
-	crazyify.articles = {};
+if (typeof crazyify.projects == 'undefined')
+	crazyify.projects = {};
 
-crazyify.articles.entry = {
+crazyify.projects.entry = {
 	commonControls: [
 		{
 			'label': 'Thông tin dự án',
@@ -153,11 +153,12 @@ crazyify.articles.entry = {
 			'dbfieldname': 'project_images',
 			'selected': true,
 			'show_list_after_upload': true,
-			'listTemplate':"<div class='form-inline' role='form'>\
+			'listTemplate':"<div class='form-inline image-row' role='form' style='margin-left: -300px;'>\
     <div class='form-group no-margin'>\
-      <label>image path:</label>\
-      <input type='text' class='form-control'  value='{0}' name='project_image[link][]' readonly='true'>\
-      <input type='hidden' value='{1}'  name='project_image[id][]'/>\
+      <label>Ảnh:</label>\
+      <img src='{0}' class='file-preview-image'>\
+      <input type='text' class='form-control project-image-link hide'  value='{0}' name='project_image[path][]' readonly='true'>\
+      <input type='hidden' value='{1}' class='project_image_id'  name='project_image[id][]'/>\
     </div>\
     <div class='form-group no-margin'>\
       <label>Tên ảnh:</label>\
@@ -165,13 +166,40 @@ crazyify.articles.entry = {
     </div>\
     <div class='form-group no-margin'>\
       <label>Mô tả:</label>\
-      <input type='text' class='form-control'  name='project_image[caption][]' placeholder='Mô tả ảnh'>\
+      <input type='text' class='form-control'  name='project_image[caption][]' placeholder='Mô tả ảnh' style='width: 400px;'>\
     </div>\
     <div class='checkbox'>\
-      <label><input type='checkbox' name='project_image[active][]'> xuất bản?</label>\
+      <label><input type='checkbox' name='project_image[active][]' checked value='1'> xuất bản?</label>\
     </div>\
-    <input type='button' class='btn btn-default' value='Xóa'/>\
-  </div>"
+    <div class='checkbox'>\
+      <label><input type='radio' name='radio_logo'> Làm logo</label>\
+    </div>\
+    <input type='button' class='btn btn-default btndel-project-image' value='Xóa'/>\
+  </div>",
+			'list_template_exists': '',
+			'template_exists':"<div class='form-inline image-row' role='form' style='margin-left: -300px;'>\
+    <div class='form-group no-margin'>\
+      <label>Ảnh:</label>\
+      <img src='{0}' class='file-preview-image'>\
+      <input type='text' class='form-control project-image-link hide'  value='{0}' name='project_image[path][]' readonly='true'>\
+      <input type='hidden' value='{1}' class='project_image_id'  name='project_image[id][]'/>\
+    </div>\
+    <div class='form-group no-margin'>\
+      <label>Tên ảnh:</label>\
+      <input type='text' class='form-control' value='[/title]'  name='project_image[title][]' placeholder='Tên ảnh'>\
+    </div>\
+    <div class='form-group no-margin'>\
+      <label>Mô tả:</label>\
+      <input type='text' class='form-control' value='[/caption]'  name='project_image[caption][]' placeholder='Mô tả ảnh' style='width: 400px;'>\
+    </div>\
+    <div class='checkbox'>\
+      <label><input type='checkbox' name='project_image[active][]' checked  value='[/active]'> xuất bản?</label>\
+    </div>\
+    <div class='checkbox'>\
+      <label><input type='radio' name='radio_logo'> Làm logo</label>\
+    </div>\
+    <input type='button' class='btn btn-default btndel-project-image' value='Xóa'/>\
+  </div>",
 		},
 		{
 			'label': 'Logo dự án',
@@ -257,7 +285,7 @@ crazyify.articles.entry = {
 		{
 			'label': 'Nhân viên môi giới',
 			'id': 'agents',
-			'name': 'Article[agents]',
+			'name': 'Project[agents]',
 			'type': 'treecheckbox',
 			'required': false,
 			'placeholder': '',
@@ -371,27 +399,48 @@ crazyify.articles.entry = {
 		
 	],
 	init: function () {
-		var thisObj = crazyify.articles.entry;
+		var thisObj = crazyify.projects.entry;
 		if ($('#project-form input[name="_method"]').length && $('#project-form input[name="_method"]').val() != 'POST') {
 			$.crazyifyAjax({
-				url: $('#project-form').attr('action'),
+				url: '/admin/provinces',
 				type: 'GET',
-				success: function (data, textStatus, jqXHR) {
+				success: function (dataPro, textStatusPro, jqXHRPro) {
 					$.each(thisObj.commonControls, function(index, item){
 						if(item.id =='province_id')
 						{
-							$.each(data.provinces, function(indexPro, itemPro){
+							$.each(dataPro, function(indexPro, itemPro){
 								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
 							});
 							return false;
 						}
 					});
-					CControl.init({
-						dom:$('.form-body'), 
-						commonControls: thisObj.commonControls, 
-						languageControls: thisObj.languageControls,
-						commonData: data,
-						languageDatas: data.translations
+					$.crazyifyAjax({
+						url: $('#project-form').attr('action'),
+						type: 'GET',
+						success: function (data, textStatus, jqXHR) {
+							$.crazyifyAjax({
+								url: '/admin/districts-by-province/'+data.province_id,
+								type: 'GET',
+								success: function (dataDis, textStatusDis, jqXHRDis) {
+									$.each(thisObj.commonControls, function(index, item){
+										if(item.id =='district_id')
+										{
+											$.each(dataDis, function(indexDis, itemDis){
+												item.datas.push({id:itemDis.key,value:itemDis.id,text:itemDis.name});
+											});
+											return false;
+										}
+									});
+									CControl.init({
+										dom:$('.form-body'), 
+										commonControls: thisObj.commonControls, 
+										languageControls: thisObj.languageControls,
+										commonData: data,
+										languageDatas: data.translations
+									});
+								}
+							});
+						}
 					});
 				}
 			});
@@ -438,9 +487,54 @@ crazyify.articles.entry = {
 				});
 			}
 		});
+
+		$(document).on('click', 'input[name="radio_logo"]', function() {
+			var $image_row = $(this).parents('div.image-row');
+			$('input[name="Project[logo]"]').val($('input.project-image-link',$image_row).val());
+		});
+		$(document).on('click', 'input[name="project_image[active][]"]', function() {
+			if($(this).is(':checked'))
+				$(this).val(1);
+			else
+				$(this).val(0);
+		});
+		$(document).on('click', 'input.btndel-project-image', function() {
+			$form_inline = $(this).parents('.image-row');
+			$project_image_id = $('input[type="hidden"].project_image_id',$form_inline).val();
+			if(!$.isEmptyObject($project_image_id))
+			{
+				crazyify.projects.entry.delete_project_image($project_image_id, $form_inline);
+			}
+			else
+			{
+				crazyify.projects.entry.remove_project_image($form_inline);
+			}
+		});
+
+	},
+	remove_project_image: function($projects_image_form)
+	{
+		$projects_image_form.remove();	
+	},
+	delete_project_image: function (id, $projects_image_form) {
+		$.crazyifyAjax({
+			url: '/admin/project_images/' + id,
+			type: 'DELETE',
+			success: function (data, textStatus, jqXHR) {
+				toastr['success']("Xóa thành công.", "Xóa hình ảnh");
+				setTimeout(function () {
+					location.reload();
+				}, 5000);
+				if($projects_image_form)
+					crazyify.projects.entry.remove_project_image($form_inline);
+			},
+			error: function (argument) {
+				toastr['error']("Xóa không thành công.", "Xóa hình ảnh");
+			}
+		});
 	}
 };
 
 $(function () {
-	crazyify.articles.entry.init();
+	crazyify.projects.entry.init();
 });

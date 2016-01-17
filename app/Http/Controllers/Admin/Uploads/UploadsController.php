@@ -80,19 +80,21 @@ class UploadsController extends Controller
 	{		
 		$attachmentId = $request->get('key');
 		$filePath = $request->get('path');
-		DB::transaction(function () use ($attachmentId) {
-			$user = Auth::user();
-			$attachment = Attachment::findOrFail($attachmentId);
-			$attachment->updated_by = $user->name;
-			$attachment->deleted_by = $user->name;
-			$attachment->save();
+		if( isset($attachmentId) && $attachmentId != "0" )
+		{
+			DB::transaction(function () use ($attachmentId) {
+				$user = Auth::user();
+				$attachment = Attachment::findOrFail($attachmentId);
+				$attachment->updated_by = $user->name;
+				$attachment->deleted_by = $user->name;
+				$attachment->save();
 
-			$filePath = $attachment->path;
-			// soft delete
-			$attachment->delete();
-		});
-
-		if(!is_null($filePath))
+				$filePath = $attachment->path;
+				// soft delete
+				$attachment->delete();
+			});
+		}
+		if(!is_null($filePath) )// && File::exists(base_path().$filePath))
 		{
 			Storage::disk('image')->delete(str_replace('/uploads/', '', $filePath));
 		}

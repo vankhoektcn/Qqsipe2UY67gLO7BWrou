@@ -315,7 +315,7 @@ class SiteControllers extends Controller
 		if($project != null){
 			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
 			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
-			$project_images = $project->project_images()->where('active',1)->orderBy('priority')->take(5)->get();
+			$project_images = $project->project_images()->where('active',1)->where('path', '<>',$project->logo)->orderBy('priority')->take(5)->get();
 			$other_projects = Project::where('active',1)->orderBy('priority')->take(5)->get();
 			$project_agents = $project->agents()->get();
 			return view('frontend.sites.project',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents'));
