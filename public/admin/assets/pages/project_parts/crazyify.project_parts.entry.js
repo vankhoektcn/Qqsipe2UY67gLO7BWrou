@@ -1,21 +1,40 @@
 if (typeof crazyify == 'undefined')
 	var crazyify = {};
-if (typeof crazyify.agents == 'undefined')
-	crazyify.agents = {};
+if (typeof crazyify.project_parts == 'undefined')
+	crazyify.project_parts = {};
 
-crazyify.agents.entry = {
+crazyify.project_parts.entry = {
 	commonControls: [
 		{
-			'label': 'Thông tin môi giới',
+			'label': 'Bài viết dự án',
 			'type': 'divider'
 		},
 		{
-			'label': 'Tên môi giới',
+			'label': 'Loại',
+			'id': 'type',
+			'name': 'Project[type]',
+			'type': 'select',
+			'required': true,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [
+				{id: 'E', value: 'E', text: 'Thành phần'},
+				{id: 'A', value: 'A', text: 'Bài viết'}
+			],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'type'
+		},
+		{
+			'label': 'Tên bài viết',
 			'id': 'name',
-			'name': 'Agent[name]',
+			'name': 'Project_part[name]',
 			'type': 'text',
 			'required': true,
-			'placeholder': 'Tên môi giới',
+			'placeholder': 'Tên bài viết',
 			'cssclass': '',
 			'value': '',
 			'disabled': false,
@@ -26,41 +45,24 @@ crazyify.agents.entry = {
 			'dbfieldname': 'name'
 		},
 		{
-			'label': 'Số điện thoại',
-			'id': 'mobile',
-			'name': 'Agent[mobile]',
-			'type': 'text',
-			'required': true,
-			'placeholder': 'Số điện thoại',
+			'label': 'Key',
+			'id': 'key',
+			'name': 'Project_part[key]',
+			'type': 'static',
+			'placeholder': '',
 			'cssclass': '',
 			'value': '',
-			'disabled': false,
-			'readonly': false,
+			'disabled': true,
+			'readonly': true,
 			'datas': [],
 			'help_block': '',
 			'input_icon': '',
-			'dbfieldname': 'mobile'
+			'dbfieldname': 'key'
 		},
 		{
-			'label': 'Email',
-			'id': 'email',
-			'name': 'Agent[email]',
-			'type': 'email',
-			'required': true,
-			'placeholder': 'email',
-			'cssclass': '',
-			'value': '',
-			'disabled': false,
-			'readonly': false,
-			'datas': [],
-			'help_block': '',
-			'input_icon': '',
-			'dbfieldname': 'email'
-		},
-		{
-			'label': 'Hình ảnh',
+			'label': 'Hình đại diện',
 			'id': 'thumnail',
-			'name': 'Agent[thumnail]',
+			'name': 'Project_part[thumnail]',
 			'type': 'inputimages',
 			'required': false,
 			'placeholder': '',
@@ -76,9 +78,41 @@ crazyify.agents.entry = {
 			'isNotRelationship': true
 		},
 		{
+			'label': 'Tóm tắt',
+			'id': 'summary',
+			'name': 'Project_part[summary]',
+			'type': 'textarea',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'summary'
+		},
+		{
+			'label': 'Nội dung',
+			'id': 'content',
+			'name': 'Project_part[content]',
+			'type': 'editor',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'content'
+		},
+		{
 			'label': 'Thứ tự ưu tiên',
 			'id': 'priority',
-			'name': 'Agent[priority]',
+			'name': 'Project_part[priority]',
 			'type': 'number',
 			'required': false,
 			'placeholder': '',
@@ -94,7 +128,7 @@ crazyify.agents.entry = {
 		{
 			'label': 'Xuất bản',
 			'id': 'active',
-			'name': 'Agent[active]',
+			'name': 'Project_part[active]',
 			'type': 'checkbox',
 			'required': false,
 			'placeholder': '',
@@ -109,9 +143,41 @@ crazyify.agents.entry = {
 			'selected': true
 		},
 		{
+			'label': 'Meta Description',
+			'id': 'meta_description',
+			'name': 'Project_part[meta_description]',
+			'type': 'textarea',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'meta_description'
+		},
+		{
+			'label': 'Meta Keywords',
+			'id': 'meta_keywords',
+			'name': 'Project_part[meta_keywords]',
+			'type': 'textarea',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'meta_keywords'
+		},
+		{
 			'label': 'Tạo bởi',
 			'id': 'created_by',
-			'name': 'Agent[created_by]',
+			'name': 'Project_part[created_by]',
 			'type': 'static',
 			'placeholder': 'Tạo bởi',
 			'cssclass': '',
@@ -126,7 +192,7 @@ crazyify.agents.entry = {
 		{
 			'label': 'Cập nhật bởi',
 			'id': 'updated_by',
-			'name': 'Agent[updated_by]',
+			'name': 'Project_part[updated_by]',
 			'type': 'static',
 			'placeholder': 'Cập nhật bởi',
 			'cssclass': '',
@@ -139,15 +205,16 @@ crazyify.agents.entry = {
 			'dbfieldname': 'updated_by'
 		}
 	],
-	languageControls: [],
+	languageControls: [
+		
+	],
 	init: function () {
-		var thisObj = crazyify.agents.entry;
-		if ($('#agent-form input[name="_method"]').length && $('#agent-form input[name="_method"]').val() != 'POST') {
+		var thisObj = crazyify.project_parts.entry;
+		if ($('#project_part-form input[name="_method"]').length && $('#project_part-form input[name="_method"]').val() != 'POST') {
 			$.crazyifyAjax({
-				url: $('#agent-form').attr('action'),
+				url: $('#project_part-form').attr('action'),
 				type: 'GET',
 				success: function (data, textStatus, jqXHR) {
-					console.log(data);
 					CControl.init({
 						dom:$('.form-body'), 
 						commonControls: thisObj.commonControls, 
@@ -169,5 +236,5 @@ crazyify.agents.entry = {
 };
 
 $(function () {
-	crazyify.agents.entry.init();
+	crazyify.project_parts.entry.init();
 });

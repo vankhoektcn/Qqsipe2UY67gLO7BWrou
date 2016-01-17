@@ -1,11 +1,14 @@
 @extends('admin.layouts.master')
 
-@section('head.title', 'Cập nhật bài viết')
+@section('head.title', 'Cập nhật dự án')
 
 @section('head.pluginstyle')
+<link href="/admin/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css"/>
 <link href="/admin/assets/global/plugins/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" type="text/css">
 <link href="/admin/assets/global/plugins/bootstrap-summernote/summernote.css" rel="stylesheet" type="text/css">
 <link href="/admin/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css">
+
+<link href="/admin/assets/customs/styles/project.css" rel="stylesheet" type="text/css">
 @endsection
 
 @section('body.content')
@@ -14,7 +17,7 @@
 <div class="page-head">
 	<!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-		<h1>Bài viết <small>{{ $article->name }}</small></h1>
+		<h1>Dự án <small>{{ $project->name }}</small></h1>
 	</div>
 	<!-- END PAGE TITLE -->
 </div>
@@ -26,11 +29,11 @@
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.articles.index') }}">Danh mục bài viết</a>
+		<a href="{{ route('admin.projects.index') }}">Danh mục dự án</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.articles.edit', ['id' => $article->id]) }}">{{ $article->name }}</a>
+		<a href="{{ route('admin.projects.edit', ['id' => $project->id]) }}">{{ $project->name }}</a>
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -42,8 +45,8 @@
 			<div class="portlet-body form">
 				@include('admin.partials.errors')
 				{!! Form::open([
-					'id' => 'article-form',
-					'route' => ['admin.articles.update', $article->id],
+					'id' => 'project-form',
+					'route' => ['admin.projects.update', $project->id],
 					'class' => 'form-horizontal',
 					'role'	=>	'form',
 					'method' => 'PUT'
@@ -67,6 +70,7 @@
 @endsection
 
 @section('body.jsplugins')
+<script src="/admin/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/admin/assets/global/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script type="text/javascript" src="/admin/assets/global/plugins/bootstrap-summernote/summernote.min.js"></script>
 <script type="text/javascript" src="/admin/assets/global/plugins/jstree/dist/jstree.min.js"></script>
@@ -77,5 +81,5 @@
 	var _manualInitLayout = true;
 </script>
 <script src="/admin/assets/customs/scripts/ccontrol.js" type="text/javascript"></script>
-<script src="/admin/assets/pages/articles/crazyify.articles.entry.js" type="text/javascript"></script>
+<script src="/admin/assets/pages/projects/crazyify.projects.entry.js" type="text/javascript"></script>
 @endsection

@@ -185,16 +185,16 @@ var CControl = function () {
 	}
 
 	var _getHTMLInputImages = function(options){
-		var template = '<div class="form-group">\
+		var template = '<div class="form-group ">\
 							<label class="control-label col-md-3">{0}</label>\
-							<div class="col-md-9">\
-								<input id="{1}-upload" name="{2}-upload" type="file" multiple class="file-loading input-images {3}" data-languagecontrol="{4}" data-dbfieldname="{5}" data-initpreview="{6}">\
+							<div class="col-md-9 div-parent-list-template">\
+								<input id="{1}-upload" name="{2}-upload" type="file" multiple class="file-loading input-images {3}" data-languagecontrol="{4}" data-dbfieldname="{5}" data-initpreview="{6}" data-isnotrelationship="{11}" data-listtemplateexists="{12}">\
 								<input id="{1}" name="{7}" type="hidden" data-languagecontrol="{4}" data-dbfieldname="{5}" value="{6}" data-listafter="{9}" data-lisaftertemplate="{10}">\
 								<span id="help-block-{1}" class="help-block">{8}</span>\
 							</div>\
 						</div>';
 		var nameUpload = options.name.replace('[', '').replace(']', '').toLowerCase();
-		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.value, options.name, options.help_block, options.show_list_after_upload ? 1:0, options.listTemplate);
+		var resutlHtml = $.format(template, options.label, options.id, nameUpload, options.cssclass, options.languagecontrol, options.dbfieldname, options.value, options.name, options.help_block, options.show_list_after_upload ? 1:0, options.show_list_after_upload ? options.listTemplate: '', options.isNotRelationship ? 1:0, !$.isEmptyObject(options.list_template_exists) ? options.list_template_exists: '');
 		return resutlHtml;
 	};
 
@@ -240,13 +240,14 @@ var CControl = function () {
 			var ctrlid = $(item).attr('id');
 			var ctrlname = $(item).attr('name');
 			var initpreview = $(item).data('initpreview');
-			initpreview = initpreview.toString().split(',');
+			var isNotRelationship = $(item).data('isnotrelationship');
+			initpreview = !$.isEmptyObject(initpreview) ? initpreview.toString().split(',') : [];
 			var initPreviewData = [];
 			var initPreviewConfig = [];
 			$.each(initpreview, function (_index, _item) {
 				if (_item != '') {
-					var dbid = _item.split('|')[0];
-					var path = _item.split('|')[1];
+					var dbid = isNotRelationship == 1 ? 0 :  _item.split('|')[0];
+					var path = isNotRelationship == 1 ? _item :  _item.split('|')[1];
 					//path = path.replace('.', '-image(160x80-crop).');
 					initPreviewData.push($.format('<img src="{0}" class="file-preview-image">', path));
 					initPreviewConfig.push({
@@ -257,6 +258,13 @@ var CControl = function () {
 					});
 				};
 			});
+
+			//append list_template_exists
+			var listTemplateExists = $(item).data('listtemplateexists');
+			if(!$.isEmptyObject(listTemplateExists))
+			{
+				$(item).parents('.div-parent-list-template').append(listTemplateExists);
+			}
 
 			$(item).fileinput({
 				uploadUrl: '/admin/uploads',
@@ -382,13 +390,35 @@ var CControl = function () {
 						item.selected = opts.commonData[item.dbfieldname] == '1' ? true : false;
 					}
 					else if (item.type == 'inputimages') {
-						item.value = '';
-						$.each(opts.commonData[item.dbfieldname], function (_index, _item) {
-							item.value += $.format('{0}|{1},', _item.id, _item.path);
-						});
-						if (item.value.lastIndexOf(',') == (item.value.length - 1)) {
-							item.value = item.value.substr(0, item.value.length - 1);
-						};
+						if(item.isNotRelationship == true )
+						{
+							item.value = !$.isEmptyObject(opts.commonData[item.dbfieldname]) ? opts.commonData[item.dbfieldname] : '';
+						}	
+						else
+						{
+							item.value = '';
+							$.each(opts.commonData[item.dbfieldname], function (_index, _item) {
+								item.value += $.format('{0}|{1},', _item.id, _item.path);
+							});
+							if (item.value.lastIndexOf(',') == (item.value.length - 1)) {
+								item.value = item.value.substr(0, item.value.length - 1);
+							};
+						}
+						// set lis_template_exists, chi khi option show = true && co template
+						if(item.show_list_after_upload == true && !$.isEmptyObject(item.template_exists) )
+						{
+							var template_exists= item.template_exists; 
+							var list_template_exists = '';
+							$.each(opts.commonData[item.dbfieldname], function (_index, _item) {
+								var template_exists_i = $.format(template_exists, _item.path, _item.id);
+								// set value template dinamic by object
+								for (x in _item) {
+								    template_exists_i = template_exists_i.replace('[/'+x+']', _item[x]);
+								}
+								list_template_exists += template_exists_i;
+							});
+							item.list_template_exists = list_template_exists;				
+						}
 					}
 					else if(item.type == 'treecheckbox'){
 						if ($.isArray(opts.commonData[item.dbfieldname])) {

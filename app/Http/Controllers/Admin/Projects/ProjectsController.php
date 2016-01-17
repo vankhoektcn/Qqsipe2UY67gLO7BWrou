@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Article;
-use App\ArticleTranslation;
+use App\Project;
+use App\Project_image;
+use App\Project_part;
 use App\Language;
 use App\Common;
-use App\Attachment;
 use DB;
 use Auth;
-use App\Project;
 
 class ProjectsController extends Controller
 {
@@ -50,80 +49,116 @@ class ProjectsController extends Controller
 	public function store(Request $request)
 	{
 		// validate request
-		$validateArticle = Validator::make($request->get('Project'), Project::$rules);
+		$validateProject = Validator::make($request->get('Project'), Project::$rules);
 		$validationMessages = [];
 
-		foreach ($request->get('ArticleTranslation') as $key => $value) {
-			$validateArticleTranslation = Validator::make($value, ArticleTranslation::$rules);
-			if ($validateArticleTranslation->fails()){
-				$validationMessages = array_merge_recursive($validationMessages, $validateArticleTranslation->messages()->toArray());
-			}
-		}
-
-		if ($validateArticle->fails() OR count($validationMessages) > 0) {
-			$validationMessages = array_merge_recursive($validateArticle->messages()->toArray(), $validationMessages);
+		if ($validateProject->fails() OR count($validationMessages) > 0) {
+			$validationMessages = array_merge_recursive($validateProject->messages()->toArray(), $validationMessages);
 			return redirect()->back()->withErrors($validationMessages)->withInput();
 		}
 
-		// get all languages
-		$languages = Language::all();
-		// find language default
-		$languageDefault = $languages->where('is_key_language', 1)->first();
-		if (is_null($languageDefault)) {
-			$languageDefault = $languages->first();
-		}
-
 		// sure execute success, if not success rollback
-		DB::transaction(function () use ($request, $languageDefault) {
+		//DB::transaction(function () use ($request) {
 			$user = $request->user();
 
-			// insert Article
-			$article = new Article;
-			$article->key = Common::createKeyURL($request->input('ArticleTranslation.'.$languageDefault->code.'.name'));
-			$article->priority = $request->input('Article.priority');
-			$article->is_publish = $request->input('Article.is_publish');
-			$article->created_by = $user->name;
-			$article->updated_by = $user->name;
-			$article->save();
+			// insert Project
+			$project = new Project;
+			$project->key = Common::createKeyURL($request->input('Project.name'));
+			$project->name = $request->input('Project.name');
+			$project->province_id = $request->input('Project.province_id');
+			$project->district_id = $request->input('Project.district_id');
+			$project->address = $request->input('Project.address');
+			$project->hotline = $request->input('Project.hotline');
+			$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');
+			$project->email = $request->input('Project.email');
 
+			$project_images = [];
+			$project_image_path = $request->input('project_image.path');
+			$project_image_title = $request->input('project_image.title');
+			$project_image_caption = $request->input('project_image.caption');
+			$project_image_active = $request->input('project_image.active');	
+			//dd($project_image_active);
+			$agents = $request->input('Project.agents');
+
+			if(empty($project_image_path) || empty($agents))
+			{
+				return redirect()->back()->withErrors("Kiểm tra lại hình ảnh, nhân viên môi giới.");
+			}
+
+			$project->logo = $request->input('Project.logo');
+			$project->show_slide = $request->input('Project.show_slide');
+			$project->content = $request->input('Project.content');
+			$project->map_latitude = $request->input('Project.map_latitude');
+			$project->map_longitude = $request->input('Project.map_longitude');
+			$project->content = $request->input('Project.content');
+
+			$project->meta_description = $request->input('Project.meta_description');
+			$project->meta_keywords = $request->input('Project.meta_keywords');
+			
+
+			$project->priority = $request->input('Project.priority');
+			$project->active = $request->input('Project.active');
+			//dd($project_image_path);
+			//dd($project_image_title);
+			//dd($project_image_caption);
+			//dd($project_image_active[1]);
+			$project->created_by = $user->name;
+			$project->updated_by = $user->name;
+			$project->save();
+
+			// push project_images
+			foreach ($project_image_path as $key => $value) {
+				array_push($project_images, new Project_image([
+					'project_id' => $project->id,
+					'path' => $project_image_path[$key],
+					'title' => $project_image_title[$key],
+					'caption' => $project_image_caption[$key],
+					'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
+				]));
+			}
+			$project->project_images()->saveMany($project_images);
 			// sync categories
-			if ($request->input('Article.categories') != "") {
-				$categories =  explode(",",$request->input('Article.categories'));
-				if (count($categories) > 0) {
-					$article->categories()->attach($categories);
-				}
+			$arrAgents =  explode(",",$agents);
+			if (count($arrAgents) > 0) {
+				$project->agents()->attach($arrAgents);
 			}
 
-			// save attachments
-			if ($request->input('Article.attachments') != "") {
-				$requestAttachments = explode(',', $request->input('Article.attachments'));
-				$attachments = [];
-				foreach ($requestAttachments as $key => $value) {
-					array_push($attachments, new Attachment([
-						'entry_id' => $article->id,
-						'table_name' => 'projects',
-						'path' => $value,
-						'priority' => 0,
-						'is_publish' => 1
-						]));
-				}
-				if (count($attachments) > 0) {
-					$article->attachments()->saveMany($attachments);
-				}
-			}
+			// Face project_part
+			$project_part_name = ['Vị trí','Tiện ích','Mặt bằng'
+            ,'Nhà mẫu','Thanh toán'];
+			$project_part_type = ['E','E','E'
+			,'E','E'];
+            $project_part_link = ['project-location','project-utility','project-ground'
+            ,'project-form','project-payment'];
+			$project_part_fa_icon = ['fa fa-map-marker','fa fa-object-group','fa fa-database'
+			,'fa fa-home','fa fa-money'];
+            $project_part_summary = ['Mô tả ngắn gọn Vị trí','Mô tả ngắn gọn Tiện ích','Mô tả ngắn gọn Mặt bằng'
+            ,'Mô tả ngắn gọn Nhà mẫu','Mô tả ngắn gọn Thanh toán'];
+        	$project_part_content = ['Nội dung Vị trí','Nội dung Tiện ích','Nội dung Mặt bằng'
+            ,'Nội dung Nhà mẫu','Nội dung Thanh toán'];
 
-			// save data languages
-			foreach ($request->get('ArticleTranslation') as $locale => $value) {
-				$article->translateOrNew($locale)->name = $request->input('ArticleTranslation.' .$locale. '.name');
-				$article->translateOrNew($locale)->summary = $request->input('ArticleTranslation.' .$locale. '.summary');
-				$article->translateOrNew($locale)->content = $request->input('ArticleTranslation.' .$locale. '.content');
-				$article->translateOrNew($locale)->meta_description = $request->input('ArticleTranslation.' .$locale. '.meta_description');
-				$article->translateOrNew($locale)->meta_keywords = $request->input('ArticleTranslation.' .$locale. '.meta_keywords');
-			}
+        	foreach ($project_part_name as $key => $name) {	
+        		$project_part = Project_part::create([
+        			'project_id' => $project->id,
+					'key' => Common::createKeyURL($name),
+					'name' => $name,
+					'link' => $project_part_link[$key],
+					'class' => 'scroll',
+					'type' => $project_part_type[$key],
+					'fa_icon' => $project_part_fa_icon[$key],
+					'sumary' => $project_part_summary[$key],
+					'content' => $project_part_content[$key],
+					'priority' => $key,
+					'active' => 1,
+					'created_by' => 'vankhoe',
+					'updated_by' => 'vankhoe'
+				]);
+        	}
+			// End Face project_part
 
-			$article->save();
+			$project->save();
 
-		});
+		//});
 
 		return redirect()->route('admin.projects.index');
 	}
@@ -136,7 +171,7 @@ class ProjectsController extends Controller
 	 */
 	public function show($id)
 	{
-		return Project::with('translations', 'categories', 'attachments')->findOrFail($id)->toArray();
+		return Project::with('project_images', 'agents', 'project_parts')->findOrFail($id)->toArray();
 	}
 
 	/**
@@ -147,8 +182,9 @@ class ProjectsController extends Controller
 	 */
 	public function edit($id)
 	{
-		$article = Project::findOrFail($id);
-		return view('admin.projects.edit', ['article' => $article]);
+		$project = Project::findOrFail($id);
+		// dd($project);
+		return view('admin.projects.edit', ['project' => $project]);
 	}
 
 	/**
@@ -161,94 +197,77 @@ class ProjectsController extends Controller
 	public function update(Request $request, $id)
 	{
 		// validate request
-		$validateArticle = Validator::make($request->get('Project'), Project::$rules);
+		$validateProject = Validator::make($request->get('Project'), Project::$rules);
 		$validationMessages = [];
 
-		foreach ($request->get('ArticleTranslation') as $key => $value) {
-			$validateArticleTranslation = Validator::make($value, ArticleTranslation::$rules);
-			if ($validateArticleTranslation->fails()){
-				$validationMessages = array_merge_recursive($validationMessages, $validateArticleTranslation->messages()->toArray());
-			}
-		}
-
-		if ($validateArticle->fails() OR count($validationMessages) > 0) {
-			$validationMessages = array_merge_recursive($validateArticle->messages()->toArray(), $validationMessages);
+		if ($validateProject->fails() OR count($validationMessages) > 0) {
+			$validationMessages = array_merge_recursive($validateProject->messages()->toArray(), $validationMessages);
 			return redirect()->back()->withErrors($validationMessages)->withInput();
 		}
 
-		// get all languages
-		$languages = Language::all();
-		// find language default
-		$languageDefault = $languages->where('is_key_language', 1)->first();
-		if (is_null($languageDefault)) {
-			$languageDefault = $languages->first();
-		}
-
 		// sure execute success, if not success rollback
-		DB::transaction(function () use ($request, $id, $languageDefault) {
+		DB::transaction(function () use ($request, $id) {
 			$user = $request->user();
 
-			// insert Article
-			$article = Project::findOrFail($id);
-			$article->key = Common::createKeyURL($request->input('ArticleTranslation.'.$languageDefault->code.'.name'));
-			$article->priority = $request->input('Article.priority');
-			$article->is_publish = $request->input('Article.is_publish');
-			$article->created_by = $user->name;
-			$article->updated_by = $user->name;
-			$article->save();
+			// insert Project
+			$project = Project::findOrFail($id);
+			$project->key = Common::createKeyURL($request->input('Project.name'));
+			$project->name = $request->input('Project.name');
+			$project->province_id = $request->input('Project.province_id');
+			$project->district_id = $request->input('Project.district_id');
+			$project->address = $request->input('Project.address');
+			$project->hotline = $request->input('Project.hotline');
+			$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');
+			$project->email = $request->input('Project.email');
 
+			$project_images = [];
+			$project_image_path = $request->input('project_image.path');
+			$project_image_title = $request->input('project_image.title');
+			$project_image_caption = $request->input('project_image.caption');
+			$project_image_active = $request->input('project_image.active');	
+			//dd($project_image_path);
+			$agents = $request->input('Project.agents');
+
+			if(empty($project_image_path) || empty($agents))
+			{
+				return redirect()->back()->withErrors("Kiểm tra lại hình ảnh, nhân viên môi giới.");
+			}
+
+			$project->logo = $request->input('Project.logo');
+			$project->show_slide = $request->input('Project.show_slide');
+			$project->content = $request->input('Project.content');
+			$project->map_latitude = $request->input('Project.map_latitude');
+			$project->map_longitude = $request->input('Project.map_longitude');
+			$project->content = $request->input('Project.content');
+
+			$project->meta_description = $request->input('Project.meta_description');
+			$project->meta_keywords = $request->input('Project.meta_keywords');
+			
+
+			$project->priority = $request->input('Project.priority');
+			$project->active = $request->input('Project.active');
+			$project->updated_by = $user->name;
+			$project->save();
+
+			// push project_images
+			foreach ($project_image_path as $key => $value) {
+				array_push($project_images, new Project_image([
+					'project_id' => $project->id,
+					'path' => $project_image_path[$key],
+					'title' => $project_image_title[$key],
+					'caption' => $project_image_caption[$key],
+					'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
+				]));
+			}
+			$project->project_images()->delete();
+			$project->project_images()->saveMany($project_images);
 			// sync categories
-			$article->categories()->detach();
-			if ($request->input('Article.categories') != "") {
-				$categories =  explode(",",$request->input('Article.categories'));
-				if (count($categories) > 0) {
-					$article->categories()->attach($categories);
-				}
+			$arrAgents =  explode(",",$agents);
+			if (count($arrAgents) > 0) {
+				$project->agents()->sync($arrAgents);
 			}
 
-			// save attachments
-			// only insert or delete, not update
-			if ($request->input('Article.attachments') != "") {
-				$currentAttachments = $article->attachments->lists('id');
-				$requestAttachments = explode(',', $request->input('Article.attachments'));
-				$attachments = [];
-				$keepAttachments = [];
-				foreach ($requestAttachments as $key => $value) {
-					if (strpos($value, '|') === false) {
-						array_push($attachments, new Attachment([
-							'entry_id' => $article->id,
-							'table_name' => 'projects',
-							'path' => $value,
-							'priority' => 0,
-							'is_publish' => 1
-						]));
-					}
-					else {
-						$attachmentId = explode('|', $value)[0];
-						array_push($keepAttachments, $attachmentId);
-					}
-				}
-				if (count($attachments) > 0) {
-					$article->attachments()->saveMany($attachments);
-				}
-				// delete attachments
-				foreach ($currentAttachments as $key => $value) {
-					if (!in_array($value, $keepAttachments)) {
-						Attachment::findOrFail($value)->delete();
-					}
-				}
-			}
-
-			// save data languages
-			foreach ($request->get('ArticleTranslation') as $locale => $value) {
-				$article->translateOrNew($locale)->name = $request->input('ArticleTranslation.' .$locale. '.name');
-				$article->translateOrNew($locale)->summary = $request->input('ArticleTranslation.' .$locale. '.summary');
-				$article->translateOrNew($locale)->content = $request->input('ArticleTranslation.' .$locale. '.content');
-				$article->translateOrNew($locale)->meta_description = $request->input('ArticleTranslation.' .$locale. '.meta_description');
-				$article->translateOrNew($locale)->meta_keywords = $request->input('ArticleTranslation.' .$locale. '.meta_keywords');
-			}
-
-			$article->save();
+			$project->save();
 
 		});
 
@@ -265,14 +284,14 @@ class ProjectsController extends Controller
 	{
 		DB::transaction(function () use ($id) {
 			$user = Auth::user();
-			$article = Project::findOrFail($id);
-			$article->updated_by = $user->name;
-			$article->deleted_by = $user->name;
-			$article->key = $article->key.'-'.microtime(true);
-			$article->save();
+			$project = Project::findOrFail($id);
+			$project->updated_by = $user->name;
+			$project->deleted_by = $user->name;
+			$project->key = $project->key.'-'.microtime(true);
+			$project->save();
 
 			// soft delete
-			$article->delete();
+			$project->delete();
 		});
 	}
 }

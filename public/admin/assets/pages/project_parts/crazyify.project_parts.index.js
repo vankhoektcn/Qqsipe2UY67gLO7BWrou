@@ -1,16 +1,16 @@
 if (typeof crazyify == 'undefined')
 	var crazyify = {};
-if (typeof crazyify.projects == 'undefined')
-	crazyify.projects = {};
+if (typeof crazyify.project_parts == 'undefined')
+	crazyify.project_parts = {};
 
-crazyify.projects.index = {
+crazyify.project_parts.index = {
 	init: function () {
-		var thisObj = crazyify.projects.index;
+		var thisObj = crazyify.project_parts.index;
 		thisObj.initTable();
 		thisObj.events();
 	},
 	initTable: function () {
-		$('#tblArticles').dataTable({
+		$('#tblProject_parts').dataTable({
 			pageLength: 25,
 			language: {
 				url: "/admin/assets/global/plugins/datatables/plugins/i18n/Vietnamese.json"
@@ -18,11 +18,11 @@ crazyify.projects.index = {
 		});
 	},
 	events: function () {
-		var thisObj = crazyify.projects.index;
-		// delete articleCategory
+		var thisObj = crazyify.project_parts.index;
+		
 		$('a.action-delete').click(function () {
 			var id = $(this).data('id');
-			bootbox.confirm("Bạn thật sự muốn xóa dự án này?", function(result) {
+			bootbox.confirm("Bạn thật sự muốn xóa bài viết dự án này?", function(result) {
 				if (result) {
 					thisObj.delete(id);
 				};
@@ -31,21 +31,21 @@ crazyify.projects.index = {
 	},
 	delete: function (id) {
 		$.crazyifyAjax({
-			url: '/admin/projects/' + id,
+			url: '/admin/project_parts/' + id,
 			type: 'DELETE',
 			success: function (data, textStatus, jqXHR) {
-				toastr['success']("Xóa dự án thành công.", "Xóa dự án");
+				toastr['success']("Xóa bài viết dự án thành công.", "Xóa bài viết dự án");
 				setTimeout(function () {
 					location.reload();
 				}, 5000);
 			},
 			error: function (argument) {
-				toastr['error']("Xóa dự án không thành công.", "Xóa dự án");
+				toastr['error']("Xóa bài viết dự án không thành công.", "Xóa bài viết dự án");
 			}
 		});
 	}
 };
 
 $(function () {
-	crazyify.projects.index.init();
+	crazyify.project_parts.index.init();
 });
