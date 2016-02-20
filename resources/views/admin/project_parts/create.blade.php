@@ -22,15 +22,15 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
 	<li>
-		<a href="{{ route('admin.dashboard.index') }}">Màn hình chính</a>
+		<a href="{{ route('admin.projects.edit', ['projects' => $project->id]) }}">{{ $project->name}}</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.articles.index') }}">Bài viết</a>
+		<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}">Bài viết dự án</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.articles.create') }}">Tạo mới</a>
+		<a href="{{ route('admin.project_parts.create', ['project_id' => $project->id]) }}">Tạo mới</a>
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -43,7 +43,7 @@
 				@include('admin.partials.errors')
 				{!! Form::open([
 					'id' => 'article-form',
-					'route' => 'admin.articles.store',
+					'route' => ['admin.project_parts.store', $project->id],
 					'class' => 'form-horizontal',
 					'role'	=>	'form'
 				]) !!}
@@ -76,5 +76,5 @@
 	var _manualInitLayout = true;
 </script>
 <script src="/admin/assets/customs/scripts/ccontrol.js" type="text/javascript"></script>
-<script src="/admin/assets/pages/articles/crazyify.articles.entry.js" type="text/javascript"></script>
+<script src="/admin/assets/pages/project_parts/crazyify.project_parts.entry.js" type="text/javascript"></script>
 @endsection

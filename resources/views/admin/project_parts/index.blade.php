@@ -21,15 +21,15 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
 	<li>
-		<a href="{{ route('admin.dashboard.index') }}">Màn hình chính</a>
+		<a href="{{ route('admin.projects.edit', ['projects' => $project->id]) }}">{{ $project->name}}</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.project_parts.index') }}">Bài viết dự án</a>
+		<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}">Bài viết dự án</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.project_parts.index') }}">Danh sách</a>
+		<a href="{{ route('admin.project_parts.create', ['project_id' => $project->id]) }}">Tạo mới</a>
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
@@ -68,6 +68,11 @@
 								<a href="{{ route('admin.project_parts.edit', ['project_parts' => $project_part->id]) }}" class="btn btn-xs green-jungle">
 									<i class="fa fa-edit"></i> Sửa
 								</a>
+								@if($project_part->type == 'A')
+								<a href="{{ $project_part->getLink() }}" class="btn btn-xs green-sharp">
+									<i class="fa fa-eye"></i> View
+								</a>
+								@endif
 								<a href="javascript:;" class="btn btn-xs red-thunderbird action-delete" data-id="{{ $project_part->id }}">
 									<i class="fa fa-trash-o"></i> Xóa
 								</a>

@@ -50,9 +50,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 			'uses' => 'Project_partsController@index'
 		]);
 		//create project_parts
-		Route::post('/{project_id}/project_parts/create', [
+		Route::get('/{project_id}/project_parts/create', [
 			'as' => 'admin.project_parts.create',
 			'uses' => 'Project_partsController@create'
+		]);
+		//create project_parts
+		Route::post('/{project_id}/project_parts/create', [
+			'as' => 'admin.project_parts.store',
+			'uses' => 'Project_partsController@store'
 		]);
 		// show project_parts
 		Route::get('/project_parts/{id}', [
@@ -243,9 +248,13 @@ Route::group(['namespace' => 'Frontend'], function()
 		]);
 
 	// for projects	
-	Route::get('/du-an/{projectid}/{districtkey}/{projectkey}.html', [
+	Route::get('/du-an/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
 			'uses' => 'SiteControllers@project'
+		]);
+	Route::get('/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
+			'as' => 'project_part',
+			'uses' => 'SiteControllers@project_part'
 		]);
 	Route::get('/du-an.html', [
 			'as' => 'test',

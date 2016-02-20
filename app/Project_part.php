@@ -21,4 +21,14 @@ class Project_part extends BaseModel
 	{
 		return $this->belongsTo('App\Project');
 	}
+
+    public function getLink()
+    {
+    	if(isset($this->link) && !empty($this->link))
+    		return $this->link;
+        $project = $this->project;
+        $district_key = $project->district->key;
+        $link = route('project_part', ['districtkey' => $district_key,'projectkey' => $project->key, 'projectpartid' => $this->id, 'projectpartkey' => $this->key]);
+        return $link;
+    }
 }

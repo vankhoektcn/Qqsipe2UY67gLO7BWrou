@@ -12,7 +12,7 @@ crazyify.project_parts.entry = {
 		{
 			'label': 'Loại',
 			'id': 'type',
-			'name': 'Project[type]',
+			'name': 'Project_part[type]',
 			'type': 'select',
 			'required': true,
 			'placeholder': '',
@@ -76,6 +76,38 @@ crazyify.project_parts.entry = {
 			'dbfieldname': 'thumnail',
 			'selected': true,
 			'isNotRelationship': true
+		},
+		{
+			'label': 'Liên kết',
+			'id': 'link',
+			'name': 'Project_part[link]',
+			'type': 'text',
+			'required': false,
+			'placeholder': 'liên kết',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'link'
+		},
+		{
+			'label': 'Fa icon',
+			'id': 'fa_icon',
+			'name': 'Project_part[fa_icon]',
+			'type': 'text',
+			'required': false,
+			'placeholder': 'fa icon',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'fa_icon'
 		},
 		{
 			'label': 'Tóm tắt',

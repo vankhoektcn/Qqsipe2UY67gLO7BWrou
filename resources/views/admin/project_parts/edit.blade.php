@@ -22,15 +22,15 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
 	<li>
-		<a href="{{ route('admin.dashboard.index') }}">Màn hình chính</a>
+		<a href="{{ route('admin.projects.edit', ['projects' => $project->id]) }}">{{ $project->name}}</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.project_parts.index') }}">Danh mục bài viết</a>
+		<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}">Bài viết dự án</a>
 		<i class="fa fa-circle"></i>
 	</li>
 	<li>
-		<a href="{{ route('admin.project_parts.edit', ['id' => $project_part->id]) }}">{{ $project_part->name }}</a>
+		<a href="{{ route('admin.project_parts.create', ['project_id' => $project->id]) }}">Tạo mới</a>
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->

@@ -37,9 +37,17 @@ class Project extends BaseModel
 
     public function getLink()
     {
-        $project_alias = "du-an";
         $district_key = $this->district->key;
-        $link = route('project', ['projectid' => $this->id,'districtkey' => $district_key, 'projectkey' => $this->key]);
+        $link = route('project', ['districtkey' => $district_key, 'projectkey' => $this->key]);
         return $link;
+    }
+
+    public function getFirstAttachment()
+    {
+        $images = $this->project_images()->where('active', 1)->orderBy('priority')->first();
+        $thumnail = "/uploads/notfound.jpg" ;
+        if(isset($images))
+            $thumnail = $images->path;
+        return $thumnail;
     }
 }

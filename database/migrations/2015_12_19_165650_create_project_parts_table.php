@@ -17,12 +17,16 @@ class CreateProjectPartsTable extends Migration
             $table->integer('project_id')->index();
             $table->string('name')->index();
             $table->string('key', 250)->index();
+            $table->string('thumnail',500)->nullable();
             $table->string('link');
             $table->string('type',20)->default('E');
             $table->string('class')->default('scroll');
             $table->string('fa_icon')->nullable();
-            $table->string('sumary')->nullable();  
+            $table->string('summary')->nullable();  
             $table->text('content');
+            
+            $table->string('meta_description', 500);
+            $table->string('meta_keywords', 500);
             
             $table->integer('priority');
             $table->boolean('active')->default(0);

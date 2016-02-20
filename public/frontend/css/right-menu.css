@@ -26,7 +26,7 @@
     background-color: #fff !important;
     position: fixed;
     top: 0px;
-    left: -185px;
+    left: -155px;
     -webkit-transition: left 0.2s ease-in;
     transition: left 0.2s ease-in;
     -webkit-backface-visibility: hidden !important;
@@ -41,6 +41,7 @@
 }
 #rightMenuScrollspy ul {
     width: 115px !important;
+    margin-top: 20px;
 }
 #rightMenuScrollspy.in {
     left: 0px;

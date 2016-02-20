@@ -1,3 +1,7 @@
+html, body {
+	font-size: 17px;
+}
+
 /*Footer*/
 footer {padding: 45px 0 0;background: #2E2F31; background: #337AB7; position: relative; color: white}
 footer ul {list-style: none; margin: 0; padding: 0; margin-top: 10px}
@@ -56,6 +60,21 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 .property-small-address .project-marker{    padding-right: 5px;color: #EC407A;}
 /*end right box*/
 
+/*for contact form on slide*/
+.subscribe-form-heading-1 {font-size: 18px;}
+#subscribe-form {
+    position: absolute;
+    /*bottom: 160px;*/
+    /*right: 0;*/
+    width: 100%;
+    height: 270px;
+    background: rgba(0, 180, 240, 0.9);
+    z-index: 2;
+    padding: 20px;
+    color: #fff;
+}
+/* END for contact form on slide*/
+
 .description { padding: 1.5em 0; font-size: 17px; border-bottom: 1px solid #e5e5e5; }
 .bann-left h3 { background: #8BCA30; background: #337ab7;
 	border-top-left-radius: 5px; border-top-right-radius: 5px; text-transform: uppercase; text-align: center;
@@ -108,6 +127,12 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 	}
 
 	.flex-caption{ font-size: 16px; }
+
+	#subscribe-form {
+	    position: relative !important;
+	    bottom: 0;
+	    height: auto;
+	}
 }
 @media (min-width:769px){
 	.header{
@@ -153,6 +178,14 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 	.head-nav{ padding: 5px 5px; margin: 5px 0px;
 	}
 	.flex-caption{ font-size: 20px; }
+
+	#subscribe-form {
+	    position: absolute;
+	    bottom: 160px;
+	    right: -100px;
+	    width: 100%;
+	    height: 270px;
+	}
 }
 
 @media (max-width: 991px){	
@@ -160,6 +193,8 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 @media (min-width: 992px){
 	.bann-right{padding-right: 0}
 	.bann-left{padding-right: 0px;}
+	.tutorList .class-top{display: block;}
+	.tutorList .class-top-min{display: none;}
 }
 html,body{background-color: #eee;/*background-image: url(/frontend/images/bg.png);http://startbootstrap.com/template-overviews/full/*/}
 .main-container{margin: 0;padding: 0;margin-right: auto;margin-left: auto;background-color: #f6f6f6;}
@@ -223,10 +258,7 @@ b.searchKey{color:#f53f1a;}
 .tutorList .class-top{display: none;}
 .tutorList .class-top-min{display: block;}
 }
-@media (min-width:993px){
-.tutorList .class-top{display: block;}
-.tutorList .class-top-min{display: none;}
-}
+
 #formSearchNewClass{margin-top:35px;}
 #histatsC {text-align: center;}
 .bottom-30{margin-bottom: 30px;};
@@ -291,3 +323,7 @@ b.searchKey{color:#f53f1a;}
 }
 .flexslider{margin: 0 0 10px;}
 .flexslider .slides img{max-height: 600px; }
+
+.close-auto-menu{ position: absolute; top: 0; right: 0px; border-radius: 3px; padding: 0px 5px; color: red !important;}
+.close-auto-menu-out{right: -70px;}
+.project-part-thumnail{ margin-bottom: 20px;}

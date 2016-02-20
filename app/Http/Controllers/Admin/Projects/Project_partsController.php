@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Project;
 use App\Project_part;
 use App\Common;
 use DB;
@@ -20,11 +21,12 @@ class Project_partsController extends Controller
 	 */
 	public function index(Request $request, $project_id)
 	{
+		$project = Project::findOrFail($project_id);
 		$project_parts = Project_part::where('project_id', $project_id)->orderBy('priority')->get();
 		if ($request->ajax()) {
 			return $project_parts->toArray();
 		}
-		return view('admin.project_parts.index', ['project_parts' => $project_parts]);
+		return view('admin.project_parts.index', ['project_parts' => $project_parts, 'project' => $project]);
 	}
 
 	/**
@@ -32,9 +34,10 @@ class Project_partsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create($project_id)
 	{
-		return view('admin.project_parts.create');
+		$project = Project::findOrFail($project_id);
+		return view('admin.project_parts.create',['project' => $project]);
 	}
 
 	/**
@@ -55,7 +58,7 @@ class Project_partsController extends Controller
 		}
 
 		// sure execute success, if not success rollback
-		DB::transaction(function () use ($request) {
+		DB::transaction(function () use ($request, $project_id) {
 			$user = $request->user();
 
 			// insert Project_part
@@ -66,9 +69,9 @@ class Project_partsController extends Controller
 			// get thumnail 
         	$project_part->thumnail = $request->input('Project_part.thumnail');
         	$project_part->link = $request->input('Project_part.link');
-        	$project_part->type = 'A';
+        	$project_part->type = $request->input('Project_part.type');
         	// $project_part->class = 'scroll';
-        	// $project_part->fa_icon = 'fa fa-money';
+        	$project_part->fa_icon = $request->input('Project_part.fa_icon');
         	$project_part->summary = $request->input('Project_part.summary');
         	$project_part->content = $request->input('Project_part.content');
 
@@ -82,7 +85,7 @@ class Project_partsController extends Controller
 			$project_part->save();
 		});
 
-		return redirect()->route('admin.project_parts.index');
+		return redirect()->route('admin.project_parts.index',['project_id' => $project_id]);
 	}
 
 	/**
@@ -105,7 +108,8 @@ class Project_partsController extends Controller
 	public function edit($id)
 	{
 		$project_part = Project_part::findOrFail($id);
-		return view('admin.project_parts.edit', ['project_part' => $project_part]);
+		$project = Project::findOrFail($project_part->project_id);
+		return view('admin.project_parts.edit', ['project_part' => $project_part, 'project' => $project]);
 	}
 
 	/**
@@ -125,7 +129,7 @@ class Project_partsController extends Controller
 			$validationMessages = array_merge_recursive($validateProject_part->messages()->toArray(), $validationMessages);
 			return redirect()->back()->withErrors($validationMessages)->withInput();
 		}
-
+		
 		// sure execute success, if not success rollback
 		DB::transaction(function () use ($request, $id) {
 			$user = $request->user();
@@ -136,9 +140,9 @@ class Project_partsController extends Controller
 			// get thumnail 
         	$project_part->thumnail = $request->input('Project_part.thumnail');
         	$project_part->link = $request->input('Project_part.link');
-        	$project_part->type = 'A';
+        	$project_part->type = $request->input('Project_part.type');
         	// $project_part->class = 'scroll';
-        	// $project_part->fa_icon = 'fa fa-money';
+        	$project_part->fa_icon = $request->input('Project_part.fa_icon');
         	$project_part->summary = $request->input('Project_part.summary');
         	$project_part->content = $request->input('Project_part.content');
 

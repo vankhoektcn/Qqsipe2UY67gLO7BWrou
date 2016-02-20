@@ -28,6 +28,7 @@ use Image;
 use Mail;
 
 use App\Project;
+use App\Project_part;
 
 class SiteControllers extends Controller
 {
@@ -97,10 +98,17 @@ class SiteControllers extends Controller
 
 	public function createContact(Request $request)
 	{
+		$json = json_decode('{"success":false, "message": "Đăng ký không thành công"}');
+		//$arrayName = array('success' =>  false, 'message' => 'Đăng ký không thành công' );
 		$validator = Validator::make($request->get('Contact'), Contact::$rules);
 		if ($validator->fails())
 		{
-			return redirect()->back()->withErrors($validator->errors());
+			if ($request->ajax()) {
+				return response()->json($json);
+			}
+			else{
+				return redirect()->back()->withErrors($validator->errors());
+			}
 		}
 		else
 		{
@@ -118,9 +126,19 @@ class SiteControllers extends Controller
 			// send email
 			$common = new Common;
 			$config = new Config;
-			$common->sendEmail('frontend.emails.contact', $data = ['contact' => $contact], $to = $config->getValueByKey('address_received_mail'), $toName = $contact->full_name, $subject = $contact->subject, $cc = $contact->email, $replyTo = $contact->email);
+			try{
+				$common->sendEmail('frontend.emails.contact', $data = ['contact' => $contact], $to = $config->getValueByKey('address_received_mail'), $toName = $contact->full_name, $subject = $contact->subject, $cc = $contact->email, $replyTo = $contact->email);
+			}catch(Exception $e){
 
-			return redirect(route('contact'))->with('contact-status', 'Nội dung liên hệ của quý khách đã được gửi đến ban quản trị. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
+			}
+			if ($request->ajax()) {
+				$json->success = true;
+				$json->message = 'Chúng tôi sẽ chủ động cập nhật thông tin mới nhất đến bạn.';
+				return response()->json($json);
+			}
+			else{
+				return redirect(route('contact'))->with('contact-status', 'Nội dung liên hệ của quý khách đã được gửi đến ban quản trị. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
+			}
 		}
 	}
 
@@ -309,7 +327,7 @@ class SiteControllers extends Controller
 
 	//FOR PROJECTS
 
-	public function project($projectid,$districtkey,$projectkey)
+	public function project($districtkey,$projectkey)
 	{
 		$project = Project::where('key',$projectkey)->first();
 		if($project != null){
@@ -318,7 +336,66 @@ class SiteControllers extends Controller
 			$project_images = $project->project_images()->where('active',1)->where('path', '<>',$project->logo)->orderBy('priority')->take(5)->get();
 			$other_projects = Project::where('active',1)->orderBy('priority')->take(5)->get();
 			$project_agents = $project->agents()->get();
+
+			// metadata
+			$site_title = $project->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			SEOMeta::setTitle($site_title);
+			SEOMeta::setDescription($project->meta_description);
+			SEOMeta::addKeyword([$project->meta_keywords]);
+			SEOMeta::addMeta('project:published_time', $project->created_at->toW3CString(), 'property');
+			if (isset($project->district->name)) {
+				SEOMeta::addMeta('project:section', $project->district->name, 'property');
+			}
+
+			OpenGraph::setTitle($site_title);
+			OpenGraph::setDescription($project->meta_description);
+			OpenGraph::setUrl( $project->getLink());
+			OpenGraph::addProperty('type', 'project');
+			OpenGraph::addProperty('locale', app()->getLocale());
+			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
+
+			OpenGraph::addImage($project->logo);
+			OpenGraph::addImage($project_images->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($project->logo,300,300,array('crop')), 'size' => 300]);
+			// end metadata
 			return view('frontend.sites.project',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents'));
+		}
+		else
+			return view('errors.404');
+	}
+	public function project_part($districtkey, $projectkey, $projectpartid ,$projectpartkey)
+	{
+		$project_part = Project_part::findOrFail($projectpartid);
+		if($project_part != null){
+			$project = $project_part->project;
+			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
+			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
+			$project_images = $project->project_images()->where('active',1)->where('path', '<>',$project->logo)->orderBy('priority')->take(5)->get();
+			$other_projects = Project::where('active',1)->orderBy('priority')->take(5)->get();
+			$project_agents = $project->agents()->get();
+
+			// metadata
+			$site_title = $project->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			SEOMeta::setTitle($site_title);
+			SEOMeta::setDescription($project->meta_description);
+			SEOMeta::addKeyword([$project->meta_keywords]);
+			SEOMeta::addMeta('project:published_time', $project->created_at->toW3CString(), 'property');
+			if (isset($project->district->name)) {
+				SEOMeta::addMeta('project:section', $project->district->name, 'property');
+			}
+
+			OpenGraph::setTitle($site_title);
+			OpenGraph::setDescription($project->meta_description);
+			OpenGraph::setUrl( $project->getLink());
+			OpenGraph::addProperty('type', 'project');
+			OpenGraph::addProperty('locale', app()->getLocale());
+			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
+
+			OpenGraph::addImage($project->logo);
+			OpenGraph::addImage($project_images->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($project->logo,300,300,array('crop')), 'size' => 300]);
+			// end metadata
+			return view('frontend.sites.project_part',compact('project', 'project_parts', 'project_part','project_articles','project_images','other_projects','project_agents'));
 		}
 		else
 			return view('errors.404');

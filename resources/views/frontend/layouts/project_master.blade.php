@@ -8,15 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/frontend/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="/admin/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/frontend/css/toastr.min.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/style.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/right-menu.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/flexslider.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/project.css" rel="stylesheet" type="text/css">
-  <script src="/frontend/js/jquery1.11.3.min.js"></script>
-  <!--<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
-  <script src="/frontend/js/jquery-ui.min.js" type="text/javascript"></script>
-  <script src="/frontend/js/bootstrap.min.js"></script>
-  <script src="/frontend/js/crazyify.core.js"></script>
+  
 <!-- <link rel="stylesheet" href="/frontend/css/bootstrap.css">
   <script src="/frontend/js/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></scr‌​ipt>
@@ -35,12 +32,15 @@
 
 <div class="menu-right">
 	<nav class="rightMenuScrollspy" id="rightMenuScrollspy">
+        <a class="close close-auto-menu">
+            <i class="fa fa-angle-double-left" title="Ẩn menu"></i>
+        </a>
 	  <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
         @if (!empty($project->content))
-            <li><a href="#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
+            <li><a href="{{Route::is('project') ? '' : $project->getLink()}}#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
         @endif
         @foreach ($project_parts as $key => $part)
-            <li><a href="#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
+            <li><a href="{{Route::is('project') ? '' : $project->getLink()}}#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
         @endforeach
 	  </ul>
 	</nav>
@@ -66,14 +66,6 @@
 			<div class="head-nav">
 				<span class="menu"> </span>
 					<ul class="cl-effect-1" id="project-menu">
-						<!-- <li class="{{ Route::is('homepage') ? 'active' : null }}"><a class="scroll" href="#project-apartment">Tổng quan</a></li>
-						<li><a class="scroll" href="#project-location">Vị trí</a></li>
-						<li><a class="scroll" href="#project-amenity">Tiện ích</a></li>
-						<li><a class="scroll" href="#project-diagrams">Mặt bằng</a></li>
-						<li><a class="scroll" href="#project-template">Nhà mẫu</a></li>
-						<li><a class="scroll" href="#project-real">Thực tế</a></li>
-						<li><a class="scroll" href="#project-checkout">Thanh toán</a></li>
-						<li><a href="{{ route('contact') }}">Liên hệ</a></li> -->
                         @if (!empty($project->content))
                             <li><a class="scroll" href="#project-about">Tổng quan</a></li>
                         @endif
@@ -86,7 +78,7 @@
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-    @if (!empty($project->show_slide))
+    @if (Route::is('project') && !empty($project->show_slide))
 	<div class="flexslider" id="main-flexslider">
 		<ul class="slides">
             @foreach ($project_images as $key => $image)
@@ -95,20 +87,40 @@
 				<p class="flex-caption">{{$image->caption}}</p>
 			</li>
             @endforeach
-			<!-- <li>
-				<img src="http://canho-theart.net/wp-content/uploads/2015/08/23623-1400x530.jpg" />
-				<p class="flex-caption">Adventurer Lemon</p>
-			</li>
-			<li>
-				<img src="http://canho-theart.net/wp-content/uploads/2015/08/banner-mat-bang-can-ho-1366x517.jpg" />
-				<p class="flex-caption">Adventurer Donut</p>
-			</li>
-			<li>
-				<img src="http://canho-theart.net/wp-content/uploads/2015/08/GiaHoa_Pics-100-1600x1063-1024x680-1024x388.jpg" />
-				<p class="flex-caption">Adventurer Caramel</p>
-			</li> -->
 		</ul>
 	</div>
+    <div class="section wrap-action-form">
+        <div class="container">
+            <div class="row action-form">
+                <div class="col-md-8 col-lg-8">
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <form id="subscribe-form">
+                        <div class="subscribe-form-heading-1">
+                            <h3>Đăng ký nhận thông tin</h3>
+                        </div>
+                        <hr style="border-color: #fff;">
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control form-control-sm" name="full_name" placeholder="Họ và Tên *" required="">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="email" class="form-control form-control-sm"  name="email" placeholder="Email *" required="">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control form-control-sm"  name="phone" placeholder="Điện thoại *" required="">
+                        </fieldset>
+                        <input type="hidden" name="subject" value="Đăng ký nhận thông tin căn hộ '{{$project->name}}'">
+                        <input type="hidden" name="content" value="Đăng ký nhận thông tin căn hộ '{{$project->name}}'">
+                        <input type="hidden" name="_token" value="{{ csrf_token()}}"/>
+                        <fieldset class="text-xs-center text-md-center text-lg-center">
+                            <input type="button" class="btn btn-success btnSendContact" value="Đăng ký nhận tin" />
+                            <a class="btn btn-warning btnCloseContactForm">Đóng</a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
 <!-- header -->
 </div>
@@ -171,7 +183,6 @@
                 <div class="footer-box">
                     <h4>MyvanLand.com.vn</h4>
                     <p>Là trang truyền thông bất động sản của Việt Nam, phát triển dựa trên nền tảng công nghệ mới - ứng dụng bản đồ,  hỗ trợ tối đa công cụ tìm kiếm và đăng tin.</p>
-                    <a target="_blank" href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=13062"><img style="width: 100px" alt="" title="" src="http://online.gov.vn/seals/EkspFagIEJWDc1mAJeRDkA==.jpgx"></a>
                 </div>
             </div>
             <div class="col-xs-12 district-link text-center">
@@ -202,6 +213,11 @@
 </footer>
 </div>
 <!-- {!! Minify::javascript(array('/frontend/js/jquery.appear.js' , '/frontend/js/jquery.shuffle.modernizr.js', '/frontend/js/jquery.shuffle.js' , '/frontend/js/owl.carousel.js', '/frontend/js/jquery.ajaxchimp.min.js','/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!} -->
+<script src="/frontend/js/jquery1.11.3.min.js"></script>
+<script src="/frontend/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/frontend/js/bootstrap.min.js"></script>
+<script src="/frontend/js/crazyify.core.js"></script>
+<script src="/frontend/js/toastr.min.js"></script>
 {!! Minify::javascript(array('/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
 @yield('body.js')
 </body>

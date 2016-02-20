@@ -5,7 +5,7 @@
 	<h3><i class="fa fa-angle-double-right"></i> Thông tin dự án</h3>
 	<div class="blo-top right-register">
 		@foreach ($project_articles as $article)
-				<li><i class="fa fa-angle-double-right"></i><a href="{{ $article->link }}">{{ $article->name }}</a></li>
+				<li><i class="fa fa-angle-double-right"></i><a href="{{ $article->getLink() }}">{{ $article->name }}</a></li>
 		@endforeach
 	</div>
 	@endif
@@ -16,7 +16,7 @@
 		<div class="property-small">
             <a href="{{ $project->getLink() }}" class="property-simple-image">
             	<i class="fa fa-search-plus property-simple-hover-icon"></i>
-                <img width="100%" src="http://preview.byaviators.com/template/realsite/assets/img/tmp/medium/6.jpg" alt="">
+                <img width="100%" src="{{ Image::url($project->getFirstAttachment(),814,364,array('crop')) }}" alt="">
             </a>
 
             <div class="property-small-content">
