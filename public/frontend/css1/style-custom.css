@@ -1,0 +1,103 @@
+body{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ps-relative{position: relative;}
+.fs10{font-size: 10px !important}
+.fs11{font-size: 11px !important}
+.fs12{font-size: 12px !important}
+.fs13{font-size: 13px !important}
+.fs14{font-size: 14px !important}
+.fs15{font-size: 15px !important}
+.fs16{font-size: 16px !important}
+.fs17{font-size: 17px !important}
+.fs18{font-size: 18px !important}
+.fs19{font-size: 19px !important}
+.fs20{font-size: 20px !important}
+.fw-bold{font-weight: bold !important;}
+.fw-normal{font-weight: normal !important;}
+.top-tabs .tab-content {
+    border: 1px solid #d5d5d5;
+    border-top: 1px solid #d5d5d5;
+}
+.resort-name .address{
+	width: 100%;
+	display: table;
+}
+.address i{
+	color: #EC407A;
+}
+
+.section-container {
+	display: table;
+    width: 100%;
+    border: 1px solid #09B9E5;
+    border-top: 0;
+}
+.section-container .section-heading h3{
+	background-color: #09B9E5;
+    padding: 10px 20px;
+    margin-top: 0px;
+}
+.section-container .section-heading h3 span{
+	background: none;
+	color: #fff;
+	padding: 0 15px;
+    position: relative;
+    z-index: 5;
+    font-size: 24px;
+}
+.section-container .section-detail{
+	display: table;
+    width: 100%;
+}
+
+.apartment-item{
+	border: 1px solid #09B9E5;
+    padding: 10px 10px;
+}
+.blog-text .time {
+	border-radius: 3px;
+    color: #999;
+    right: 5px;
+    bottom: 25px;
+    position: absolute;
+    padding: 1px 3px;
+}
+.blog-text .time li a {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #a5a5a5;
+    font-size: 15px;
+}
+.item_price .price{
+	color: #f53838;
+}
+.item_price .acreage{
+color:#055699
+}
+.top-tabs .tab-content{
+	background-color: #D9EDF7;
+}
+
+.navigation {
+    margin: 10px 0;
+}
+.search-form label {
+    margin-bottom: 10px;
+}
+.search-form .form-section {
+    margin-bottom: 15px;
+}
+.navbar-default {
+    border: none;
+    background-color: #0277bd;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: yellow;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: yellow;
+    background-color: transparent;
+}

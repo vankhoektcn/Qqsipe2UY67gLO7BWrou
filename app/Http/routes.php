@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 // PROJECT
 	Route::group(['namespace' => 'Projects'], function()
 	{
+		Route::resource('projectcategories', 'ProjectCategoriesController');
 		Route::resource('projects', 'ProjectsController');
 		Route::resource('project_images', 'Project_imagesController');
 		//Route::resource('project_parts', 'Project_partsController');
@@ -194,10 +195,10 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::group(['namespace' => 'Frontend'], function()
 {
-	Route::get('/', [
+	/*Route::get('/', [
 			'as' => 'homepage',
 			'uses' => 'SiteControllers@index'
-		]);
+		]);*/
 	Route::get('/lien-he.html', [
 			'as' => 'contact',
 			'uses' => 'SiteControllers@contact'
@@ -260,4 +261,19 @@ Route::group(['namespace' => 'Frontend'], function()
 			'as' => 'test',
 			'uses' => 'SiteControllers@test'
 		]);
+
+
+
+
+	//FOR LAYOUT 1
+	Route::get('/', [
+			'as' => 'homepage',
+			'uses' => 'SiteProjectcontrollers@index'
+		]);
+
+	Route::get('/homepage', [
+			'as' => 'homepage1',
+			'uses' => 'SiteProjectcontrollers@index1'
+		]);
+	//END FOR LAYOUT 1
 });

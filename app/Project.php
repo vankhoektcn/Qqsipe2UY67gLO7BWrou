@@ -18,6 +18,11 @@ class Project extends BaseModel
 	protected $dates = ['deleted_at'];
 
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\ProjectCategory');
+    }
+    
 	public function district()
     {
         return $this->belongsTo('App\District');
@@ -42,7 +47,14 @@ class Project extends BaseModel
         return $link;
     }
 
-    public function getFirstAttachment()
+    public function addressFull()
+    {
+        $province = $this->district->province;
+        $address = $this->address . ', ' . $this->district->name . ', ' . $province->name;
+        return $address;
+    }
+
+    public function getFirstImage()
     {
         $images = $this->project_images()->where('active', 1)->orderBy('priority')->first();
         $thumnail = "/uploads/notfound.jpg" ;

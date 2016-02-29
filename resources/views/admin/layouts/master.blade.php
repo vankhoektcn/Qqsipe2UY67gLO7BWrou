@@ -195,6 +195,25 @@
 						</li>
 					</ul>
 				</li>
+				<li class="{{ Request::is('admin/projectcategories*') ? 'active open' : null }}">
+					<a href="javascript:;">
+					<i class="icon-docs"></i>
+					<span class="title">Danh mục dự án</span>
+					<span class="arrow {{ Request::is('admin/projectcategories*') ? 'open' : null }}"></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="{{ Request::is('admin/projectcategories/create') ? 'active' : null }}">
+							<a href="{{ route('admin.projectcategories.create') }}">
+							<i class="icon-note"></i>
+							Tạo mới</a>
+						</li>
+						<li class="{{ Request::is('admin/projectcategories') ? 'active' : null }}">
+							<a href="{{ route('admin.projectcategories.index') }}">
+							<i class="icon-list"></i>
+							Danh sách</a>
+						</li>
+					</ul>
+				</li>
 				<li class="{{ Request::is('admin/projects*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>

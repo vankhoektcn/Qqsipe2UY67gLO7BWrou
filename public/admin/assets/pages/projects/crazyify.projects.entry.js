@@ -41,6 +41,23 @@ crazyify.projects.entry = {
 			'dbfieldname': 'key'
 		},
 		{
+			'label': 'Danh mục',
+			'id': 'categories',
+			'name': 'Project[categories]',
+			'type': 'treecheckbox',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'url': '/admin/projectcategories',
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'categories'
+		},
+		{
 			'label': 'Tỉnh/thành phố',
 			'id': 'province_id',
 			'name': 'Project[province_id]',

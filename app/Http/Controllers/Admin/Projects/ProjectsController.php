@@ -106,6 +106,14 @@ class ProjectsController extends Controller
 			$project->updated_by = $user->name;
 			$project->save();
 
+			// sync categories
+			if ($request->input('Project.categories') != "") {
+				$categories =  explode(",",$request->input('Project.categories'));
+				if (count($categories) > 0) {
+					$project->categories()->attach($categories);
+				}
+			}
+
 			// push project_images
 			foreach ($project_image_path as $key => $value) {
 				array_push($project_images, new Project_image([
@@ -171,7 +179,7 @@ class ProjectsController extends Controller
 	 */
 	public function show($id)
 	{
-		return Project::with('project_images', 'agents', 'project_parts')->findOrFail($id)->toArray();
+		return Project::with('categories', 'project_images', 'agents', 'project_parts')->findOrFail($id)->toArray();
 	}
 
 	/**
@@ -248,6 +256,15 @@ class ProjectsController extends Controller
 			$project->active = $request->input('Project.active');
 			$project->updated_by = $user->name;
 			$project->save();
+
+			// sync categories
+			$project->categories()->detach();
+			if ($request->input('Project.categories') != "") {
+				$categories =  explode(",",$request->input('Project.categories'));
+				if (count($categories) > 0) {
+					$project->categories()->attach($categories);
+				}
+			}
 
 			// push project_images
 			foreach ($project_image_path as $key => $value) {

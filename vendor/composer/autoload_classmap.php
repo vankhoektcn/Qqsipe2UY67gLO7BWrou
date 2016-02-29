@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddSeeds' => $vendorDir . '/dimsav/laravel-translatable/tests/migrations/2014_02_02_181020_add_seeds.php',
     'ArticlesTableSeeder' => $baseDir . '/database/seeds/ArticlesTableSeeder.php',
+    'ProjectsTableSeeder' => $baseDir . '/database/seeds/ProjectsTableSeeder.php',
     'CSSmin' => $vendorDir . '/mrclay/minify/min/lib/CSSmin.php',
     'ConfigsTableSeeder' => $baseDir . '/database/seeds/ConfigsTableSeeder.php',
     'CreateAgentsTable' => $baseDir . '/database/migrations/2015_12_19_163119_create_agents_table.php',
@@ -31,8 +32,10 @@ return array(
     'CreateNewClassTable' => $baseDir . '/database/migrations/2015_11_20_000254_create_new_class_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateProjectAgentProjectTable' => $baseDir . '/database/migrations/2015_12_19_171053_create_project_agent_project_table.php',
+    'CreateProjectCategoriesTable' => $baseDir . '/database/migrations/2016_02_26_090938_create_project_categories_table.php',
     'CreateProjectImagesTable' => $baseDir . '/database/migrations/2015_12_19_170402_create_project_images_table.php',
     'CreateProjectPartsTable' => $baseDir . '/database/migrations/2015_12_19_165650_create_project_parts_table.php',
+    'CreateProjectProjectCategoryTable' => $baseDir . '/database/migrations/2016_02_26_091806_create_project_project_category_table.php',
     'CreateProjectsTable' => $baseDir . '/database/migrations/2015_12_19_163905_create_projects_table.php',
     'CreateProvinceTranslationsTable' => $baseDir . '/database/migrations/2015_11_14_221229_create_province_translations_table.php',
     'CreateProvincesTable' => $baseDir . '/database/migrations/2015_11_14_221204_create_provinces_table.php',
