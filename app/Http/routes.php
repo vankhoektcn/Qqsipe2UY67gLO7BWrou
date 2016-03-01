@@ -39,6 +39,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 		Route::resource('articles', 'ArticlesController');
 	});
 
+	Route::group(['namespace' => 'Products'], function()
+	{
+		Route::resource('products', 'ProductsController');
+		Route::resource('product_types', 'Product_typesController');
+	});
+
 // PROJECT
 	Route::group(['namespace' => 'Projects'], function()
 	{

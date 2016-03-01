@@ -317,21 +317,21 @@
 						<h3><span>CĂN HỘ SANG NHƯỢNG</span></h3>
 					</div>
 					<div class="section-detail">
-						@foreach ($categoryAll as $project)
+						@foreach ($productAll as $product)
 						<div class="blog clearfix apartment-item ps-relative mrgt2x">
 							<div class="blog-img"><img src="/frontend/images1/blogimg-1.jpg" class="img-responsive" alt="#" /></div>
 							<div class="blog-text">
-								<a class="fw-bold fs15" href="#">Resources that we thought you may find useful </a>
-								<div class="address mrgt05"> <i class="fa fa-map-marker project-marker mrgr05"></i> <small><em>Đỗ Xuân Hợp, Quận 9, Hồ Chí Minh</em></small> </div>
+								<a class="fw-bold fs15" href="#">{{$product->title}}</a>
+								<div class="address mrgt05"> <i class="fa fa-map-marker project-marker mrgr05"></i> <small><em>{{$product->address}}, Quận 9, Hồ Chí Minh</em></small> </div>
 								<div class="item_price mrgt05">
                                     Giá:
-                                    <span class="price fw-bold mrgr2x"> 1,1 Tỷ </span>
+                                    <span class="price fw-bold mrgr2x"> {{$product->price}} Tỷ </span>
                                     Diện tích:
-                                    <span class="acreage fw-bold"> 51 m²</span>
+                                    <span class="acreage fw-bold"> {{$product->area}} m²</span>
                                 </div>
 								<p><!-- Alternatively if you have a specific service or question in mind please don’t hesitate to contact us to discuss ... --></p>
 								<ul class="time">
-									<li><a href="#"><i class="icon-access-time"></i>28 Aprli, 2014</a></li>
+									<li><a href="#"><i class="icon-access-time mrgr05 cl-green"></i>{{$product->updated_at->format('d/m/Y')}}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -345,7 +345,7 @@
 						<h3><span>CĂN HỘ CHO THUÊ</span></h3>
 					</div>
 					<div class="section-detail">
-						@foreach ($categoryAll as $project)
+						@foreach ($productAll as $project)
 						<div class="blog clearfix apartment-item ps-relative mrgt2x">
 							<div class="blog-img"><img src="/frontend/images1/blogimg-1.jpg" class="img-responsive" alt="#" /></div>
 							<div class="blog-text">

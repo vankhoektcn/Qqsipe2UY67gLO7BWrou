@@ -33,4 +33,9 @@ class District extends BaseModel
 	{
 		return $this->belongsToMany('App\TutorRegister');
 	}
+	
+	public function products()
+	{
+		return $this->hasMany('App\Product');
+	}
 }

@@ -30,6 +30,7 @@ use Mail;
 
 use App\Project;
 use App\Project_part;
+use App\Product;
 
 class SiteProjectcontrollers extends Controller
 {
@@ -51,10 +52,10 @@ class SiteProjectcontrollers extends Controller
 		$projectsNew = $projectCategory->getProjectsByCategoryKey('du-an-moi-nhat', 3);
 		$canHoSangNhuong = $projectCategory->getProjectsByCategoryKey('can-ho-sang-nhuong', 3);
 		$canHoChoThue = $projectCategory->getProjectsByCategoryKey('can-ho-cho-thue', 3);
-		$categoryAll = ProjectCategory::where('active',1)->get();
+		$productAll = Product::where('active',1)->get();
 		return view('frontend.sites1.index1',['projectsSpecal'=> $projectsSpecal, 'projectsNew'=> $projectsNew 
 			,'canHoSangNhuong'=> $canHoSangNhuong, 'canHoChoThue'=> $canHoChoThue
-			, 'categoryAll'=> $categoryAll ]);
+			, 'productAll'=> $productAll ]);
 	}
 
 	public function article($categorykey, $articlekey)

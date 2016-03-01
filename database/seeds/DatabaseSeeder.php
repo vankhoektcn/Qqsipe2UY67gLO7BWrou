@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TeachTimesTableSeeder::class);
         $this->call(NavigationCategoriesTableSeeder::class);
 
+        $this->call(Product_typesTableSeeder::class);
+
         Model::reguard();
     }
 }

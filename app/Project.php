@@ -12,7 +12,7 @@ class Project extends BaseModel
     protected $fillable = ['key', 'priority', 'active', 'created_by', 'updated_by'];
     public static $rules = [
         'priority' => 'integer',
-        'is_publish' => 'boolean'
+        'active' => 'boolean'
     ];
 
 	protected $dates = ['deleted_at'];
