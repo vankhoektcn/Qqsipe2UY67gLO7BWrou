@@ -53,12 +53,16 @@ class Product extends BaseModel
         return $this->hasMany('App\Attachment', 'entry_id')->where('table_name', '=', 'products');
     }
     
-    public function getFirstAttachment()
+    public function getThumnail()
     {
-        $attachment = $this->attachments()->where('is_publish', 1)->orderBy('priority')->first();
         $thumnail = "/uploads/notfound.jpg" ;
-        if(isset($attachment))
-            $thumnail = $attachment->path;
+        if(isset($this->main_image))
+            $thumnail = $this->main_image;
+        else{  
+            $attachment = $this->attachments()->where('is_publish', 1)->orderBy('priority')->first();
+            if(isset($attachment))
+                $thumnail = $attachment->path;
+        }
         return $thumnail;
     }
     public function getLink()

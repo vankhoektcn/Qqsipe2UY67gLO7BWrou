@@ -28,9 +28,12 @@ use SEOMeta;
 use Image;
 use Mail;
 
+use App\Province;
 use App\Project;
 use App\Project_part;
+use App\Product_type;
 use App\Product;
+use App\Agent;
 
 class SiteProjectcontrollers extends Controller
 {
@@ -39,23 +42,24 @@ class SiteProjectcontrollers extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
-	{
-		$this->setMetadata();
-		return view('frontend.sites1.index');
-	}
 	public function index1()
 	{
 		$this->setMetadata();
+		return view('frontend.sites1.index1');
+	}
+	public function index()
+	{
+		$this->setMetadata();
+		$provinces = Province::where('is_publish',1)->get();
 		$projectCategory = new ProjectCategory;
 		$projectsSpecal = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 3);
 		$projectsNew = $projectCategory->getProjectsByCategoryKey('du-an-moi-nhat', 3);
-		$canHoSangNhuong = $projectCategory->getProjectsByCategoryKey('can-ho-sang-nhuong', 3);
-		$canHoChoThue = $projectCategory->getProjectsByCategoryKey('can-ho-cho-thue', 3);
-		$productAll = Product::where('active',1)->get();
-		return view('frontend.sites1.index1',['projectsSpecal'=> $projectsSpecal, 'projectsNew'=> $projectsNew 
-			,'canHoSangNhuong'=> $canHoSangNhuong, 'canHoChoThue'=> $canHoChoThue
-			, 'productAll'=> $productAll ]);
+		$product_types = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$agents = Agent::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(4)->get();
+		//$canHoChoThue = $product_type->getProductsByTypeKey('can-ho-sang-nhuong', 3);
+		//$productAll = Product::where('active',1)->get();
+		return view('frontend.sites1.index',[ 'provinces'=> $provinces,'projectsSpecal'=> $projectsSpecal, 'projectsNew'=> $projectsNew 
+			, 'product_types'=> $product_types, 'agents'=> $agents ]);
 	}
 
 	public function article($categorykey, $articlekey)
@@ -407,44 +411,43 @@ class SiteProjectcontrollers extends Controller
 			return view('errors.404');
 	}
 
-	public function test()
+
+	// FOR PRODUCT
+	public function product($districtkey,$productkey)
 	{
+		$product = Product::where('key',$productkey)->first();
+		if($product != null){
+			$other_products = Product::where('active',1)->orderBy('priority')->take(5)->get();
 
-		return view('frontend.sites.test');
-	}
-
-
-	public function article__($categorykey, $articlekey)
-	{
-		$article = Article::where('key',$articlekey)->first();
-		if($article != null){
 			// metadata
-			$site_title = $article->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			$site_title = $product->name . ' - ' . Config::findByKey('site_title')->first()->value;
 			SEOMeta::setTitle($site_title);
-			SEOMeta::setDescription($article->meta_description);
-			SEOMeta::addKeyword([$article->meta_keywords]);
-			SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
-			if (isset($article->categories->first()->name)) {
-				SEOMeta::addMeta('article:section', $article->categories->first()->name, 'property');
+			SEOMeta::setDescription($product->meta_description);
+			SEOMeta::addKeyword([$product->meta_keywords]);
+			SEOMeta::addMeta('product:published_time', $product->created_at->toW3CString(), 'property');
+			if (isset($product->product_type->name)) {
+				SEOMeta::addMeta('product:section', $product->product_type->name, 'property');
 			}
 
 			OpenGraph::setTitle($site_title);
-			OpenGraph::setDescription($article->meta_description);
-			OpenGraph::setUrl(route('article', ['categorykey' => $categorykey, 'articlekey' => $articlekey]));
-			OpenGraph::addProperty('type', 'article');
+			OpenGraph::setDescription($product->meta_description);
+			OpenGraph::setUrl($product->getLink());
+			OpenGraph::addProperty('type', 'product');
 			OpenGraph::addProperty('locale', app()->getLocale());
 			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
 
-			OpenGraph::addImage($article->getFirstAttachment());
-			OpenGraph::addImage($article->attachments->lists('path'));
-			OpenGraph::addImage(['url' => Image::url($article->getFirstAttachment(),300,300,array('crop')), 'size' => 300]);
+			OpenGraph::addImage($product->getThumnail());
+			OpenGraph::addImage($product->attachments->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($product->getThumnail(),300,300,array('crop')), 'size' => 300]);
 			// end metadata
-
-			return view('frontend.sites.article',compact('article'));
+			return view('frontend.sites.product',compact('product'));
 		}
 		else
 			return view('errors.404');
 	}
 
-
+	public function product_type($producttypekey)
+	{
+		return redirect()->route('homepage');
+	}
 }

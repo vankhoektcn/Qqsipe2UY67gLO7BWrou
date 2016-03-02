@@ -105,6 +105,8 @@ class ProductsController extends Controller
 				$requestAttachments = explode(',', $request->input('Product.attachments'));
 				$attachments = [];
 				foreach ($requestAttachments as $key => $value) {
+					if($key == 0 && !isset($product->main_image))
+						$product->main_image = $value;
 					array_push($attachments, new Attachment([
 						'entry_id' => $product->id,
 						'table_name' => 'products',
@@ -133,7 +135,7 @@ class ProductsController extends Controller
 	 */
 	public function show($id)
 	{
-		return Product::with('translations', 'categories', 'attachments')->findOrFail($id)->toArray();
+		return Product::with( 'attachments')->findOrFail($id)->toArray();
 	}
 
 	/**

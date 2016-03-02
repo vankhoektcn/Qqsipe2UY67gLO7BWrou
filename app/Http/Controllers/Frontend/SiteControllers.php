@@ -401,44 +401,38 @@ class SiteControllers extends Controller
 			return view('errors.404');
 	}
 
-	public function test()
+	// FOR PRODUCT
+	public function product($districtkey,$productkey)
 	{
+		$product = Product::where('key',$productkey)->first();
+		if($product != null){
+			$other_products = Product::where('active',1)->orderBy('priority')->take(5)->get();
 
-		return view('frontend.sites.test');
-	}
-
-
-	public function article__($categorykey, $articlekey)
-	{
-		$article = Article::where('key',$articlekey)->first();
-		if($article != null){
 			// metadata
-			$site_title = $article->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			$site_title = $product->name . ' - ' . Config::findByKey('site_title')->first()->value;
 			SEOMeta::setTitle($site_title);
-			SEOMeta::setDescription($article->meta_description);
-			SEOMeta::addKeyword([$article->meta_keywords]);
-			SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
-			if (isset($article->categories->first()->name)) {
-				SEOMeta::addMeta('article:section', $article->categories->first()->name, 'property');
+			SEOMeta::setDescription($product->meta_description);
+			SEOMeta::addKeyword([$product->meta_keywords]);
+			SEOMeta::addMeta('product:published_time', $product->created_at->toW3CString(), 'property');
+			if (isset($product->product_type->name)) {
+				SEOMeta::addMeta('product:section', $product->product_type->name, 'property');
 			}
 
 			OpenGraph::setTitle($site_title);
-			OpenGraph::setDescription($article->meta_description);
-			OpenGraph::setUrl(route('article', ['categorykey' => $categorykey, 'articlekey' => $articlekey]));
-			OpenGraph::addProperty('type', 'article');
+			OpenGraph::setDescription($product->meta_description);
+			OpenGraph::setUrl($productgetLink());
+			OpenGraph::addProperty('type', 'product');
 			OpenGraph::addProperty('locale', app()->getLocale());
 			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
 
-			OpenGraph::addImage($article->getFirstAttachment());
-			OpenGraph::addImage($article->attachments->lists('path'));
-			OpenGraph::addImage(['url' => Image::url($article->getFirstAttachment(),300,300,array('crop')), 'size' => 300]);
+			OpenGraph::addImage($product->getThumnail());
+			OpenGraph::addImage($product->attachments->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($product->getThumnail(),300,300,array('crop')), 'size' => 300]);
 			// end metadata
-
-			return view('frontend.sites.article',compact('article'));
+			return view('frontend.sites.product',compact('product'));
 		}
 		else
 			return view('errors.404');
 	}
-
 
 }

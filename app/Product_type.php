@@ -24,7 +24,7 @@ class Product_type extends BaseModel
 
 	public function getLink()
 	{
-		return route('type', ['typekey' => $this->key]);
+		return route('product_type', ['typekey' => $this->key]);
 	}
 
 	public function getAllTopLevel()

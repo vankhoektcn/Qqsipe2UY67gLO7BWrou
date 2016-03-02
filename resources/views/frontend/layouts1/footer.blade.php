@@ -1,56 +1,57 @@
+@inject('product_type', 'App\Product_type')
 <footer class="bg-color">
 	<div class="container">
 		<div class="upper-footer clearfix">
 			<div class="widgets">
 				<div class="col-md-3">
-					<div class="about-widget"> <img src="/frontend/images1/footer-logo.png" class="img-responsive" alt="#" />
-						<p>Alternatively if you have a specific service or question in mind please don’t hesitate to contact us to discuss this using the contact details on the Contact Us page of the site.</p>
+					<div class="about-widget"> <img src="/frontend/images1/LogoVanLand4.png" class="img-responsive" alt="#" />
+						<p>Là trang truyền thông bất động sản của Việt Nam, phát triển dựa trên nền tảng công nghệ mới - ứng dụng bản đồ, hỗ trợ tối đa công cụ tìm kiếm và đăng tin.</p>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="widget-heading mrgb4x">
-						<h4>OUR SERVICELIST</h4>
+						<h4>LOẠI BẤT ĐỘNG SẢN</h4>
 					</div>
 					<ul class="widget-area service-list">
-						<li><a href="#"><i class="fa fa-play-circle"></i><span>Hotel Stars Checking / Validation</span></a></li>
-						<li><a href="#"><i class="fa fa-play-circle"></i><span>Vacation for wedding or holiday</span></a></li>
-						<li><a href="#"><i class="fa fa-play-circle"></i><span>Rent a living room or a house</span></a></li>
-						<li><a href="#"><i class="fa fa-play-circle"></i><span>Appartements for sale</span></a></li>
-						<li><a href="#"><i class="fa fa-play-circle"></i><span>Buy your dream house and more</span></a></li>
+					@foreach ($product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get() as $product_type)
+						<li><a href="{{$product_type->getLink()}}"><i class="fa fa-play-circle"></i><span>{{$product_type->name}}</span></a></li>
+					@endforeach
 					</ul>
 				</div>
 				<div class="col-md-3">
 					<div class="widget-heading mrgb4x ">
-						<h4>TWITTER FEED</h4>
+						<h4>CHỨC NĂNG</h4>
 					</div>
-					<ul class="widget-area tweet">
-						<li><a href="#"><i class="fa fa-twitter"></i><span>@envato  Creating a new theme for the real estate section</span> <span class="active-time"># 2 hours ago</span></a></li>
-						<li><a href="#"><i class="fa fa-twitter"></i><span>@envato  We create awesome PSD templates for multi-pupose</span> <span class="active-time"># 8 hours ago</span></a></li>
+					<ul class="widget-area service-list">
+						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Hợp tác môi giới</span></a></li>
+						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Tìm căn hộ cùng VanLand/span></a></li>
+						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Kiến thức bất động sản</span></a></li>
+						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Quy chế hoạt động</span></a></li>
 					</ul>
 				</div>
 				<div class="col-md-3">
 					<div class="widget-heading mrgb4x ">
-						<h4>GET IN TOUCH WITH US</h4>
+						<h4>LIÊN HỆ</h4>
 					</div>
 					<ul class="widget-area contact clearfix">
-						<li> <a href="#"><i class="icon-location10"></i><span>147 Sixth Avenue San Francisco, CA</span></a></li>
-						<li> <a href="#"><i class="icon-earth"></i><span>http://www.qvrenti-real-estate.com</span></a></li>
-						<li> <a href="#"><i class="fa fa-phone"></i><span>+49 123 456 798</span></a></li>
-						<li> <a href="#"><i class="icon-email4"></i><span>qvrenti-support@email.com</span></a></li>
+						<li> <a href="javascript:;"><i class="icon-location10"></i><span>789h An Phú, Q.2, Hồ Chí Minh<span></a></li>
+						<li> <a href="javascript:;"><i class="icon-earth"></i><span>http://www.vanland.com.vn</span></a></li>
+						<li> <a href="javascript:;"><i class="fa fa-phone"></i><span>0932 622 017</span></a></li>
+						<li> <a href="javascript:;"><i class="icon-email4"></i><span>support@vanland.com.vn</span></a></li>
 					</ul>
 					<ul class="footer-social-media">
-						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-						<li><a href="#"><i class="fa fa-google"></i></a></li>
-						<li><a href="#"><i class="icon-pinterest-p"></i></a></li>
-						<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-dribbble"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-google"></i></a></li>
+						<li><a href="javascript:;"><i class="icon-pinterest-p"></i></a></li>
+						<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="lower-footer">
-		<p>Made with<span><i class="fa fa-heart-o"></i></span>by <a href="http://themeforest.net/user/Template-Geek">Template-Geek</a> | Copyright 2014</p>
+		<p>Thiết kế & SEO bởi  <a class="text-danger" href="http://ketnoimoi.com">ketnoimoi.com</a> | Copyright 2016</p>
 	</div>
 </footer>

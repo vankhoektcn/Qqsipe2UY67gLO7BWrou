@@ -25,30 +25,30 @@
 	<div class="container">
 		<div class="left-bar">
 			<ul class="social-media">
-				<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-				<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-				<li class="dribble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-				<li class="vimeo"><a href="#"><i class="icon-vimeo"></i></a></li>
-				<li class="google"><a href="#"><i class="fa fa-google"></i></a></li>
-				<li class="deviantart"><a href="#"><i class="icon-deviantart3"></i></a></li>
-				<li class="pinterest"><a href="#"><i class="icon-pinterest-p"></i></a></li>
-				<li class="instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
+				<li class="facebook"><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+				<li class="twitter"><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+				<li class="dribble"><a href="javascript:;"><i class="fa fa-dribbble"></i></a></li>
+				<li class="vimeo"><a href="javascript:;"><i class="icon-vimeo"></i></a></li>
+				<li class="google"><a href="javascript:;"><i class="fa fa-google"></i></a></li>
+				<li class="deviantart"><a href="javascript:;"><i class="icon-deviantart3"></i></a></li>
+				<li class="pinterest"><a href="javascript:;"><i class="icon-pinterest-p"></i></a></li>
+				<li class="instagram"><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
 			</ul>
 		</div>
 		<div class="right-bar">
 			<ul class="contact">
 				<li><i class="fa fa-phone"></i></li>
-				<li><span>Call us</span></li>
-				<li class="contact-info"><a href="#">+49 123 456 789</a></li>
+				<li><span>Hotline</span></li>
+				<li class="contact-info"><a href="javascript:;">0932 622 017</a></li>
 			</ul>
 			<ul class="mail">
 				<li><i class="icon-email4"></i></li>
-				<li><span>Send email</span></li>
-				<li class="contact-info"><a href="#">support@email.de</a></li>
+				<li><span>Gửi email</span></li>
+				<li class="contact-info"><a href="javascript:;">support@vanland.com.vn</a></li>
 			</ul>
 			<ul class="login">
 				<li><i class="icon-login"></i></li>
-				<li><a href="#"><span>Login</span></a></li>
+				<li><a href="javascript:;"><span>Đăng nhập</span></a></li>
 			</ul>
 		</div>
 	</div>
@@ -64,9 +64,11 @@
 				<nav class="navbar navbar-default">
 					<div id="navbar" class="navbar-collapse collapse pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="Qvrenti_1.html">HOME</a></li>
-							<li><a href="#">FEATURES</a></li>
-							<li class="active"><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">PROPERTIES</a>
+							<li><a href="/" title="Trang chủ">
+								<i class="icon-home10 home-icon"></i>
+							</a></li>
+							<li><a href="javascript:;">FEATURES</a></li>
+							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">PROPERTIES</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="Properties_List.html">PROPERTIES LIST</a></li>
 									<li><a href="Properties_List_2.html">PROPERTIES LIST 2</a></li>
@@ -78,13 +80,13 @@
 								</ul>
 							</li>
 							<li><a href="agents.html">AGENTS</a></li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">BLOG</a>
+							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">BLOG</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="Blog-Single-Post.html">Blog Single Post</a></li>
 									<li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
 								</ul>
 							</li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">PAGES</a>
+							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">PAGES</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="Qvrenti_2.html">HOME 2</a></li>
 									<li><a href="Services.html">SERVICE PAGE</a></li>
@@ -95,7 +97,7 @@
 									<li><a href="Shortcodes.html">SHORTCODES</a></li>
 								</ul>
 							</li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">CONTACT US</a>
+							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">CONTACT US</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="Contact.html">CONTACT 1</a></li>
 									<li><a href="Contact-Style-2.html">CONTACT 2</a></li>
@@ -112,10 +114,10 @@
 	<div class="container">
 		<div class="page-title mrgt6x mrgb6x clearfix">
 			<h4 class="page-name">properties list</h4>
-			<div class="tag-bar"> <a href="#"><span>searching properties</span></a> </div>
+			<div class="tag-bar"> <a href="javascript:;"><span>searching properties</span></a> </div>
 			<ul class="breadcrumb">
-				<li><a href="#">Pages</a></li>
-				<li class="active"><a href="#">Properties list</a></li>
+				<li><a href="javascript:;">Pages</a></li>
+				<li class="active"><a href="javascript:;">Properties list</a></li>
 			</ul>
 		</div>
 	</div>

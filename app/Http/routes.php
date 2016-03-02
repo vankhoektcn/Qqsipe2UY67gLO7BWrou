@@ -257,18 +257,28 @@ Route::group(['namespace' => 'Frontend'], function()
 	// for projects	
 	Route::get('/du-an/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
-			'uses' => 'SiteControllers@project'
+			'uses' => 'SiteProjectcontrollers@project'
 		]);
 	Route::get('/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
 			'as' => 'project_part',
-			'uses' => 'SiteControllers@project_part'
+			'uses' => 'SiteProjectcontrollers@project_part'
 		]);
 	Route::get('/du-an.html', [
 			'as' => 'test',
-			'uses' => 'SiteControllers@test'
+			'uses' => 'SiteProjectcontrollers@test'
 		]);
 
+	//FOR PRODUCT
+	Route::get('/tin-dang/{districtkey}/{productkey}.html', [
+			'as' => 'product',
+			'uses' => 'SiteProjectcontrollers@product'
+		]);
 
+	//FOR PRODUCT_TYPE
+	Route::get('/loai/{producttypekey}.html', [
+			'as' => 'product_type',
+			'uses' => 'SiteProjectcontrollers@product_type'
+		]);
 
 
 	//FOR LAYOUT 1

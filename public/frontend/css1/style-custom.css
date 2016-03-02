@@ -108,3 +108,56 @@ color:#055699
     display: inline-block;
     margin-right: 10px;
 }
+.top-tabs .tab-content {
+    border: 1px solid #d5d5d5;
+    border-top: none;
+    padding-top: 15px;
+}
+.form-control {
+     min-height: 38px; 
+}
+.select-box::before{    
+    padding: 8px 14px;
+}
+.select-box select {
+     color: #555; 
+}
+.section-more{
+    margin: 10px 10px 20px 10px;
+}
+.home-icon{
+    font-size: 20px;
+}
+.agent-name h5::after {
+    content: "";
+}
+.lower-footer a {
+    color: indianred;
+}
+.place-img:hover .place-text {
+    visibility: hidden;
+    opacity: 0;
+}
+.place-img:hover a {
+    visibility: visible;
+    opacity: 1;
+}
+.place-text {
+    visibility: visible;
+    opacity: 1;
+}
+.place-img:hover .btnProjectSpecalDetail {
+    display: block;
+}
+.btnProjectSpecalDetail {
+    display: none;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+.btnProjectSpecalDetail a{
+    color: #fff;
+}
+.location-icon {
+    color: #EC407A;
+}
