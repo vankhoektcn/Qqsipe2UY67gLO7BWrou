@@ -234,7 +234,7 @@ var CControl = function () {
             });
         }
 
-	var _afterInit = function(){
+	var _afterInit = function(callback){
 
 		$(_dom).find("input.input-images").each(function (index, item) {
 			var ctrlid = $(item).attr('id');
@@ -350,6 +350,9 @@ var CControl = function () {
                 _sendFileEditor(files[0], editor, welEditable);
             }
 		});
+
+		if(callback != null && typeof LayoutInit == 'function')
+			callback();
 		if (typeof LayoutInit == 'function') {
 			LayoutInit(true);
 		};
@@ -360,7 +363,7 @@ var CControl = function () {
 	return {
 
 		//main function
-		init: function (options) {
+		init: function (options, callback) {
 
 			var opts = {
 				dom: null,
@@ -546,7 +549,7 @@ var CControl = function () {
 				};
 			});
 			$(_dom).append(resutlHtml);
-			_afterInit();
+			_afterInit(callback);
 		},
 		getHTMLText: function (options) {
 			return _getHTMLText(options);

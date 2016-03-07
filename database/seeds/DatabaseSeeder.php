@@ -17,13 +17,20 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguagesTableSeeder::class);
         $this->call(ConfigsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
+        //$this->call(ArticlesTableSeeder::class);
         $this->call(ProvincesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
-        $this->call(SubjectsTableSeeder::class);
-        $this->call(TeachTimesTableSeeder::class);
+        //$this->call(SubjectsTableSeeder::class);
+        //$this->call(TeachTimesTableSeeder::class);
         $this->call(NavigationCategoriesTableSeeder::class);
 
+        $this->call(Project_typesTableSeeder::class);
+        $this->call(ProjectsTableSeeder::class);
+        $this->call(Product_typesTableSeeder::class);
+        $this->call(AgentsTableSeeder::class);
+        $this->call(WardsTableSeeder::class);
+        $this->call(StreetsTableSeeder::class);
+        
         Model::reguard();
     }
 }

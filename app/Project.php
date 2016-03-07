@@ -12,16 +12,38 @@ class Project extends BaseModel
     protected $fillable = ['key', 'priority', 'active', 'created_by', 'updated_by'];
     public static $rules = [
         'priority' => 'integer',
-        'is_publish' => 'boolean'
+        'active' => 'boolean'
     ];
 
 	protected $dates = ['deleted_at'];
 
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\ProjectCategory');
+    }
+    public function project_type()
+    {
+        return $this->belongsTo('App\Project_type');
+    }
+    
+    public function province()
+    {
+        return $this->belongsTo('App\Province');
+    }
 	public function district()
     {
         return $this->belongsTo('App\District');
+    }    
+    public function ward()
+    {
+        return $this->belongsTo('App\Ward');
+    }    
+    public function street()
+    {
+        return $this->belongsTo('App\Street');
     }
+    
 	public function agents()
 	{
 		return $this->belongsToMany('App\Agent');
@@ -42,7 +64,14 @@ class Project extends BaseModel
         return $link;
     }
 
-    public function getFirstAttachment()
+    public function addressFull()
+    {
+        $province = $this->district->province;
+        $address = $this->address . ', ' . $this->district->name . ', ' . $province->name;
+        return $address;
+    }
+
+    public function getFirstImage()
     {
         $images = $this->project_images()->where('active', 1)->orderBy('priority')->first();
         $thumnail = "/uploads/notfound.jpg" ;

@@ -29,4 +29,8 @@ class Province extends BaseModel
 		return $this->hasMany('App\District');
 	}
 
+	public function products()
+	{
+		return $this->hasMany('App\Product');
+	}
 }

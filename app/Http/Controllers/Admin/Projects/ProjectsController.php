@@ -65,6 +65,7 @@ class ProjectsController extends Controller
 			$project = new Project;
 			$project->key = Common::createKeyURL($request->input('Project.name'));
 			$project->name = $request->input('Project.name');
+			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
 			$project->address = $request->input('Project.address');
@@ -105,6 +106,14 @@ class ProjectsController extends Controller
 			$project->created_by = $user->name;
 			$project->updated_by = $user->name;
 			$project->save();
+
+			// sync categories
+			if ($request->input('Project.categories') != "") {
+				$categories =  explode(",",$request->input('Project.categories'));
+				if (count($categories) > 0) {
+					$project->categories()->attach($categories);
+				}
+			}
 
 			// push project_images
 			foreach ($project_image_path as $key => $value) {
@@ -171,7 +180,7 @@ class ProjectsController extends Controller
 	 */
 	public function show($id)
 	{
-		return Project::with('project_images', 'agents', 'project_parts')->findOrFail($id)->toArray();
+		return Project::with('categories', 'project_images', 'agents', 'project_parts')->findOrFail($id)->toArray();
 	}
 
 	/**
@@ -213,6 +222,7 @@ class ProjectsController extends Controller
 			$project = Project::findOrFail($id);
 			$project->key = Common::createKeyURL($request->input('Project.name'));
 			$project->name = $request->input('Project.name');
+			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
 			$project->address = $request->input('Project.address');
@@ -248,6 +258,15 @@ class ProjectsController extends Controller
 			$project->active = $request->input('Project.active');
 			$project->updated_by = $user->name;
 			$project->save();
+
+			// sync categories
+			$project->categories()->detach();
+			if ($request->input('Project.categories') != "") {
+				$categories =  explode(",",$request->input('Project.categories'));
+				if (count($categories) > 0) {
+					$project->categories()->attach($categories);
+				}
+			}
 
 			// push project_images
 			foreach ($project_image_path as $key => $value) {

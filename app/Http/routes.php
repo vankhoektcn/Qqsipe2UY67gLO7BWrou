@@ -39,9 +39,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 		Route::resource('articles', 'ArticlesController');
 	});
 
+	Route::group(['namespace' => 'Products'], function()
+	{
+		Route::resource('products', 'ProductsController');
+		Route::resource('product_types', 'Product_typesController');
+	});
+
 // PROJECT
 	Route::group(['namespace' => 'Projects'], function()
 	{
+		Route::resource('project_types', 'Project_typesController');
+		Route::resource('projectcategories', 'ProjectCategoriesController');
 		Route::resource('projects', 'ProjectsController');
 		Route::resource('project_images', 'Project_imagesController');
 		//Route::resource('project_parts', 'Project_partsController');
@@ -194,10 +202,10 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::group(['namespace' => 'Frontend'], function()
 {
-	Route::get('/', [
+	/*Route::get('/', [
 			'as' => 'homepage',
 			'uses' => 'SiteControllers@index'
-		]);
+		]);*/
 	Route::get('/lien-he.html', [
 			'as' => 'contact',
 			'uses' => 'SiteControllers@contact'
@@ -247,17 +255,96 @@ Route::group(['namespace' => 'Frontend'], function()
 			'uses' => 'SiteControllers@searchNewClass'
 		]);
 
-	// for projects	
+//---------------------------- FOR PROJECTS		 ----------------------------------------------------------
+	// ALL	
+	Route::get('/du-an.html', [
+			'as' => 'du_an',
+			'uses' => 'SiteProjectcontrollers@du_an'
+		]);
+	// SEARCH
+		Route::get('/tim-kiem-du-an.html', [
+			'as' => 'project_search',
+			'uses' => 'SiteProjectcontrollers@project_search'
+		]);	
+	// PROJECT_TYPE
+	Route::get('/du-an/{producttypekey}.html', [
+			'as' => 'project_type',
+			'uses' => 'SiteProjectcontrollers@project_type'
+		]);
 	Route::get('/du-an/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
-			'uses' => 'SiteControllers@project'
+			'uses' => 'SiteProjectcontrollers@project'
 		]);
-	Route::get('/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
+	Route::get('/du-an/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
 			'as' => 'project_part',
-			'uses' => 'SiteControllers@project_part'
+			'uses' => 'SiteProjectcontrollers@project_part'
 		]);
-	Route::get('/du-an.html', [
-			'as' => 'test',
-			'uses' => 'SiteControllers@test'
+
+//---------------------------- FOR PRODUCT  ----------------------------------------------------------
+	// ALL	
+	Route::get('/can-ho.html', [
+			'as' => 'can_ho',
+			'uses' => 'SiteProjectcontrollers@can_ho'
 		]);
+
+	// SEARCH
+	Route::get('/tim-kiem-can-ho.html', [
+			'as' => 'product_search',
+			'uses' => 'SiteProjectcontrollers@product_search'
+		]);	
+
+	Route::get('/can-ho/{districtkey}/{productkey}.html', [
+			'as' => 'product',
+			'uses' => 'SiteProjectcontrollers@product'
+		]);
+
+	//PRODUCT_TYPE
+	Route::get('/can-ho/{producttypekey}.html', [
+			'as' => 'product_type',
+			'uses' => 'SiteProjectcontrollers@product_type'
+		]);
+
+	//FOR LAYOUT 1
+	Route::get('/', [
+			'as' => 'homepage',
+			'uses' => 'SiteProjectcontrollers@index'
+		]);
+
+	Route::get('/homepage', [
+			'as' => 'homepage1',
+			'uses' => 'SiteProjectcontrollers@index1'
+		]);
+	//END FOR LAYOUT 1
+});
+
+
+////////////////////////////// EXTRA ROUTE //////////////////////////////
+
+Route::group(['prefix' => 'extra','namespace' => 'Extra'], function()
+{
+	Route::get('/product_types', [
+			'as' => 'extra.product_types',
+			'uses' => 'ExtrasController@getProductType'
+	]);
+	Route::get('/project_types', [
+			'as' => 'extra.project_types',
+			'uses' => 'ExtrasController@getProjectType'
+	]);
+	Route::get('/provinces', [
+			'as' => 'extra.provinces',
+			'uses' => 'ExtrasController@getProvinces'
+	]);	
+	Route::get('/districts-by-province/{province_id}', [
+			'as' => 'extra.districtsByProvince',
+			'uses' => 'ExtrasController@getDistrictsByProvince'
+	]);	
+	Route::get('/ward-by-district/{district_id}', [
+			'as' => 'extra.wardsByDistrict',
+			'uses' => 'ExtrasController@getWardsByDistrict'
+	]);
+
+	Route::get('/street-by-district/{district_id}', [
+			'as' => 'extra.streetsByDistrict',
+			'uses' => 'ExtrasController@getStreetsByDistrict'
+	]);
 });

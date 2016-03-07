@@ -16,7 +16,7 @@
 		<div class="property-small">
             <a href="{{ $project->getLink() }}" class="property-simple-image">
             	<i class="fa fa-search-plus property-simple-hover-icon"></i>
-                <img width="100%" src="{{ Image::url($project->getFirstAttachment(),814,364,array('crop')) }}" alt="">
+                <img width="100%" src="{{ Image::url($project->getFirstImage(),814,364,array('crop')) }}" alt="">
             </a>
 
             <div class="property-small-content">
