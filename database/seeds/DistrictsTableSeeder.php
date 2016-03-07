@@ -27,7 +27,7 @@ class DistrictsTableSeeder extends Seeder
 	        $district = district::create([
 				'key' => Common::createKeyURL($value),
 				'province_id' => $province_id,
-				'priority' => 0,
+				'priority' => $key,
 				'is_publish' => 1,
 				'created_by' => 'vankhoe',
 				'updated_by' => 'vankhoe'
@@ -35,7 +35,9 @@ class DistrictsTableSeeder extends Seeder
 			DistrictTranslation::create([
 				'district_id' => $district->id,
 				'locale' => 'vi',
-				'name' => $value
+				'name' => $value,
+                'meta_description' => 'Bán căn hộ '.$value . ', sang nhượng căn hộ '.$value . ', cho thuê căn hộ '.$value,
+                'meta_keywords' => 'Bán căn hộ '.$value . ', sang nhượng căn hộ '.$value . ', cho thuê căn hộ '.$value,
 			]);
         }
     }

@@ -17,8 +17,12 @@ class CreateStreetsTable extends Migration
             $table->integer('district_id')->index();
             $table->string('key', 250)->index();
             $table->string('name', 250);
+
+            $table->string('meta_description', 500);
+            $table->string('meta_keywords', 500);
+            
             $table->integer('priority');
-            $table->boolean('active');
+            $table->boolean('is_publish');
             $table->string('created_by', 50);
             $table->string('updated_by', 50)->nullable();
             $table->string('deleted_by', 50)->nullable();

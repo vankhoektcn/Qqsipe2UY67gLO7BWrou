@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 // PROJECT
 	Route::group(['namespace' => 'Projects'], function()
 	{
+		Route::resource('project_types', 'Project_typesController');
 		Route::resource('projectcategories', 'ProjectCategoriesController');
 		Route::resource('projects', 'ProjectsController');
 		Route::resource('project_images', 'Project_imagesController');
@@ -254,32 +255,54 @@ Route::group(['namespace' => 'Frontend'], function()
 			'uses' => 'SiteControllers@searchNewClass'
 		]);
 
-	// for projects	
+//---------------------------- FOR PROJECTS		 ----------------------------------------------------------
+	// ALL	
+	Route::get('/du-an.html', [
+			'as' => 'du_an',
+			'uses' => 'SiteProjectcontrollers@du_an'
+		]);
+	// SEARCH
+		Route::get('/tim-kiem-du-an.html', [
+			'as' => 'project_search',
+			'uses' => 'SiteProjectcontrollers@project_search'
+		]);	
+	// PROJECT_TYPE
+	Route::get('/du-an/{producttypekey}.html', [
+			'as' => 'project_type',
+			'uses' => 'SiteProjectcontrollers@project_type'
+		]);
 	Route::get('/du-an/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
 			'uses' => 'SiteProjectcontrollers@project'
 		]);
-	Route::get('/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
+	Route::get('/du-an/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
 			'as' => 'project_part',
 			'uses' => 'SiteProjectcontrollers@project_part'
 		]);
-	Route::get('/du-an.html', [
-			'as' => 'test',
-			'uses' => 'SiteProjectcontrollers@test'
+
+//---------------------------- FOR PRODUCT  ----------------------------------------------------------
+	// ALL	
+	Route::get('/can-ho.html', [
+			'as' => 'can_ho',
+			'uses' => 'SiteProjectcontrollers@can_ho'
 		]);
 
-	//FOR PRODUCT
-	Route::get('/tin-dang/{districtkey}/{productkey}.html', [
+	// SEARCH
+	Route::get('/tim-kiem-can-ho.html', [
+			'as' => 'product_search',
+			'uses' => 'SiteProjectcontrollers@product_search'
+		]);	
+
+	Route::get('/can-ho/{districtkey}/{productkey}.html', [
 			'as' => 'product',
 			'uses' => 'SiteProjectcontrollers@product'
 		]);
 
-	//FOR PRODUCT_TYPE
-	Route::get('/loai/{producttypekey}.html', [
+	//PRODUCT_TYPE
+	Route::get('/can-ho/{producttypekey}.html', [
 			'as' => 'product_type',
 			'uses' => 'SiteProjectcontrollers@product_type'
 		]);
-
 
 	//FOR LAYOUT 1
 	Route::get('/', [
@@ -292,4 +315,36 @@ Route::group(['namespace' => 'Frontend'], function()
 			'uses' => 'SiteProjectcontrollers@index1'
 		]);
 	//END FOR LAYOUT 1
+});
+
+
+////////////////////////////// EXTRA ROUTE //////////////////////////////
+
+Route::group(['prefix' => 'extra','namespace' => 'Extra'], function()
+{
+	Route::get('/product_types', [
+			'as' => 'extra.product_types',
+			'uses' => 'ExtrasController@getProductType'
+	]);
+	Route::get('/project_types', [
+			'as' => 'extra.project_types',
+			'uses' => 'ExtrasController@getProjectType'
+	]);
+	Route::get('/provinces', [
+			'as' => 'extra.provinces',
+			'uses' => 'ExtrasController@getProvinces'
+	]);	
+	Route::get('/districts-by-province/{province_id}', [
+			'as' => 'extra.districtsByProvince',
+			'uses' => 'ExtrasController@getDistrictsByProvince'
+	]);	
+	Route::get('/ward-by-district/{district_id}', [
+			'as' => 'extra.wardsByDistrict',
+			'uses' => 'ExtrasController@getWardsByDistrict'
+	]);
+
+	Route::get('/street-by-district/{district_id}', [
+			'as' => 'extra.streetsByDistrict',
+			'uses' => 'ExtrasController@getStreetsByDistrict'
+	]);
 });

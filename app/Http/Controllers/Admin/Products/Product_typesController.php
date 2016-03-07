@@ -60,7 +60,9 @@ class Product_typesController extends Controller
 
             // insert Product_type
             $product_type = new Product_type;
-            $product_type->key = Common::createKeyURL($request->input('Product_type.name'));
+            $product_type->key = Common::createKeyURL($request->input('Product_type.name'));            
+            $product_type->meta_description = $request->input('Project_type.meta_description');
+            $product_type->meta_keywords = $request->input('Project_type.meta_keywords');
             $product_type->priority = $request->input('Product_type.priority');
             $product_type->is_publish = $request->input('Product_type.is_publish');
             $product_type->created_by = $user->name;
@@ -122,7 +124,9 @@ class Product_typesController extends Controller
 
             // insert Product_type
             $product_type = Product_type::findOrFail($id);
-            $product_type->key = Common::createKeyURL($request->input('Product_type.name'));
+            $product_type->key = Common::createKeyURL($request->input('Product_type.name'));         
+            $product_type->meta_description = $request->input('Project_type.meta_description');
+            $product_type->meta_keywords = $request->input('Project_type.meta_keywords');
             $product_type->priority = $request->input('Product_type.priority');
             $product_type->is_publish = $request->input('Product_type.is_publish');
             $product_type->created_by = $user->name;

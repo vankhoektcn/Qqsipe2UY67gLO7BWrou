@@ -16,6 +16,8 @@ class CreateProductTypesTable extends Migration
             $table->increments('id');
             $table->string('key', 250)->unique()->index();
             $table->string('name', 250);
+            $table->string('meta_description', 500)->nullable();
+            $table->string('meta_keywords', 500)->nullable();
             
             $table->integer('priority');
             $table->boolean('active');

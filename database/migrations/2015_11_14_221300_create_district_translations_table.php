@@ -17,6 +17,8 @@ class CreateDistrictTranslationsTable extends Migration
             $table->integer('district_id')->unsigned();
             $table->string('locale', 5);
             $table->string('name', 250);
+            $table->string('meta_description', 500);
+            $table->string('meta_keywords', 500);
 
             $table->unique(['district_id','locale']);
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');

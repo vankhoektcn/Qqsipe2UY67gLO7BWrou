@@ -62,6 +62,45 @@ class SiteProjectcontrollers extends Controller
 			, 'product_types'=> $product_types, 'agents'=> $agents ]);
 	}
 
+	public function project_search(Request $request)
+	{
+		/*$validator = Validator::make($request->all(), ['province' => 'required']);
+		if ($validator->fails())
+		{
+			return redirect()->back()->withErrors($validator->errors());
+		}
+		else*/
+		{
+			$this->setMetadata('Tìm kiếm dự án');
+
+			$limit = Config::findByKey('rows_per_page_article')->first()->value;
+			$project_type = $request->input('project_type');			
+			$province = $request->input('province');			
+			$district = $request->input('district');			
+			$ward = $request->input('ward');			
+			$street = $request->input('street');	
+
+			$query = Project::query();
+			if(isset($project_type) && $project_type != "")
+				$query->where('project_type_id',$project_type);
+			if(isset($province) && $province != "")
+				$query->where('province_id',$province);
+			if(isset($district) && $district != "")
+				$query->where('district_id',$district);
+			if(isset($ward) && $ward != "")
+				$query->where('ward_id',$ward);
+			if(isset($street) && $street != "")
+				$query->where('street_id',$street);
+			$projects = $query->paginate(1);
+
+			return view('frontend.sites1.project_search', ['projects'=> $projects]);
+		}
+	}
+	public function product_search(Request $request)
+	{
+		return view('frontend.sites1.index1');
+	}
+
 	public function article($categorykey, $articlekey)
 	{
 		$article = Article::where('key',$articlekey)->first();

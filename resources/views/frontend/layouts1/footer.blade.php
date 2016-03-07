@@ -1,4 +1,3 @@
-@inject('product_type', 'App\Product_type')
 <footer class="bg-color">
 	<div class="container">
 		<div class="upper-footer clearfix">
@@ -24,7 +23,7 @@
 					</div>
 					<ul class="widget-area service-list">
 						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Hợp tác môi giới</span></a></li>
-						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Tìm căn hộ cùng VanLand/span></a></li>
+						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Tìm căn hộ cùng VanLand</span></a></li>
 						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Kiến thức bất động sản</span></a></li>
 						<li><a href="javascript:;"><i class="fa fa-play-circle"></i><span>Quy chế hoạt động</span></a></li>
 					</ul>

@@ -17,9 +17,12 @@ class CreateProjectsTable extends Migration
 
             $table->string('name')->index();               
             $table->string('key', 250)->index();
-            $table->string('address');
+            $table->integer('project_type_id')->index();
             $table->integer('province_id')->index();
-            $table->integer('district_id')->index();  
+            $table->integer('district_id')->index();            
+            $table->integer('ward_id')->nullable();
+            $table->integer('street_id')->nullable();
+            $table->string('address');
             $table->string('hotline',50);
             $table->string('hotline_fa_icon',50)->nullable();
             $table->string('email',100)->nullable();

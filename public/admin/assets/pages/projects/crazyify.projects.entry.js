@@ -41,6 +41,22 @@ crazyify.projects.entry = {
 			'dbfieldname': 'key'
 		},
 		{
+			'label': 'Loại dự án',
+			'id': 'project_type_id',
+			'name': 'Project[project_type_id]',
+			'type': 'select',
+			'required': true,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'project_type_id'
+		},
+		{
 			'label': 'Danh mục',
 			'id': 'categories',
 			'name': 'Project[categories]',
@@ -88,6 +104,38 @@ crazyify.projects.entry = {
 			'help_block': '',
 			'input_icon': '',
 			'dbfieldname': 'district_id'
+		},
+		{
+			'label': 'Phường/Xã',
+			'id': 'ward_id',
+			'name': 'Project[ward_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'ward_id'
+		},
+		{
+			'label': 'Đường/Phố',
+			'id': 'street_id',
+			'name': 'Project[street_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'street_id'
 		},
 		{
 			'label': 'Địa chỉ',
@@ -454,7 +502,7 @@ crazyify.projects.entry = {
 										languageControls: thisObj.languageControls,
 										commonData: data,
 										languageDatas: data.translations
-									});
+									}, crazyify.projects.entry.pageLoad);
 								}
 							});
 						}
@@ -480,7 +528,7 @@ crazyify.projects.entry = {
 						dom:$('.form-body'), 
 						commonControls: thisObj.commonControls,
 						languageControls: thisObj.languageControls
-					});
+					}, crazyify.projects.entry.pageLoad);
 				}
 			});
 		}
@@ -549,6 +597,25 @@ crazyify.projects.entry = {
 				toastr['error']("Xóa không thành công.", "Xóa hình ảnh");
 			}
 		});
+	}
+	,
+	pageLoad: function(){
+		crazyify.projects.entry.loadProject_type();
+	},
+	loadProject_type: function()
+	{
+		$.crazyifyAjax({
+					url: '/admin/project_types',
+					type: 'GET',
+					success: function (data, textStatus, jqXHR) {
+						$('#project_type_id').html('');
+						$('#project_type_id').append('<option value="0">Chọn loại dự án</option>');
+						$.each(data, function(index, item)
+						{
+							$('#project_type_id').append('<option value="'+ item.id +'">'+ item.name +'</option>');
+						});
+					}
+				});
 	}
 };
 

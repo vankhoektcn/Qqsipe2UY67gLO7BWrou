@@ -1,0 +1,272 @@
+.tray-episode-views{
+	display: none;
+}
+.tray-item {
+    position: relative;
+    float: left;
+    /*width: 335px;
+    height: 230px;*/
+    padding: 0;
+    margin-right: 5px;
+    margin-bottom: 5px;
+	cursor: pointer;
+}
+.tray-item .tray-item-thumbnail {
+    width: 100%;
+    height: 100%;
+}
+.tray-item .tray-item-description {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: 30px 15px 10px;
+    color: #eee;
+    background: rgba(11,181,134,0);
+    background-image: linear-gradient(transparent,rgba(0,0,0,.1),rgba(0,0,0,.3),rgba(0,0,0,.5),rgba(0,0,0,.7),rgba(0,0,0,.9));
+}
+.tray-item .tray-item-description .tray-item-title {
+    text-align: left;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+.tray-item .tray-item-description .tray-item-meta-info {
+    font-size: 12px !important;
+}
+.tray-item .tray-episode-name {
+    float: left;
+    /*width: 65%;*/
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    text-align: left;
+}
+.tray-item .tray-episode-views {
+    float: right;
+}
+.tray-item .tray-item-play-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    text-align: center; 
+}
+.tray-item:hover .tray-episode-name {
+    white-space: normal;
+}
+
+@media (max-width: 364px){
+.tray-item {
+	width: 100%;
+    height: 70px;
+    margin-bottom: 15px;
+}
+.tray-item .tray-item-thumbnail {
+    float: left;
+    width: 120px;
+    height: 70px;
+}
+.tray-item .tray-item-description {
+    position: relative;
+    float: left;
+    width: 195px;
+    height: 70px;
+    padding: 0 0 0 10px;
+    background: 0 0;
+    color: inherit;
+}
+.tray-item .tray-item-description .tray-item-title {
+    max-height: 40px;
+    margin-top: -3px;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    color: #222;
+}
+.tray-item .tray-item-description .tray-item-meta-info {
+    color: #444;
+}
+.tray-item .tray-episode-name {
+    width: 100%;
+}
+.tray-item .tray-episode-views, .tray-item .tray-film-likes, .tray-item .tray-film-views {
+    float: none;
+}
+.tray-item .tray-item-play-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    text-align: center;
+}
+}
+@media (max-width: 629px) and (min-width: 365px){
+/*.tray-item {
+    width: 232px;
+    height: 135px;
+}*/
+.tray-item .tray-item-description {
+    padding: 30px 5px 5px;
+}
+.tray-item .tray-item-description .tray-item-title {
+    font-size: 13px;
+}
+.tray-item .tray-item-description .tray-item-meta-info {
+    font-size: 10px;
+}
+.tray-item .tray-episode-name {
+    width: 100%;
+}
+.tray-item .tray-episode-views {
+    display: none;
+}
+.tray-item:hover .tray-episode-name {
+    white-space: normal;
+}
+}
+@media (max-width: 629px) and (min-width: 365px) and (min-width: 470px){
+.tray-item .tray-item-description {
+    padding: 30px 10px 10px;
+}
+.tray-item .tray-item-description .tray-item-title {
+    font-size: 14px;
+}
+.tray-item .tray-item-description .tray-item-meta-info {
+    font-size: 12px;
+}
+}
+@media (max-width: 757px) and (min-width: 630px){
+/*.tray-item {
+    width: 312px;
+    height: 182px;
+}*/
+.tray-item .tray-episode-name {
+    width: 50%;
+}
+}
+@media (max-width: 789px) and (min-width: 758px){
+/*.tray-item {
+    width: 249px;
+    height: 170px;
+}*/
+}
+@media (max-width: 1013px) and (min-width: 790px){
+/*.tray-item {
+    width: 260px;
+    height: 178.5px;
+}*/
+.tray-item .tray-episode-name {
+    width: 50%;
+}
+}
+@media (max-width: 1289px) and (min-width: 1014px){
+/*.tray-item {
+    width: 246px;
+    height: 167px;
+}*/
+.tray-item .tray-item-description {
+    height: 85px;
+    transition: height .5s ease-out,background .5s ease-out,background-image .5s ease-out;
+}
+.tray-item:hover .tray-item-description {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background-image: none;
+    background: rgba(11,181,134,.75);
+    transition: all .3s ease-in;
+}
+.tray-item .tray-episode-name {
+    width: 50%;
+}
+.tray-item .tray-item-play-button, .tray-item:nth-child(10).index, .tray-item:nth-child(11).index {
+    display: none;
+}
+}
+@media (min-width: 1014px){
+.tray-item .tray-item-description {
+    height: 85px;
+    transition: height .5s ease-out,background .5s ease-out,background-image .5s ease-out;
+}
+.tray-item:hover .tray-item-description {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background-image: none;
+    background: rgba(11,181,134,.75);
+    transition: all .3s ease-in;
+}
+.tray-item:hover .tray-item-description .tray-item-title {
+    white-space: normal;
+    text-align: center;
+    margin-bottom: 10px;
+	font-size: 22px;
+}
+.tray-item .tray-item-play-button {
+    transition: all .5s ease;
+}
+.tray-item:hover .tray-item-play-button {
+    visibility: visible;
+    opacity: 1;
+    bottom: 45px;
+    transition: all .3s ease;
+}
+.tray-item .tray-item-description .tray-item-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.tray-item:hover .tray-item-description .tray-item-meta-info {
+    text-align: center;
+}
+.tray-item:hover .tray-episode-name {
+    float: none;
+    width: 100%;
+    text-align: center;
+}
+.tray-item:hover .tray-episode-views {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    text-align: center;
+}
+.tray-item .tray-item-play-button span {
+    padding: 10px;
+    background: rgba(255,255,255,.75);
+    color: #D80F16;
+    opacity: 0;
+    transition: all .5s ease-out;
+}
+.tray-item:hover .tray-item-play-button span {
+    opacity: 1;
+    transition: all .5s ease-in;
+}
+.tray-item:hover .tray-item-play-button span:hover {
+    background: rgba(216,15,22,.75);
+    color: #fff;
+    transition: all .5s ease-out;
+}
+}
+@media (max-width: 1355px) and (min-width: 1290px){
+/*.tray-item {
+    width: 315px;
+    height: 216px;
+}*/
+}
+@media (max-width: 1695px) and (min-width: 1356px){
+/*.tray-item {
+    width: 331.5px;
+    height: 227px;
+}*/
+}

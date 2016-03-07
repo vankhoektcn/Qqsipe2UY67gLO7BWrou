@@ -315,7 +315,7 @@ span{
 	border:none;
 }
 #navbar .nav > li > a {
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	padding:0 0 8px 0;
 	transition: all 0.2s ease-out 0s;
 }
@@ -371,7 +371,7 @@ span{
 }
 .dropdown-menu > li > a {
 	transition: all 0.4s ease 0s;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 }
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
 	background-color:#fff;
@@ -482,7 +482,7 @@ span{
 	color:#fff;
 }
 .action-text p{
-	font-family: 'Droid Sans', sans-serif;
+	/*font-family: 'Droid Sans', sans-serif;*/
 	letter-spacing:10px;
 	color:#fff;
 }
@@ -550,7 +550,7 @@ span{
 	min-height:44px;
 }
 .search-form .form-section label{
-	font-family: 'Droid Sans', sans-serif;
+	/*font-family: 'Droid Sans', sans-serif;*/
 	font-size:15px;
 }
 .search-form .form-section input, select{ 
@@ -1373,7 +1373,7 @@ footer .contact li {
 	background-color:#2b4261;
 	text-align:center;
 	padding:20px 0px;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	margin-bottom:0;
 	color:#fff;
 }
@@ -1383,7 +1383,7 @@ footer .contact li {
 }
 .lower-footer a {
 	color:#fff;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 }
 /*..............................agents-list-page..........................*/
 .page-name {
@@ -1412,7 +1412,7 @@ footer .contact li {
 }
 .tag-bar span {
 	font-size:12px;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	border-left:1px solid #bfbfbf;
 	padding-left:5px;
 	
@@ -1603,7 +1603,7 @@ footer .contact li {
 }
 
 .pagination li a {
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	font-size:16px;
 	border:none;
 	color:#7f7f7f;
@@ -1794,7 +1794,7 @@ footer .contact li {
 .right-side-bar #slider-range .minvalue, 
 .right-side-bar #slider-range .maxvalue {
 	color:#8d8d8d;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	font-size:12px;
 }
 .right-side-bar #slider-range .minvalue,
@@ -2194,7 +2194,7 @@ input[type="checkbox"] {
     width: 30px;
 }
 .post-area {
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 	border-bottom:1px solid #e1e1e1;
 	padding-bottom:26px;
 	margin-bottom:30px;
@@ -2204,7 +2204,7 @@ input[type="checkbox"] {
 }
 .post-area span {
 	font-size:12px;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 }
 .best-place {
 	color:#09b9e5;
@@ -2264,7 +2264,7 @@ input[type="checkbox"] {
 .blog-text span{
 	color:#fa8526;
 	font-size:12px;
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 }
 .blog-text h4 {
 	font-size:18px;
@@ -2649,7 +2649,7 @@ contact-info-rightbar {
 	color:#fff;
 }
 .tab-section .nav-stacked li span {
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;*/
 }
 .tab-section {
     padding-right: 50px;

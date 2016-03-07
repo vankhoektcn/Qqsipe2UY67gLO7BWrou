@@ -1,128 +1,20 @@
 @extends('frontend.layouts1.master')
 @section('body.content')
-<div class="border-top mrgb3x"></div>
+<!-- <div class="border-top mrgb3x"></div> -->
 <div class="top-tabs">
 	<div class="container">
-		<ul class="nav nav-tabs hide" style="margin-top:0px">
-			<li class="active"><a data-toggle="tab" href="#properties" aria-expanded="true"><i class="icon-home10"></i> Tìm kiếm dự án</a></li>
-			<li><a data-toggle="tab" href="#flights" aria-expanded="true"><i class="icon-aircraft"></i>Flights</a></li>
-			<li><a data-toggle="tab" href="#vacations" aria-expanded="true"><i class="icon-calendar9"></i>Vacations</a></li>
+		<ul class="nav nav-tabs" style="margin-top:0px">
+			<li class="active"><a data-toggle="tab" href="#projects-search" aria-expanded="true"><i class="icon-home10"></i> Tìm kiếm dự án</a></li>
+			<li><a data-toggle="tab" href="#products-search" aria-expanded="true"><i class="fa fa-newspaper-o"></i>Tìm kiếm tin đăng</a></li><!-- fa-upload -->
+			<!-- <li><a data-toggle="tab" href="#flights" aria-expanded="true"><i class="icon-aircraft"></i>Flights</a></li>
+			<li><a data-toggle="tab" href="#vacations" aria-expanded="true"><i class="icon-calendar9"></i>Vacations</a></li> -->
 		</ul>
 		<div class="tab-content clearfix">
-			<div id="properties" class="tab-pane fade in active">
-				<div class="search-options">
-					<div class="search-form">
-						<form id="property-search" name="propertysearch" method="post">
-							<div class="form-inner">
-								<div class="left-options col-md-12">									
-									<div class="form-section col-md-3">
-										<label>Loại</label>
-										<div class="select-box">
-											<select class="form-control" name="type">
-												<option value="DUAN">Dự án</option>
-												<option value="TINDANG">Tin đăng</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Tỉnh/thành phố</label>
-										<div class="select-box">
-											<select class="form-control" name="province">
-												<option selected="selected" value="0">--Tất cả--</option>
-												@foreach ($provinces as $province)
-												<option value="{{$province->id}}">{{$province->name}}</option>
-												@endforeach
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Quận/Huyện</label>
-										<div class="select-box">
-											<select class="form-control" name="district">
-												
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Đường/Phố</label>
-										<div class="select-box">
-											<select class="form-control" name="street">												
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Dự án</label>
-										<div class="select-box">
-											<select class="form-control" name="project">
-												
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Diện tích</label>
-										<div class="select-box">
-											<select class="form-control" name="area">
-												<option selected="selected" value="0">--Tất cả--</option>
-												<option value="1">Dưới 30 m2</option>
-												<option value="2">30 - 50 m2</option>
-												<option value="3">50 - 70 m2</option>
-												<option value="4">70 - 100 m2</option>
-												<option value="5">100 - 150 m2</option>
-												<option value="6">150 - 200 m2</option>
-												<option value="7">200 - 250 m2</option>
-												<option value="8">250 - 300 m2</option>
-												<option value="9">300 - 350 m2</option>
-												<option value="10">350 - 400 m2</option>
-												<option value="11">400 - 600 m2</option>
-												<option value="12">600 - 800 m2</option>
-												<option value="13">800 - 1000 m2</option>
-												<option value="14">Trên 1000 m2</option>												
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Mức giá</label>
-										<div class="select-box">
-											<select class="form-control" name="price">	
-												<option selected="selected" value="0">--Tất cả--</option>
-												<option value="3">3 - 5 triệu</option>
-												<option value="4">5 - 10 triệu</option>
-												<option value="5">10 - 15 triệu</option>
-												<option value="6">15 - 20 triệu</option>
-												<option value="7">20 - 30 triệu</option>
-												<option value="8">30 - 40 triệu</option>
-												<option value="9">40 - 60 triệu</option>
-												<option value="10">60 - 80 triệu</option>
-												<option value="11">80 - 100 triệu</option>
-												<option value="12">100 - 300 triệu</option>
-												<option value="13">300 - 500 triệu</option>
-												<option value="14">500 - 800 triệu</option>
-												<option value="15">800 - 1 tỷ</option>
-												<option value="16">1 - 2 tỷ</option>
-												<option value="17">2 - 3 tỷ</option>
-												<option value="18">3 - 4 tỷ</option>
-												<option value="19">4 - 6 tỷ</option>
-												<option value="20">6 - 8 tỷ</option>
-												<option value="21">8 - 10 tỷ</option>
-												<option value="22">10 - 15 tỷ</option>
-												<option value="23">15 - 20 tỷ</option>
-												<option value="24">Trên 20 tỷ</option>											
-											</select>
-										</div>
-									</div>
-									<div class="form-section col-md-3">
-										<label>Tìm</label>
-										<button type="submit" class="btn btn-primary form-control">Tìm kiếm</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+			@include('frontend.partials.project_search_box')
 		</div>
 	</div>
 </div>
+
 <section>
 	<div class="container mrgt6x">
 		<div class="visit-place ">

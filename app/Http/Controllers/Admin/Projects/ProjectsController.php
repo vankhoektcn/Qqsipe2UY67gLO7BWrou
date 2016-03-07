@@ -65,6 +65,7 @@ class ProjectsController extends Controller
 			$project = new Project;
 			$project->key = Common::createKeyURL($request->input('Project.name'));
 			$project->name = $request->input('Project.name');
+			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
 			$project->address = $request->input('Project.address');
@@ -221,6 +222,7 @@ class ProjectsController extends Controller
 			$project = Project::findOrFail($id);
 			$project->key = Common::createKeyURL($request->input('Project.name'));
 			$project->name = $request->input('Project.name');
+			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
 			$project->address = $request->input('Project.address');

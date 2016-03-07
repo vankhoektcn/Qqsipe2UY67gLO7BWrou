@@ -88,6 +88,38 @@ crazyify.products.entry = {
 			'dbfieldname': 'district_id'
 		},
 		{
+			'label': 'Phường/Xã',
+			'id': 'ward_id',
+			'name': 'Product[ward_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'ward_id'
+		},
+		{
+			'label': 'Đường/Phố',
+			'id': 'street_id',
+			'name': 'Product[street_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'street_id'
+		},
+		{
 			'label': 'Địa chỉ',
 			'id': 'address',
 			'name': 'Product[address]',

@@ -55,7 +55,7 @@
 						<tr>
 							<td>{{ $key + 1 }}</td>
 							<td class="text-center">
-								<img src="{{ str_replace('.', '-image(80x45-crop).', $product->getFirstAttachment()) }}" alt="{{ $product->title }}" class="img-thumbnail">
+								<img src="{{ str_replace('.', '-image(80x45-crop).', $product->getThumnail()) }}" alt="{{ $product->title }}" class="img-thumbnail">
 							</td>
 							<td>{{ $product->title }}</td>
 							<td class="text-right">{{ $product->priority }}</td>

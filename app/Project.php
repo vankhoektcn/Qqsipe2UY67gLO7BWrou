@@ -22,11 +22,28 @@ class Project extends BaseModel
     {
         return $this->belongsToMany('App\ProjectCategory');
     }
+    public function project_type()
+    {
+        return $this->belongsTo('App\Project_type');
+    }
     
+    public function province()
+    {
+        return $this->belongsTo('App\Province');
+    }
 	public function district()
     {
         return $this->belongsTo('App\District');
+    }    
+    public function ward()
+    {
+        return $this->belongsTo('App\Ward');
+    }    
+    public function street()
+    {
+        return $this->belongsTo('App\Street');
     }
+    
 	public function agents()
 	{
 		return $this->belongsToMany('App\Agent');

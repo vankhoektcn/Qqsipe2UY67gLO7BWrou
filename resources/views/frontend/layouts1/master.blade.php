@@ -14,6 +14,7 @@
 
 <link href="/frontend/css1/style.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/style-custom.css" rel="stylesheet" type="text/css">
+<link href="/frontend/css1/vuighe.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/photobox.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/revolution-slider.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/owl.carousel.css" rel="stylesheet" type="text/css">
@@ -54,9 +55,12 @@
 	</div>
 </div>
 <header>
+@inject('project_type', 'App\Project_type')
+@inject('product_type', 'App\Product_type')
+
 	<div class="container">
 		<div class="navigation clearfix">
-			<div class="logo"><a href="Qvrenti_1.html"><img src="/frontend/images1/LogoVanLand4.png" alt="#" /> </a></div>
+			<div class="logo"><a href="/"><img src="/frontend/images1/LogoVanLand4.png" alt="#" /> </a></div>
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar first"></span> <span class="icon-bar middle"></span> <span class="icon-bar last"></span> </button>
 			</div>
@@ -67,42 +71,18 @@
 							<li><a href="/" title="Trang chủ">
 								<i class="icon-home10 home-icon"></i>
 							</a></li>
-							<li><a href="javascript:;">FEATURES</a></li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">PROPERTIES</a>
+							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">DỰ ÁN</a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="Properties_List.html">PROPERTIES LIST</a></li>
-									<li><a href="Properties_List_2.html">PROPERTIES LIST 2</a></li>
-									<li><a href="Properties_right_sidebar.html">PROPERTIES RIGHT SIDEBAR</a></li>
-									<li><a href="Properties_Right_Sidebar_2.html">PROPERTIES RIGHT SIDEBAR 2</a></li>
-									<li><a href="Property_Single.html">PROPERTY SINGLE</a></li>
-									<li><a href="Property_Single_2.html">PROPERTY SINGLE 2</a></li>
-									<li><a href="Property_Single_Sidebar.html">PROPERTY SINGLE SIDEBAR</a></li>
+									@foreach ($project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get() as $project_type)
+									<li><a href="{{$project_type->getLink()}}">{{$project_type->name}}</a></li>
+									@endforeach
 								</ul>
 							</li>
-							<li><a href="agents.html">AGENTS</a></li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">BLOG</a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="Blog-Single-Post.html">Blog Single Post</a></li>
-									<li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-								</ul>
-							</li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">PAGES</a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="Qvrenti_2.html">HOME 2</a></li>
-									<li><a href="Services.html">SERVICE PAGE</a></li>
-									<li><a href="Service-list.html">SERVICE LIST</a></li>
-									<li><a href="PRICING-Tables.html">PRICING</a></li>
-									<li><a href="Booking-Page.html">BOOKING</a></li>
-									<li><a href="FAQs.html">FAQ</a></li>
-									<li><a href="Shortcodes.html">SHORTCODES</a></li>
-								</ul>
-							</li>
-							<li><a aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">CONTACT US</a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="Contact.html">CONTACT 1</a></li>
-									<li><a href="Contact-Style-2.html">CONTACT 2</a></li>
-								</ul>
-							</li>
+							@foreach ($product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get() as $product_type)
+							<li><a href="{{$product_type->getLink()}}">{{$product_type->name}}</a></li>
+							@endforeach
+							<li><a href="agents.html">TIN TỨC</a></li>
+							<li><a href="agents.html">LIÊN HỆ</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -110,9 +90,9 @@
 		</div>
 	</div>
 </header>
-<section class="border-top hide">
+<section class="border-top title-breadcrumb hide">
 	<div class="container">
-		<div class="page-title mrgt6x mrgb6x clearfix">
+		<div class="page-title mrgt05 mrgb05 clearfix">
 			<h4 class="page-name">properties list</h4>
 			<div class="tag-bar"> <a href="javascript:;"><span>searching properties</span></a> </div>
 			<ul class="breadcrumb">
@@ -122,6 +102,7 @@
 		</div>
 	</div>
 </section>
+
 <!-- header -->
 
 <!-- content -->
@@ -145,7 +126,10 @@
 <script type="text/javascript" src="/frontend/js1/jquery.photobox.js"></script> 
 <script src="/frontend/js1/jquery.themepunch.revolution.js" type="text/javascript"></script> 
 <script src="/frontend/js1/jquery.themepunch.tools.min.js" type="text/javascript"></script> 
+<script src="/admin/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/frontend/js1/pages/core.js"></script>
 <script type="text/javascript" src="/frontend/js1/scripts.js"></script>
+<script type="text/javascript" src="/frontend/js1/pages/common.js"></script>
 @yield('body.js')
 </body>
 </html>

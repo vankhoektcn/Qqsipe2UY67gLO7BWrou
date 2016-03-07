@@ -351,7 +351,7 @@ var CControl = function () {
             }
 		});
 
-		if($.isEmptyObject(callback) && typeof LayoutInit == 'function')
+		if(callback != null && typeof LayoutInit == 'function')
 			callback();
 		if (typeof LayoutInit == 'function') {
 			LayoutInit(true);

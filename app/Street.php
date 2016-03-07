@@ -7,7 +7,6 @@ use App\Province;
 
 class Street extends BaseModel
 {
-     use \Dimsav\Translatable\Translatable;
 	use SoftDeletes;
 
 	protected $table = "streets";
@@ -27,5 +26,10 @@ class Street extends BaseModel
 	public function products()
 	{
 		return $this->hasMany('App\Product');
+	}
+	
+	public function projects()
+	{
+		return $this->hasMany('App\Project');
 	}
 }

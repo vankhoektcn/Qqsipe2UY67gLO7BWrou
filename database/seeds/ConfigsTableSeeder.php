@@ -38,6 +38,11 @@ class ConfigsTableSeeder extends Seeder
 			'value' => '20'
 		]);
 		Config::create([
+			'key' => 'rows_per_page_project',
+			'text' => 'Số dự án hiển thị trên một trang',
+			'value' => '20'
+		]);
+		Config::create([
 			'key' => 'headquarter_address',
 			'text' => 'Địa chỉ trụ sở chính',
 			'value' => 'Địa chỉ trụ sở chính'

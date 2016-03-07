@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWardsTable extends Migration
+class CreateProjectTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,15 @@ class CreateWardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wards', function (Blueprint $table) {
+        Schema::create('project_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('district_id')->index();
-            $table->string('key', 250)->index();
+            $table->string('key', 250)->unique()->index();
             $table->string('name', 250);
-
-            $table->string('meta_description', 500);
-            $table->string('meta_keywords', 500);
+            $table->string('meta_description', 500)->nullable();
+            $table->string('meta_keywords', 500)->nullable();
             
             $table->integer('priority');
-            $table->boolean('is_publish');
+            $table->boolean('active');
             $table->string('created_by', 50);
             $table->string('updated_by', 50)->nullable();
             $table->string('deleted_by', 50)->nullable();
@@ -38,6 +36,6 @@ class CreateWardsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('wards');
+        Schema::drop('project_types');
     }
 }
