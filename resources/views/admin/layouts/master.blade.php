@@ -581,6 +581,7 @@ $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('conten
 <script src="/admin/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="/admin/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
 <script src="/admin/assets/customs/scripts/core.js" type="text/javascript"></script>
+<script type="text/javascript" src="/frontend/js1/pages/common.js"></script>
 @yield('body.js')
 <!-- END PAGE LEVEL SCRIPTS -->
 <script type="text/javascript">

@@ -55,22 +55,23 @@ li{
 	list-style:none;
 }
 h1,h2,h3,h4,h5,h6{
-	font-family:'Droid Sans', sans-serif;
+	/*font-family:'Droid Sans', sans-serif;*/
 	color:#2d2d2d;
 }
 p{
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	 color:#3d3d3d;
 	 line-height:32px;
 }
 	
 span{
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	font-size:14px;
 }
 .out {
     opacity: 0;
 }
+.no-margin{ margin:0px;}
 .mrgt05 {margin-top: 5px;}
 .mrgt1x {margin-top: 10px;}
 .mrgt2x {margin-top: 20px;}
@@ -108,18 +109,69 @@ span{
 .mrgb10x { margin-bottom:110px;}
 
 
-.mrgl05 {margin-left: 5px;}
-.mrgl1x {margin-left: 10px;}
-.mrgl2x {margin-left: 20px;}
-.mrgl3x {margin-left: 30px;}
-.mrgl4x { margin-left: 40px; }
-.mrgl5x { margin-left: 50px;}
-.mrgl6x { margin-left: 60px;}
-.mrgl7x { margin-left:75px;}
-.mrgl8x { margin-left:80px;}
-.mrgl9x { margin-left:90px;}
-.mrgl10x { margin-left:110px;}
 .no-padding{ padding:0px;}
+.padl05 {padding-left: 5px;}
+.padl1x {padding-left: 10px;}
+.padl2x {padding-left: 20px;}
+.padl3x {padding-left: 30px;}
+.padl4x { padding-left: 40px; }
+.padl5x { padding-left: 50px;}
+.padl6x { padding-left: 60px;}
+.padl7x { padding-left:75px;}
+.padl8x { padding-left:80px;}
+.padl9x { padding-left:90px;}
+.padl10x { padding-left:110px;}
+
+
+.padt05 {padding-top: 5px;}
+.padt1x {padding-top: 10px;}
+.padt2x {padding-top: 20px;}
+.padt3x {padding-top: 30px;}
+.padt4x { padding-top: 40px; }
+.padt5x { padding-top: 50px;}
+.padt6x { padding-top: 60px;}
+.padt7x { padding-top:75px;}
+.padt8x { padding-top:80px;}
+.padt9x { padding-top:90px;}
+.padt10x { padding-top:110px;}
+
+.padr05 {padding-right: 5px;}
+.padr1x {padding-right: 10px;}
+.padr2x {padding-right: 20px;}
+.padr3x {padding-right: 30px;}
+.padr4x { padding-right: 40px; }
+.padr5x { padding-right: 50px;}
+.padr6x { padding-right: 60px;}
+.padr7x { padding-right:75px;}
+.padr8x { padding-right:80px;}
+.padr9x { padding-right:90px;}
+.padr10x { padding-right:110px;}
+
+.padb05 {padding-bottom: 5px;}
+.padb1x {padding-bottom: 10px;}
+.padb2x {padding-bottom: 20px;}
+.padb3x {padding-bottom: 30px;}	
+.padb4x { padding-bottom: 40px;}
+.padb5x { padding-bottom: 50px;}
+.padb6x { padding-bottom: 60px;}
+.padb7x { padding-bottom:75px;}
+.padb8x { padding-bottom:80px;}
+.padb9x { padding-bottom:90px;}
+.padb10x { padding-bottom:110px;}
+
+
+.padl05 {padding-left: 5px;}
+.padl1x {padding-left: 10px;}
+.padl2x {padding-left: 20px;}
+.padl3x {padding-left: 30px;}
+.padl4x { padding-left: 40px; }
+.padl5x { padding-left: 50px;}
+.padl6x { padding-left: 60px;}
+.padl7x { padding-left:75px;}
+.padl8x { padding-left:80px;}
+.padl9x { padding-left:90px;}
+.padl10x { padding-left:110px;}
+
 /*...................testi-carousel....................*/
 .testi-carousel .owl-pagination {
 	position:absolute;
@@ -236,7 +288,7 @@ span{
 .right-bar{
 	float:right;
 	margin-top:12px;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 }
 .left-bar ul  {
     display:block;
@@ -420,7 +472,7 @@ span{
 	border-radius: 3px;
     padding: 15px 50px;
 	font-size:14px !important;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	
 }
 .slider-button .view-btn a:hover,
@@ -466,7 +518,7 @@ span{
 	border-radius: 5px;
     padding: 15px 40px;
 	font-size:14px !important;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	color:#fff !important;
 	background-color:#09b9e5;  
 }
@@ -482,7 +534,7 @@ span{
 	color:#fff;
 }
 .action-text p{
-	/*font-family: 'Droid Sans', sans-serif;*/
+	/*font-family: 'droiD sans', sans-serif;*/
 	letter-spacing:10px;
 	color:#fff;
 }
@@ -522,7 +574,7 @@ span{
 	background-color:rgba(0,0,0,0.36);
 	padding:14px 18px;
 	color:#fff;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	font-size:16px;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -550,11 +602,11 @@ span{
 	min-height:44px;
 }
 .search-form .form-section label{
-	/*font-family: 'Droid Sans', sans-serif;*/
+	/*/*font-family: 'droiD sans', sans-serif;*/*/
 	font-size:15px;
 }
 .search-form .form-section input, select{ 
-	font-family: "Open Sans",sans-serif;
+	/*font-family: "Open Sans",sans-serif;*/
 }
 .search-form label {
     margin-bottom: 22px;
@@ -587,7 +639,7 @@ span{
 
 }
 .form-inner .form-control::-moz-placeholder {
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	color:#a8a8a8;
 }
 .search-btn {
@@ -890,7 +942,7 @@ span{
 }	
 .appartment-detail > li {
     display: inline-block;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	font-weight:bold;
 	font-size:15px;
 	padding:0 8px;
@@ -1006,7 +1058,7 @@ span{
 .listing-name li a {
 	color:#acacac;
 	transition: all 0.4s ease-in-out 0s;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	font-weight:bold;
 }
 .listing-name > li a::before {
@@ -1236,7 +1288,7 @@ span{
 	margin-right:30px;
 }
 .blog-text .time li a {
-	font-family: "Open Sans",sans-serif;
+	/*font-family: "Open Sans",sans-serif;*/
 	color:#a5a5a5;
 	font-size:16px;
 	
@@ -1406,8 +1458,8 @@ footer .contact li {
 	float:left;
 }
 .tag-bar a{
-	color:#bfbfbf;
-	text-transform:uppercase;
+	/*color:#bfbfbf;
+	text-transform:uppercase;*/
 	margin-left:30px;
 }
 .tag-bar span {
@@ -1431,7 +1483,7 @@ footer .contact li {
 }
 .breadcrumb li a {
 	color:#7f7f7f;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 }
 .breadcrumb .active a {
     color: #09b9e5;
@@ -1500,7 +1552,7 @@ footer .contact li {
 	margin-top:20px;
 }
 .agent-profile ul li {
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 }
 .agent-name {
 	display:inline-block;
@@ -1581,7 +1633,7 @@ footer .contact li {
 .full-profile-btn .see-more{
 	color:#09b9e5;
 	border-bottom:1px solid #09b9e5;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	 transition: all 0.4s ease 0s;
 }
 .agent-profile { 
@@ -2268,7 +2320,7 @@ input[type="checkbox"] {
 }
 .blog-text h4 {
 	font-size:18px;
-	font-family: 'Open Sans', sans-serif;
+	/*font-family: 'opeN sans', sans-serif;*/
 	margin: 18px 0;
 }
 .blog-text .post-detail {

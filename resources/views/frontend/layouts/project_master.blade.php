@@ -66,6 +66,11 @@
 			<div class="head-nav">
 				<span class="menu"> </span>
 					<ul class="cl-effect-1" id="project-menu">
+                        <li>
+                            <a href="/" class="vanland-home-icon" title="Trang chủ tìm kiếm dự án">
+                            <i class="fa fa-home"></i>
+                            </a>    
+                        </li>
                         @if (!empty($project->content))
                             <li><a class="scroll" href="#project-about">Tổng quan</a></li>
                         @endif
@@ -89,6 +94,8 @@
             @endforeach
 		</ul>
 	</div>
+    @endif
+    <!-- @if (Route::is('project')) -->
     <div class="section wrap-action-form">
         <div class="container">
             <div class="row action-form">
@@ -121,7 +128,7 @@
             </div>
         </div>
     </div>
-    @endif
+    <!-- @endif -->
 <!-- header -->
 </div>
 

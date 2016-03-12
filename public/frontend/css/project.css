@@ -271,7 +271,8 @@ b.searchKey{color:#f53f1a;}
 
 
 .head-nav ul li a{
-	padding: 10px 10px;
+	/*padding: 10px 10px;*/
+	padding: 5px 5px;
     text-transform: uppercase;
 	border-radius: 5px;
 }
@@ -324,6 +325,9 @@ b.searchKey{color:#f53f1a;}
 .flexslider{margin: 0 0 10px;}
 .flexslider .slides img{max-height: 600px; }
 
-.close-auto-menu{ position: absolute; top: 0; right: 0px; border-radius: 3px; padding: 0px 5px; color: red !important;}
+.close-auto-menu{ position: absolute; top: 0; right: 0px; border-radius: 3px; padding: 0px 5px; color: #337AB7 !important;opacity: 1;}
 .close-auto-menu-out{right: -70px;}
 .project-part-thumnail{ margin-bottom: 20px;}
+
+.vanland-home-icon{ padding: 5px 5px 5px 5px; }
+.vanland-home-icon .fa-home{ font-size: 25px; }

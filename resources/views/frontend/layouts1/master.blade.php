@@ -90,18 +90,6 @@
 		</div>
 	</div>
 </header>
-<section class="border-top title-breadcrumb hide">
-	<div class="container">
-		<div class="page-title mrgt05 mrgb05 clearfix">
-			<h4 class="page-name">properties list</h4>
-			<div class="tag-bar"> <a href="javascript:;"><span>searching properties</span></a> </div>
-			<ul class="breadcrumb">
-				<li><a href="javascript:;">Pages</a></li>
-				<li class="active"><a href="javascript:;">Properties list</a></li>
-			</ul>
-		</div>
-	</div>
-</section>
 
 <!-- header -->
 

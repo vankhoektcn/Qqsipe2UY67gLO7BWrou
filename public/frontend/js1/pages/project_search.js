@@ -15,7 +15,7 @@ crazyify.project_search = {
 
 	},
 	pageLoad: function(){
-		$('.title-breadcrumb').removeClass('hide');
+		//$('.title-breadcrumb').removeClass('hide');
 		// crazyify.project_search.loadDropdow($('select[name="project_type"]:not(.no-ajax)'), '/extra/project_types', 'GET', '--Chọn loại dự án--', 'id', 'name');
 		// crazyify.project_search.loadDropdow($('select[name="province"]:not(.no-ajax)'), '/extra/provinces', 'GET', '--Chọn thành phố--', 'id', 'name');
 		

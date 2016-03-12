@@ -76,7 +76,8 @@ class ProductsController extends Controller
 			$product->price_type = $request->input('Product.price_type');
 			$product->total_price = $request->input('Product.total_price');
 			$product->address = $request->input('Product.address');
-
+			$product->summary = $request->input('Product.summary');
+			
 			$product->description = $request->input('Product.description');
 			$product->home_direction = $request->input('Product.home_direction');
 			$product->room_number = $request->input('Product.room_number');
@@ -188,6 +189,7 @@ class ProductsController extends Controller
 			$product->price_type = $request->input('Product.price_type');
 			$product->total_price = $request->input('Product.total_price');
 			$product->address = $request->input('Product.address');
+			$product->summary = $request->input('Product.summary');
 
 			$product->description = $request->input('Product.description');
 			$product->home_direction = $request->input('Product.home_direction');

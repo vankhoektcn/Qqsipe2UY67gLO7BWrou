@@ -315,67 +315,73 @@ crazyify.products.entry = {
 	languageControls: [
 		
 	],
+	mainData: null,
 	init: function () {
 		var thisObj = crazyify.products.entry;
 		if ($('#product-form input[name="_method"]').length && $('#product-form input[name="_method"]').val() != 'POST') {
-			$.crazyifyAjax({
-				url: $('#product-form').attr('action'),
-				type: 'GET',
-				success: function (data, textStatus, jqXHR) {
-					CControl.init({
-						dom:$('.form-body'), 
-						commonControls: thisObj.commonControls, 
-						languageControls: thisObj.languageControls,
-						commonData: data,
-						languageDatas: data.translations
-					});
-				}
-			});
-		}
-		else{
-			$.crazyifyAjax({
-				url: '/admin/provinces',
-				type: 'GET',
-				success: function (data, textStatus, jqXHR) {
-					$.each(thisObj.commonControls, function(index, item){
-						if(item.id =='province_id')
-						{
-							$.each(data, function(indexPro, itemPro){
-								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
-							});
-							return false;
+						
+					$.crazyifyAjax({
+						url: $('#product-form').attr('action'),
+						type: 'GET',
+						success: function (data, textStatus, jqXHR) {
+							crazyify.products.entry.mainData = data;
+							CControl.init({
+								dom:$('.form-body'), 
+								commonControls: thisObj.commonControls, 
+								languageControls: thisObj.languageControls,
+								commonData: data,
+								languageDatas: data.translations
+							}, crazyify.products.entry.pageLoad);
 						}
 					});
-					CControl.init({
-						dom:$('.form-body'), 
-						commonControls: thisObj.commonControls,
-						languageControls: thisObj.languageControls
-					}, crazyify.products.entry.pageLoad);
-				}
-			});
+
+		}
+		else{
+			CControl.init({
+				dom:$('.form-body'), 
+				commonControls: thisObj.commonControls,
+				languageControls: thisObj.languageControls
+			}, crazyify.products.entry.pageLoad);
+
 		}
 
-		// Event
-		$(document).on('change', '#province_id', function(){
-			if(this.value && !$.isEmptyObject(this.value))
-			{
-				$.crazyifyAjax({
-					url: '/admin/districts-by-province/'+this.value,
-					type: 'GET',
-					success: function (data, textStatus, jqXHR) {
-						$('#district_id').html('');
-						$('#district_id').append('<option value="0">Chọn quận/huyện</option>');
-						$.each(data, function(indexPro, itemPro)
-						{
-							$('#district_id').append('<option value="'+ itemPro.id +'">'+ itemPro.name +'</option>');
-						});
-					}
-				});
-			}
-		});
 	},
 	pageLoad: function(){
-		crazyify.products.entry.loadProduct_type();
+		$this = crazyify.products.entry;
+		mainData = $this.mainData;
+		//crazyify.products.entry.loadProduct_type();
+		crazyify.common.loadDropdow($('select#product_type_id:not(.no-ajax)'), '/extra/product_types', 'GET', '--Chọn loại tin đăng--', 'id', 'name',
+				function(data){
+					if(mainData.product_type_id) $('select#product_type_id').val(mainData.product_type_id);
+				}
+			);
+		crazyify.common.loadDropdow($('select#province_id:not(.no-ajax)'), '/extra/provinces', 'GET', '--Chọn thành phố--', 'id', 'name',
+			function(data){
+				if(mainData.province_id) 
+				{
+					$('select#province_id').val(mainData.province_id);
+					crazyify.common.loadDropdow($('select#district_id:not(.no-ajax)'), '/extra/districts-by-province/'+mainData.province_id, 'GET', '--Chọn Quận/Huyện--', 'id', 'name',
+						function(data){
+							if(mainData.district_id) 
+							{
+								$('select#district_id').val(mainData.district_id);
+								crazyify.common.loadDropdow($('select#ward_id:not(.no-ajax)'), '/extra/ward-by-district/'+mainData.district_id, 'GET', '--Chọn Phường/Xã--', 'id', 'name',
+									function(data){
+										if(mainData.ward_id) $('select#ward_id').val(mainData.ward_id);
+									}
+								);
+								crazyify.common.loadDropdow($('select#street_id:not(.no-ajax)'), '/extra/street-by-district/'+mainData.district_id, 'GET', '--Chọn Đường/Phố--', 'id', 'name',
+									function(data){
+										if(mainData.street_id) $('select#street_id').val(mainData.street_id);
+									}
+								);
+							}		
+						}
+					);
+				}
+			}
+		);
+		
 	},
 	loadProduct_type: function()
 	{
