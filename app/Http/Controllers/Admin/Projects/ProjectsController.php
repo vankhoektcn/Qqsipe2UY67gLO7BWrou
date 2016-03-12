@@ -68,6 +68,8 @@ class ProjectsController extends Controller
 			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
+			$project->ward_id = $request->input('Project.ward_id');
+			$project->street_id = $request->input('Project.street_id');
 			$project->address = $request->input('Project.address');
 			$project->hotline = $request->input('Project.hotline');
 			$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');
@@ -225,6 +227,8 @@ class ProjectsController extends Controller
 			$project->project_type_id = $request->input('Project.project_type_id');
 			$project->province_id = $request->input('Project.province_id');
 			$project->district_id = $request->input('Project.district_id');
+			$project->ward_id = $request->input('Project.ward_id');
+			$project->street_id = $request->input('Project.street_id');
 			$project->address = $request->input('Project.address');
 			$project->hotline = $request->input('Project.hotline');
 			$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');

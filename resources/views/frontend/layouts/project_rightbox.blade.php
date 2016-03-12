@@ -10,7 +10,7 @@
 	</div>
 	@endif
 	@if (!empty($other_projects) && $other_projects->count()>0)
-	<h3><i class="fa fa-angle-double-right"></i> Dự án khác</h3>
+	<h3><i class="fa fa-angle-double-right"></i> Dự án nổi bật</h3>
 	<div class="blo-top">
 		@foreach ($other_projects as $project)
 		<div class="property-small">
@@ -35,7 +35,7 @@
 		<div class="agent-small">
             <div class="agent-small-inner">
                 <div class="agent-small-image">
-                    <a href="#" class="agent-small-image-inner">
+                    <a href="javascript:;" class="agent-small-image-inner">
                         <img src="{{$agent->thumnail}}" alt="">
                     </a><!-- /.agent-small-image-inner -->
                 </div><!-- /.agent-small-image -->

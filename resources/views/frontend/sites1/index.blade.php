@@ -14,7 +14,7 @@
 		</div>
 	</div>
 </div>
-
+@if ($projectsNew != null && count($projectsNew) > 0)
 <section>
 	<div class="container mrgt6x">
 		<div class="visit-place ">
@@ -22,7 +22,7 @@
 				<h3><span>DỰ ÁN NỔI BẬT</span></h3>
 			</div>
 			<div class="section-detail mrgb3x">
-				@foreach ($projectsSpecal as $project)
+				@foreach ($projectsSpecial as $project)
 				<div class="col-md-4 col-sm-6">
 					<div class="place-img"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="#"/>
 						<div class="place-text">
@@ -37,6 +37,9 @@
 		</div>
 	</div>
 </section>
+@endif
+
+@if ($projectsNew != null && count($projectsNew) > 0)
 <section>
 	<div class="container mrgt6x">
 		<div class="visit-place clearfix animated out" data-delay="0" data-animation="fadeInUp">
@@ -72,54 +75,11 @@
 					</div>
 				</div>
 				@endforeach
-				<!-- <div class="col-md-4 col-sm-6">
-					<div class="home2 property-box border-hover animated out" data-delay="0" data-animation="fadeInUp">
-						<div class="appartment-img"><img src="/frontend/images1/home2-property-2.jpg" class="img-responsive" alt="#" />
-							<div class="room-price"><span>$1350<sup>/week</sup></span></div>
-							<div class="like-btn"><a href="javascript:;"><i class="fa fa-heart"></i></a></div>
-						</div>
-						<div class="property-text">
-							<div class="resort-name">
-								<h4>Hawaii Resort</h4>
-								<div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-								<p>f you’re a home owner looking to move on, we will come and carry out a free, no-obligation valuation on your property.</p>
-							</div>
-							<div class="detail-btn mrgt4x mrgb3x"> <a href="javascript:;" class="more-detail"><i class="fa fa-angle-right"></i>MORE DETAIL</a> </div>
-						</div>
-						<ul class="home2 appartment-detail">
-							<li>1 Room</li>
-							<li>6 Beds</li>
-							<li>1 Bath</li>
-							<li>122 SQ FT</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6">
-					<div class="home2 property-box border-hover animated out" data-delay="0" data-animation="fadeInUp">
-						<div class="appartment-img"><img src="/frontend/images1/home2-property-3.jpg" class="img-responsive" alt="#" />
-							<div class="room-price"><span>$499<sup>/week</sup></span></div>
-							<div class="like-btn"><a href="javascript:;"><i class="fa fa-heart"></i></a></div>
-						</div>
-						<div class="property-text">
-							<div class="resort-name">
-								<h4>Cuba Luxury Hotel</h4>
-								<div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-								<p>We do market all our properties on the big property websites and our own site but we may have something new on our books.</p>
-							</div>
-							<div class="detail-btn mrgt4x mrgb3x"> <a href="javascript:;" class="more-detail"><i class="fa fa-angle-right"></i>MORE DETAIL</a> </div>
-						</div>
-						<ul class="home2 appartment-detail">
-							<li>1 Room</li>
-							<li>4 Beds</li>
-							<li>1 Bath</li>
-							<li>174 SQ FT</li>
-						</ul>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
 </section>
+@endif
 
 <section>
 	<div class="container mrgt6x">
@@ -204,122 +164,6 @@
 					</div>
 				</div>
 			@endforeach
-				<!-- <div class="col-md-3 col-sm-4 mrgb8x animated out" data-delay="0" data-animation="fadeInUp">
-					<div class="agent-profile">
-						<div class="agent-img"><img src="/frontend/images1/agent-1.jpg" class="img-responsive" alt="#" />
-							<div class="img-hover"> <a href="images/agent-1.jpg" class="plus-link"></a></div>
-						</div>
-						<div class="agent-detail">
-							<div class="agent-name">
-								<h5>Jonathan Doe</h5>
-								<span class="vaction">vaction</span> </div>
-							<ul class="agent-contact">
-								<li><i class="fa fa-phone"></i></li>
-								<li><span>Mobile</span></li>
-								<li class="contact-info"><a href="javascript:;">+49 123 456 789</a></li>
-							</ul>
-							<ul class="agent-mail">
-								<li><i class="icon-email4"></i></li>
-								<li><span>E-mail</span></li>
-								<li class="contact-info"><a href="javascript:;"> johndoe@email.com</a></li>
-							</ul>
-							<ul class="social-profile">
-								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-google"></i></a></li>
-							</ul>
-							<div class="full-profile-btn"> <a href="javascript:;" class="see-more">see full profile</a> </div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-4 mrgb8x animated out" data-delay="0" data-animation="fadeInUp">
-					<div class="agent-profile">
-						<div class="agent-img"> <img src="/frontend/images1/agent-2.jpg" class="img-responsive" alt="#" />
-							<div class="img-hover"> <a href="images/agent-2.jpg" class="plus-link"></a></div>
-						</div>
-						<div class="agent-detail">
-							<div class="agent-name">
-								<h5>Susan Withersoon</h5>
-								<span class="estate">estate</span> </div>
-							<ul class="agent-contact">
-								<li><i class="fa fa-phone"></i></li>
-								<li><span>Mobile</span></li>
-								<li class="contact-info"><a href="javascript:;">+49 123 456 789</a></li>
-							</ul>
-							<ul class="agent-mail">
-								<li><i class="icon-email4"></i></li>
-								<li><span>E-mail</span></li>
-								<li class="contact-info"><a href="javascript:;"> johndoe@email.com</a></li>
-							</ul>
-							<ul class="social-profile">
-								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-google"></i></a></li>
-							</ul>
-							<div class="full-profile-btn"> <a href="javascript:;" class="see-more">see full profile</a> </div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-4 mrgb8x animated out" data-delay="0" data-animation="fadeInUp">
-					<div class="agent-profile">
-						<div class="agent-img"> <img src="/frontend/images1/agent-3.jpg" class="img-responsive" alt="#" />
-							<div class="img-hover"> <a href="images/agent-3.jpg" class="plus-link"></a></div>
-						</div>
-						<div class="agent-detail">
-							<div class="agent-name">
-								<h5>Steven Abraham</h5>
-								<span class="vaction">vaction</span> </div>
-							<ul class="agent-contact">
-								<li><i class="fa fa-phone"></i></li>
-								<li><span>Mobile</span></li>
-								<li class="contact-info"><a href="javascript:;">+49 123 456 789</a></li>
-							</ul>
-							<ul class="agent-mail">
-								<li><i class="icon-email4"></i></li>
-								<li><span>E-mail</span></li>
-								<li class="contact-info"><a href="javascript:;"> johndoe@email.com</a></li>
-							</ul>
-							<ul class="social-profile">
-								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-google"></i></a></li>
-							</ul>
-							<div class="full-profile-btn"> <a href="javascript:;" class="see-more">see full profile</a> </div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-4 mrgb8x animated out" data-delay="0" data-animation="fadeInUp">
-					<div class="agent-profile">
-						<div class="agent-img"> <img src="/frontend/images1/agent-4.jpg" class="img-responsive" alt="#" />
-							<div class="img-hover"> <a href="images/agent-4.jpg" class="plus-link"></a></div>
-						</div>
-						<div class="agent-detail">
-							<div class="agent-name">
-								<h5>Lucas Bernie </h5>
-								<span class="financial">financial</span> </div>
-							<ul class="agent-contact">
-								<li><i class="fa fa-phone"></i></li>
-								<li><span>Mobile</span></li>
-								<li class="contact-info"><a href="javascript:;">+49 123 456 789</a></li>
-							</ul>
-							<ul class="agent-mail">
-								<li><i class="icon-email4"></i></li>
-								<li><span>E-mail</span></li>
-								<li class="contact-info"><a href="javascript:;"> johndoe@email.com</a></li>
-							</ul>
-							<ul class="social-profile">
-								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-instagram"></i></a></li>
-								<li><a href="javascript:;"><i class="fa fa-google"></i></a></li>
-							</ul>
-							<div class="full-profile-btn"> <a href="javascript:;" class="see-more">see full profile</a> </div>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>

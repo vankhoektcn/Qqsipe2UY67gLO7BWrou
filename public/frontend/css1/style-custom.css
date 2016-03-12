@@ -1,3 +1,6 @@
+html {
+    font-family: sans-serif;
+}
 body{
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
@@ -186,3 +189,30 @@ li:hover .dropdown-menu{
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > span:hover{
     color: #F36A5A;
 }
+.resort-name p {
+    line-height: 20px;
+    margin-top: 10px;
+}
+.post-area {
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+
+///////////////////////// for SEARCH BOX MIN ////////////////////////////////////
+.search-box-min{ padding-top: 10px; }
+.search-box-min .search-form label {
+    margin-bottom: 2px;
+}
+.search-box-min .form-control {
+    min-height: 34px;
+    padding: 3px 6px;
+}
+.search-box-min .select-box::before {
+    padding: 6px 10px;
+}
+.search-box-min .search-form .form-section {
+    margin-bottom: 10px;
+}
+///////////////////////// END for SEARCH BOX MIN ////////////////////////////////////

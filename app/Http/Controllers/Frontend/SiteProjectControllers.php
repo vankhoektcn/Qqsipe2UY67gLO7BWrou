@@ -34,6 +34,9 @@ use App\Project_part;
 use App\Product_type;
 use App\Product;
 use App\Agent;
+use App\Ward;
+use App\Street;
+use App\Project_type;
 
 class SiteProjectcontrollers extends Controller
 {
@@ -52,49 +55,74 @@ class SiteProjectcontrollers extends Controller
 		$this->setMetadata();
 		$provinces = Province::where('is_publish',1)->get();
 		$projectCategory = new ProjectCategory;
-		$projectsSpecal = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 3);
+		$projectsSpecial = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 3);
 		$projectsNew = $projectCategory->getProjectsByCategoryKey('du-an-moi-nhat', 3);
 		$product_types = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
 		$agents = Agent::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(4)->get();
 		//$canHoChoThue = $product_type->getProductsByTypeKey('can-ho-sang-nhuong', 3);
 		//$productAll = Product::where('active',1)->get();
-		return view('frontend.sites1.index',[ 'provinces'=> $provinces,'projectsSpecal'=> $projectsSpecal, 'projectsNew'=> $projectsNew 
+		return view('frontend.sites1.index',[ 'provinces'=> $provinces,'projectsSpecial'=> $projectsSpecial, 'projectsNew'=> $projectsNew 
 			, 'product_types'=> $product_types, 'agents'=> $agents ]);
 	}
 
 	public function project_search(Request $request)
 	{
-		/*$validator = Validator::make($request->all(), ['province' => 'required']);
-		if ($validator->fails())
-		{
-			return redirect()->back()->withErrors($validator->errors());
-		}
-		else*/
-		{
-			$this->setMetadata('Tìm kiếm dự án');
+		$this->setMetadata('Tìm kiếm dự án');
 
-			$limit = Config::findByKey('rows_per_page_article')->first()->value;
-			$project_type = $request->input('project_type');			
-			$province = $request->input('province');			
-			$district = $request->input('district');			
-			$ward = $request->input('ward');			
-			$street = $request->input('street');	
+		$limit = Config::findByKey('rows_per_page_article')->first()->value;
+		$project_type_id = $request->input('project_type');			
+		$province_id = $request->input('province');			
+		$district_id = $request->input('district');			
+		$ward_id = $request->input('ward');			
+		$street_id = $request->input('street');	
 
-			$query = Project::query();
-			if(isset($project_type) && $project_type != "")
-				$query->where('project_type_id',$project_type);
-			if(isset($province) && $province != "")
-				$query->where('province_id',$province);
-			if(isset($district) && $district != "")
-				$query->where('district_id',$district);
-			if(isset($ward) && $ward != "")
-				$query->where('ward_id',$ward);
-			if(isset($street) && $street != "")
-				$query->where('street_id',$street);
-			$projects = $query->paginate(1);
-
-			return view('frontend.sites1.project_search', ['projects'=> $projects]);
-		}
+		$searchProperty = "";
+		$project_type = null;
+		$province = null;
+		$district = null;
+		$ward = null;
+		$street = null;
+		$query = Project::query();
+		try{
+			if(isset($project_type_id) && $project_type_id != "")
+			{
+				$query->where('project_type_id',$project_type_id);
+				$project_type = Project_type::findOrFail($project_type_id);
+				$searchProperty .= $project_type->name;
+			}
+			if(isset($province_id) && $province_id != "")
+			{
+				$query->where('province_id',$province_id);
+				$province = Province::findOrFail($province_id);
+				$searchProperty .= ", ". $province->name;
+			}
+			if(isset($district_id) && $district_id != "")
+			{
+				$query->where('district_id',$district_id);			
+				$district = District::findOrFail($district_id);
+				$searchProperty .= ", ". $district->name;
+			}
+			if(isset($ward_id) && $ward_id != "")
+			{
+				$query->where('ward_id',$ward_id);
+				$ward = Ward::findOrFail($ward_id);
+				$searchProperty .= ", ". $ward->name;
+			}
+			if(isset($street_id) && $street_id != "")
+			{
+				$query->where('street_id',$street_id);
+				$street = Street::findOrFail($street_id);
+				$searchProperty .= ", ". $street->name;
+			}
+		} catch(Exception $e){
+		};
+		$projects = $query->paginate(1);
+		$projectCategory = new ProjectCategory;
+		$projectsSpecial = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 5);
+		$hcmProvince = Province::findByKey('ho-chi-minh')->first();
+		// dd($hcmProvince->id);
+		$districtProject = District::where('province_id','=', $hcmProvince->id)->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'projectsSpecial'=> $projectsSpecial, 'districtProject' => $districtProject, 'searchProperty'=> $searchProperty]);
 	}
 	public function product_search(Request $request)
 	{

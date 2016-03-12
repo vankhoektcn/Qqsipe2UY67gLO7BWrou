@@ -463,77 +463,34 @@ crazyify.projects.entry = {
 	languageControls: [
 		
 	],
+	mainData: null,
 	init: function () {
 		var thisObj = crazyify.projects.entry;
 		if ($('#project-form input[name="_method"]').length && $('#project-form input[name="_method"]').val() != 'POST') {
 			$.crazyifyAjax({
-				url: '/admin/provinces',
+				url: $('#project-form').attr('action'),
 				type: 'GET',
-				success: function (dataPro, textStatusPro, jqXHRPro) {
-					$.each(thisObj.commonControls, function(index, item){
-						if(item.id =='province_id')
-						{
-							$.each(dataPro, function(indexPro, itemPro){
-								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
-							});
-							return false;
-						}
-					});
-					$.crazyifyAjax({
-						url: $('#project-form').attr('action'),
-						type: 'GET',
-						success: function (data, textStatus, jqXHR) {
-							$.crazyifyAjax({
-								url: '/admin/districts-by-province/'+data.province_id,
-								type: 'GET',
-								success: function (dataDis, textStatusDis, jqXHRDis) {
-									$.each(thisObj.commonControls, function(index, item){
-										if(item.id =='district_id')
-										{
-											$.each(dataDis, function(indexDis, itemDis){
-												item.datas.push({id:itemDis.key,value:itemDis.id,text:itemDis.name});
-											});
-											return false;
-										}
-									});
-									CControl.init({
-										dom:$('.form-body'), 
-										commonControls: thisObj.commonControls, 
-										languageControls: thisObj.languageControls,
-										commonData: data,
-										languageDatas: data.translations
-									}, crazyify.projects.entry.pageLoad);
-								}
-							});
-						}
-					});
-				}
-			});
-		}
-		else{
-			$.crazyifyAjax({
-				url: '/admin/provinces',
-				type: 'GET',
-				success: function (data, textStatus, jqXHR) {
-					$.each(thisObj.commonControls, function(index, item){
-						if(item.id =='province_id')
-						{
-							$.each(data, function(indexPro, itemPro){
-								item.datas.push({id:itemPro.key,value:itemPro.id,text:itemPro.name});
-							});
-							return false;
-						}
-					});
+				success: function (data, textStatus, jqXHR) {					
+					crazyify.projects.entry.mainData = data;
 					CControl.init({
 						dom:$('.form-body'), 
-						commonControls: thisObj.commonControls,
-						languageControls: thisObj.languageControls
+						commonControls: thisObj.commonControls, 
+						languageControls: thisObj.languageControls,
+						commonData: data,
+						languageDatas: data.translations
 					}, crazyify.projects.entry.pageLoad);
 				}
 			});
 		}
+		else{			
+			CControl.init({
+				dom:$('.form-body'), 
+				commonControls: thisObj.commonControls,
+				languageControls: thisObj.languageControls
+			}, crazyify.projects.entry.pageLoad);
+		}
 
-		// Event
+		/*// Event
 		$(document).on('change', '#province_id', function(){
 			if(this.value && !$.isEmptyObject(this.value))
 			{
@@ -551,7 +508,7 @@ crazyify.projects.entry = {
 					}
 				});
 			}
-		});
+		});*/
 
 		$(document).on('click', 'input[name="radio_logo"]', function() {
 			var $image_row = $(this).parents('div.image-row');
@@ -600,7 +557,41 @@ crazyify.projects.entry = {
 	}
 	,
 	pageLoad: function(){
-		crazyify.projects.entry.loadProject_type();
+		//crazyify.projects.entry.loadProject_type();
+		$this = crazyify.projects.entry;
+		mainData = $this.mainData;
+		crazyify.common.loadDropdow($('select#project_type_id:not(.no-ajax)'), '/extra/project_types', 'GET', '--Chọn loại dự án--', 'id', 'name',
+				function(data){
+					if(mainData.project_type_id) $('select#project_type_id').val(mainData.project_type_id);
+				}
+			);
+		crazyify.common.loadDropdow($('select#province_id:not(.no-ajax)'), '/extra/provinces', 'GET', '--Chọn thành phố--', 'id', 'name',
+			function(data){
+				if(mainData.province_id) 
+				{
+					$('select#province_id').val(mainData.province_id);
+					crazyify.common.loadDropdow($('select#district_id:not(.no-ajax)'), '/extra/districts-by-province/'+mainData.province_id, 'GET', '--Chọn Quận/Huyện--', 'id', 'name',
+						function(data){
+							if(mainData.district_id) 
+							{
+								$('select#district_id').val(mainData.district_id);
+								crazyify.common.loadDropdow($('select#ward_id:not(.no-ajax)'), '/extra/ward-by-district/'+mainData.district_id, 'GET', '--Chọn Phường/Xã--', 'id', 'name',
+									function(data){
+										if(mainData.ward_id) $('select#ward_id').val(mainData.ward_id);
+									}
+								);
+								crazyify.common.loadDropdow($('select#street_id:not(.no-ajax)'), '/extra/street-by-district/'+mainData.district_id, 'GET', '--Chọn Đường/Phố--', 'id', 'name',
+									function(data){
+										if(mainData.street_id) $('select#street_id').val(mainData.street_id);
+									}
+								);
+							}		
+						}
+					);
+				}
+			}
+		);
+		
 	},
 	loadProject_type: function()
 	{
