@@ -4,6 +4,20 @@ if (typeof crazyify.common == 'undefined')
 	crazyify.common = {};
 
 crazyify.common = {
+	_productPrefix : '/can-ho',
+	_projectPrefix : '/du-an',
+	_project_type : $('select[name="project_type"]'),
+	_product_type : $('select[name="product_type"]'),
+	_province : $('select[name="province"]'),
+	_district : $('select[name="district"]'),
+
+	_ward : $('select[name="ward"]'),
+	_street : $('select[name="street"]'),
+	_project : $('select[name="project"]'),
+	_utility : $('select[name="utility"]'),
+	_price : $('select[name="price"]'),
+	_area : $('select[name="area"]'),
+	_incense : $('select[name="incense"]'),
 	init: function () 
 	{
 		var thisObj = crazyify.common;
@@ -13,43 +27,51 @@ crazyify.common = {
 	events: function () {
 
 		// Event
-		$(document).on('change', 'select[name="province"]', function(){
-			if(this.value && !$.isEmptyObject(this.value))
-			{
-				crazyify.common.loadDropdow($('select[name="district"]:not(.no-ajax)'), '/extra/districts-by-province/'+this.value, 'GET', '--Chọn Quận/Huyện--', 'id', 'name');
-			}
-		});		
+		$(document).on('change', 'select#project_type_id, select[name="project_type_id"]', function(){
+			crazyify.common.filterProject('PROJECT');
+		});	
+		
 		$(document).on('change', 'select#province_id', function(){
+			$districtObj = $('select#district_id');
 			if(this.value && !$.isEmptyObject(this.value))
 			{
-				crazyify.common.loadDropdow($('select#district_id:not(.no-ajax)'), '/extra/districts-by-province/'+this.value, 'GET', '--Chọn Quận/Huyện--', 'id', 'name');
+				crazyify.common.loadDropdow($districtObj, '/extra/districts-by-province/'+this.value, 'GET', '--Chọn Quận/Huyện--', 'id', 'name',
+					function(data){
+						$('select#ward_id').html('<option value="">--Chọn Phường/Xã--</option>');
+						$('select#street_id').html('<option value="">--Chọn Đường/Phố--</option>');
+					}
+				);
 			}
-		});
-		$(document).on('change', 'select[name="district"]', function(){
-			if(this.value && !$.isEmptyObject(this.value))
-			{
-				crazyify.common.loadDropdow($('select[name="ward"]:not(.no-ajax)'), '/extra/ward-by-district/'+this.value, 'GET', '--Chọn Phường/Xã--', 'id', 'name');
-				crazyify.common.loadDropdow($('select[name="street"]:not(.no-ajax)'), '/extra/street-by-district/'+this.value, 'GET', '--Chọn Đường/Phố--', 'id', 'name');
+			else{
+				$districtObj.html('<option value="">--Chọn Quận/Huyện--</option>');
+				$('select#ward_id').html('<option value="">--Chọn Phường/Xã--</option>');
+				$('select#street_id').html('<option value="">--Chọn Đường/Phố--</option>');
 			}
-		});
-
+			crazyify.common.filterProject($(this).attr('type'));
+		});	
 		$(document).on('change', 'select#district_id', function(){
 			if(this.value && !$.isEmptyObject(this.value))
 			{
-				crazyify.common.loadDropdow($('select#ward_id:not(.no-ajax)'), '/extra/ward-by-district/'+this.value, 'GET', '--Chọn Phường/Xã--', 'id', 'name');
-				crazyify.common.loadDropdow($('select#street_id:not(.no-ajax)'), '/extra/street-by-district/'+this.value, 'GET', '--Chọn Đường/Phố--', 'id', 'name');
+				crazyify.common.loadDropdow($('select#ward_id'), '/extra/ward-by-district/'+this.value, 'GET', '--Chọn Phường/Xã--', 'id', 'name');
+				crazyify.common.loadDropdow($('select#street_id'), '/extra/street-by-district/'+this.value, 'GET', '--Chọn Đường/Phố--', 'id', 'name');
 			}
+			crazyify.common.filterProject($(this).attr('type'));
 		});
 
 	},
 	pageLoad: function(){
 
-		crazyify.common.loadDropdow($('select[name="project_type"]:not(.no-ajax)'), '/extra/project_types', 'GET', '--Chọn loại dự án--', 'id', 'name');
-		crazyify.common.loadDropdow($('select[name="province"]:not(.no-ajax)'), '/extra/provinces', 'GET', '--Chọn thành phố--', 'id', 'name');
-
-		/*crazyify.common.loadDropdow($('select#project_type_id:not(.no-ajax)'), '/extra/project_types', 'GET', '--Chọn loại dự án--', 'id', 'name');
+		crazyify.common.loadDropdow($('select#product_type_id:not(.no-ajax)'), '/extra/product_types', 'GET', null, 'id', 'name');
+		crazyify.common.loadDropdow($('select#project_type_id:not(.no-ajax)'), '/extra/project_types', 'GET', null, 'id', 'name');
 		crazyify.common.loadDropdow($('select#province_id:not(.no-ajax)'), '/extra/provinces', 'GET', '--Chọn thành phố--', 'id', 'name');
-		*/
+
+		crazyify.common.loadDropdow($('select#price_type_id:not(.no-ajax)'), '/extra/price_types', 'GET', '--Chọn đơn vị giá--', 'id', 'name');
+		crazyify.common.loadDropdow($('select#utility_id:not(.no-ajax)'), '/extra/utilities', 'GET', '--Chọn tiện ích--', 'id', 'name');
+		crazyify.common.loadDropdow($('select#price_range_id:not(.no-ajax)'), '/extra/price_ranges', 'GET', '--Chọn mức giá--', 'id', 'name');
+		crazyify.common.loadDropdow($('select#incense_type_id:not(.no-ajax)'), '/extra/incense_types', 'GET', '--Chọn hướng--', 'id', 'name');
+		crazyify.common.loadDropdow($('select#area_range_id:not(.no-ajax)'), '/extra/area_ranges', 'GET', '--Chọn diện tích--', 'id', 'name');
+
+		$('select[multiple="multiple"].no-ajax').multiselect();
 	},
 
 	loadDropdow: function(obj, url, method, emptyItemName, idKey, nameKey, callback){
@@ -61,19 +83,122 @@ crazyify.common = {
 				type: method,
 				success: function (data, textStatus, jqXHR) {
 					$obj.html('');
-					$obj.append('<option value="">'+emptyItemName+'</option>');
+					if(emptyItemName != null && $obj.attr('multiple') == null)
+						$obj.append('<option value="">'+emptyItemName+'</option>');
 					$.each(data, function(index, item)
 					{
-						$obj.append('<option value="'+ item[idKey] +'">'+ item[nameKey] +'</option>');
+						var keyAttr = item.key != null ? ' key="'+item.key+'"' : '';
+						$obj.append('<option value="'+ item[idKey] +'" '+ keyAttr+'>'+ item[nameKey] +'</option>');
+					});
+					if($obj.attr('multiple') == 'multiple')
+						$obj.multiselect();
+					if(callback != null && typeof callback == 'function')
+						callback(data);
+				}
+			});
+		}
+	},
+
+	filterProject: function(type, callback){
+		$obj = $('select#project_id');
+		if($obj != null && $obj.length > 0)
+		{
+			var filterData = {};
+			if(type == 'PROJECT')
+			{
+				if($('select#project_type_id').length >0 && $('select#project_type_id').val() != '')
+					filterData.project_type_id = $('select#project_type_id').val();	
+			}
+			if(type != null)
+			{				
+				if($('select#province_id[type="'+type+'"]').length >0 && $('select#province_id[type="'+type+'"]').val() != '')
+					filterData.province_id = $('select#province_id[type="'+type+'"]').val();		
+				if($('select#district_id[type="'+type+'"]').length >0 && $('select#district_id[type="'+type+'"]').val() != '')
+					filterData.district_id = $('select#district_id[type="'+type+'"]').val();		
+				if($('select#ward_id[type="'+type+'"]').length >0 && $('select#ward_id[type="'+type+'"]').val() != '')
+					filterData.ward_id = $('select#ward_id[type="'+type+'"]').val();		
+				if($('select#street_id[type="'+type+'"]').length >0 && $('select#street_id[type="'+type+'"]').val() != '')
+					filterData.street_id = $('select#street_id[type="'+type+'"]').val();
+			}
+			else{
+				if($('select#province_id').length >0 && $('select#province_id').val() != '')
+					filterData.province_id = $('select#province_id').val();		
+				if($('select#district_id').length >0 && $('select#district_id').val() != '')
+					filterData.district_id = $('select#district_id').val();		
+				if($('select#ward_id').length >0 && $('select#ward_id').val() != '')
+					filterData.ward_id = $('select#ward_id').val();		
+				if($('select#street_id').length >0 && $('select#street_id').val() != '')
+					filterData.street_id = $('select#street_id').val();
+			}
+
+			$.crazyifyAjax({
+				url: '/extra/filter-project',
+				data: filterData,
+				type: 'GET',
+				success: function (data, textStatus, jqXHR) {
+					$obj.html('');
+					$obj.append('<option value="">--Chọn dự án--</option>');
+					$.each(data, function(index, item)
+					{
+						$obj.append('<option value="'+ item.id +'">'+ item.name +'</option>');
 					});
 					if(data != null && data.length >0 && callback != null && typeof callback == 'function')
 						callback(data);
 				}
 			});
 		}
+	},
+
+	getSearchString:function($formParent){
+		var query="";
+		var thisObj=crazyify.common;
+		var _parent=$formParent;
+		$('input[type="text"]:not(.no-request, .date-input), input[type="hidden"]',_parent).each(function(item,index) {
+			if(!$.isEmptyObject($(this).val())) {
+				var value=$(this).val();
+				var name=$(this).attr("name");
+				query+="&"+$(this).attr("name")+":"+$.trim(value)
+			}
+		});
+		$('select[multiple="multiple"]:not(.no-request)',_parent).each(function(item,index) {
+			if(!$.isEmptyObject($(this).val()) && $(this).attr("name") != null) {
+				query+="&"+$(this).attr("name")+"="+$(this).val().join(",")
+			}
+		});
+		$('select:not([multiple="multiple"],.no-request)',_parent).each(function(item,index){			
+			if(!$.isEmptyObject($(this).val()) && $(this).attr("name") != null) {
+				var value = $('option:selected',$(this)).attr('key') != null ? $('option:selected',$(this)).attr('key') : $(this).val();
+				query+="&"+$(this).attr("name")+"="+$(this).val()
+			}
+		});
+
+		$('input.date-input[type="text"]:not(.no-request)',_parent).each(function(item,index) {
+			if(!$.isEmptyObject($(this).val())) {
+				var arr=$.trim($(this).val()).split("/");
+				if(arr.length==3) {
+					var value=arr[2]+"/"+arr[1]+"/"+arr[0];query+="&"+$(this).attr("name")+"="+value}
+			}
+		});
+		$('input[type="checkbox"]:not(.no-request)',_parent).each(function(item,index) {
+			if($(this).attr("name") != null && $(this).is(":checked")) {
+				query+="&"+$(this).attr("name")+"=1"
+			}
+		});
+		console.log(query);
+		if(escape && escape.length>0)
+			query=escape(query.substring(1));
+		console.log(query);
+		return query
 	}
+
 };
 
 $(function () {
 	crazyify.common.init();
+});
+
+jQuery.fn.extend({
+    selectedKey: function() {
+        return $('option:selected',$(this)).attr('key') 
+    } // put comma here if you want to add more functions
 });

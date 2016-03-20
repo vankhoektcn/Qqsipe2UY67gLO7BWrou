@@ -38,6 +38,12 @@ use App\Ward;
 use App\Street;
 use App\Project_type;
 
+use App\Price_type;
+use App\Utility;
+use App\Price_range;
+use App\Incense_type;
+use App\Area_range;
+
 class SiteProjectcontrollers extends Controller
 {
 	/**
@@ -69,14 +75,14 @@ class SiteProjectcontrollers extends Controller
 	{
 		$this->setMetadata('Tìm kiếm dự án');
 
-		$limit = Config::findByKey('rows_per_page_article')->first()->value;
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
 		$project_type_id = $request->input('project_type');			
 		$province_id = $request->input('province');			
 		$district_id = $request->input('district');			
 		$ward_id = $request->input('ward');			
-		$street_id = $request->input('street');	
+		$street_id = $request->input('street');
 
-		$searchProperty = "";
+		$searchDescription = "";
 		$project_type = null;
 		$province = null;
 		$district = null;
@@ -88,294 +94,383 @@ class SiteProjectcontrollers extends Controller
 			{
 				$query->where('project_type_id',$project_type_id);
 				$project_type = Project_type::findOrFail($project_type_id);
-				$searchProperty .= $project_type->name;
+				$searchDescription .= $project_type->name;
 			}
 			if(isset($province_id) && $province_id != "")
 			{
 				$query->where('province_id',$province_id);
 				$province = Province::findOrFail($province_id);
-				$searchProperty .= ", ". $province->name;
+				$searchDescription .= ", ". $province->name;
 			}
 			if(isset($district_id) && $district_id != "")
 			{
 				$query->where('district_id',$district_id);			
 				$district = District::findOrFail($district_id);
-				$searchProperty .= ", ". $district->name;
+				$searchDescription .= ", ". $district->name;
 			}
 			if(isset($ward_id) && $ward_id != "")
 			{
 				$query->where('ward_id',$ward_id);
 				$ward = Ward::findOrFail($ward_id);
-				$searchProperty .= ", ". $ward->name;
+				$searchDescription .= ", ". $ward->name;
 			}
 			if(isset($street_id) && $street_id != "")
 			{
 				$query->where('street_id',$street_id);
 				$street = Street::findOrFail($street_id);
-				$searchProperty .= ", ". $street->name;
+				$searchDescription .= ", ". $street->name;
 			}
 		} catch(Exception $e){
 		};
-		$projects = $query->paginate(1);
+		$projects = $query->paginate($limit);
 		$projectCategory = new ProjectCategory;
 		$projectsSpecial = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 5);
 		$hcmProvince = Province::findByKey('ho-chi-minh')->first();
 		// dd($hcmProvince->id);
 		$districtProject = District::where('province_id','=', $hcmProvince->id)->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
-		return view('frontend.sites1.project_search', ['projects'=> $projects, 'projectsSpecial'=> $projectsSpecial, 'districtProject' => $districtProject, 'searchProperty'=> $searchProperty]);
-	}
-	public function product_search(Request $request)
-	{
-		return view('frontend.sites1.index1');
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'projectsSpecial'=> $projectsSpecial, 'districtProject' => $districtProject, 'searchDescription'=> $searchDescription]);
 	}
 
-	public function article($categorykey, $articlekey)
+	/**
+	 * PRODUCT
+	 */
+	public function products( Request $request)
+	{		
+		$this->setMetadata('Tin rao căn hộ');
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;
+		$searchDescription = 'Căn hộ';
+		$link = route('products');
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class=""><a href="'.$link.'">căn hộ</a></li> 
+		</ul>';
+		$products = Product::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+
+		$product_types = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$provinces = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$heading = 'Căn hộ';
+		return view('frontend.sites1.product_search', ['products'=> $products,'provinces'=> $provinces, 'product_types'=>$product_types //, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+			, 'search_type'=> 'products', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PRODUCT_TYPE
+	 */
+	public function product_type($product_type_key, Request $request)
+	{	
+		$provinces = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$price_ranges = Price_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$area_ranges = Area_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;
+		$product_type = Product_type::findByKey($product_type_key)->first();
+		if(is_null($product_type) )
+			$product_type = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+
+		$products = $product_type->products()->where('active',1);
+		$price_range_id = $request->input('price');			
+		$area_range_id = $request->input('area');			
+		$incense_type_id = $request->input('incense');	
+
+		if(isset($price_range_id) && $price_range_id != '')
+			$products->where('price_range_id', $price_range_id);
+	
+		if(isset($area_range_id) && $area_range_id != '')
+			$products->where('area_range_id', $area_range_id);
+	
+		if(isset($incense_type_id) && $incense_type_id != '')
+			$products->where('incense_type_id', $incense_type_id);
+
+		$products =$products->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $product_type->name;
+		$link = route('product_type',['product_type_key'=> $product_type->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('products').'">Căn hộ</a></li> 
+		<li class=""><a href="'.$link.'">'.$product_type->name.'</a></li> 
+		</ul>';
+		$heading = $product_type->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.product_search', ['products'=> $products, 'product_type'=>$product_type,'provinces'=> $provinces, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+			, 'search_type'=> 'product_type', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PRODUCT_TYPE vs PROVINCE
+	 */
+	public function product_type_province($product_type_key, $province_key, Request $request)
+	{	
+		$province = Province::findByKey($province_key)->first();
+		$districts = District::where('province_id', $province->id)->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$price_ranges = Price_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$area_ranges = Area_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;
+		$product_type = Product_type::findByKey($product_type_key)->first();
+		if(is_null($product_type) )
+			$product_type = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		
+		if(is_null($province) )
+			$province = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+
+		$products = Product::where('product_type_id',$product_type->id)->where('province_id',$province->id)->where('active',1);
+		$price_range_id = $request->input('price');			
+		$area_range_id = $request->input('area');			
+		$incense_type_id = $request->input('incense');	
+
+		if(isset($price_range_id) && $price_range_id != '')
+			$products->where('price_range_id', $price_range_id);
+	
+		if(isset($area_range_id) && $area_range_id != '')
+			$products->where('area_range_id', $area_range_id);
+	
+		if(isset($incense_type_id) && $incense_type_id != '')
+			$products->where('incense_type_id', $incense_type_id);
+
+		$products =$products->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $product_type->name.' '.$province->name;
+		$link = route('product_type_province',['product_type_key'=> $product_type->key, 'province_key'=> $province->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('products').'">Căn hộ</a></li> 
+		<li class="active"><a href="'.route('product_type',['product_type_key'=> $product_type->key]).'">'.$product_type->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$province->name.'</a></li> 
+		</ul>';
+		
+		$heading = $product_type->name.' '. $province->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.product_search', ['products'=> $products, 'product_type'=>$product_type,'province'=> $province, 'districts'=> $districts, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+			, 'search_type'=> 'product_type_province', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PRODUCT_TYPE vs PROVINCE vs DISTRICT
+	 */
+	public function product_type_province_district($product_type_key, $province_key, $district_key, Request $request)
+	{	
+		$district = District::findByKey($district_key)->first();
+		if(is_null($district) )
+			$district = District::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		$province = $district->province;
+		$wards = $district->wards()->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$price_ranges = Price_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$area_ranges = Area_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;
+		$product_type = Product_type::findByKey($product_type_key)->first();
+		if(is_null($product_type) )
+			$product_type = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		
+	
+		$products = Product::where('product_type_id',$product_type->id)->where('district_id',$district->id)->where('active',1);
+		$price_range_id = $request->input('price');			
+		$area_range_id = $request->input('area');			
+		$incense_type_id = $request->input('incense');	
+
+		if(isset($price_range_id) && $price_range_id != '')
+			$products->where('price_range_id', $price_range_id);
+	
+		if(isset($area_range_id) && $area_range_id != '')
+			$products->where('area_range_id', $area_range_id);
+	
+		if(isset($incense_type_id) && $incense_type_id != '')
+			$products->where('incense_type_id', $incense_type_id);
+
+		$products =$products->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $product_type->name.' '. $province->name.' '. $district->name;
+		$link = route('product_type_province_district',['product_type_key'=> $product_type->key, 'province_key'=> $province->key, 'district_key' =>$district->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('products').'">Căn hộ</a></li> 
+		<li class="active"><a href="'.route('product_type',['product_type_key'=> $product_type->key]).'">'.$product_type->name.'</a></li> 
+		<li class="active"><a href="'.route('product_type_province',['product_type_key'=> $product_type->key, 'province_key'=>$province->key]).'">'.$province->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$district->name.'</a></li> 
+		</ul>';
+		
+		$heading = $product_type->name.' '. $province->name.' '. $district->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.product_search', ['products'=> $products, 'product_type'=>$product_type, 'province'=>$province, 'district'=> $district, 'wards'=>$wards, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+			, 'search_type'=> 'product_type_province_district', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PRODUCT_TYPE vs PROVINCE vs DISTRICT vs WARD
+	 */
+	public function product_type_province_district_ward($product_type_key, $province_key, $district_key, $ward_key, Request $request)
 	{
-		$article = Article::where('key',$articlekey)->first();
-		if($article != null){
+		$ward = Ward::findByKey($ward_key)->first();
+		if(is_null($ward) )
+			$ward = Ward::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		$district = $ward->district;
+		$province = $district->province;
+		$price_ranges = Price_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$area_ranges = Area_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;
+		$product_type = Product_type::findByKey($product_type_key)->first();
+		if(is_null($product_type) )
+			$product_type = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+				
+
+		$products = Product::where('product_type_id',$product_type->id)->where('district_id',$district->id)->where('active',1);
+		$price_range_id = $request->input('price');			
+		$area_range_id = $request->input('area');			
+		$incense_type_id = $request->input('incense');	
+
+		if(isset($price_range_id) && $price_range_id != '')
+			$products->where('price_range_id', $price_range_id);
+	
+		if(isset($area_range_id) && $area_range_id != '')
+			$products->where('area_range_id', $area_range_id);
+	
+		if(isset($incense_type_id) && $incense_type_id != '')
+			$products->where('incense_type_id', $incense_type_id);
+
+		$products =$products->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $product_type->name.' '. $province->name.' '. $district->name.' '. $ward->name;
+		$link = route('product_type_province_district_ward',['product_type_key'=> $product_type->key, 'province_key'=> $province->key, 'district_key' =>$district->key, 'ward_key'=>$ward->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('products').'">Căn hộ</a></li> 
+		<li class="active"><a href="'.route('product_type',['product_type_key'=> $product_type->key]).'">'.$product_type->name.'</a></li> 
+		<li class="active"><a href="'.route('product_type_province',['product_type_key'=> $product_type->key, 'province_key'=>$province->key]).'">'.$province->name.'</a></li> 
+		<li class="active"><a href="'.route('product_type_province_district',['product_type_key'=> $product_type->key, 'province_key'=>$province->key, 'district_key'=> $district->key]).'">'.$district->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$ward->name.'</a></li> 
+		</ul>';
+		
+		$heading = $product_type->name.' '. $province->name.' '. $district->name.' '. $ward->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.product_search', ['products'=> $products, 'product_type'=>$product_type, 'district'=> $district, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+			, 'search_type'=> 'product_type_province_district', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+
+	// FOR PRODUCT
+	public function product_detail($product_id, $product_key)
+	{
+		$product = Product::findOrFail($product_id);
+
+		if($product != null){
+			$price_ranges = Price_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			$area_ranges = Area_range::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+						
 			// metadata
-			$site_title = $article->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			$site_title = $product->name . ' - ' . Config::findByKey('site_title')->first()->value;
 			SEOMeta::setTitle($site_title);
-			SEOMeta::setDescription($article->meta_description);
-			SEOMeta::addKeyword([$article->meta_keywords]);
-			SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
-			if (isset($article->categories->first()->name)) {
-				SEOMeta::addMeta('article:section', $article->categories->first()->name, 'property');
+			SEOMeta::setDescription($product->meta_description);
+			SEOMeta::addKeyword([$product->meta_keywords]);
+			SEOMeta::addMeta('product:published_time', $product->created_at->toW3CString(), 'property');
+			if (isset($product->product_type->name)) {
+				SEOMeta::addMeta('product:section', $product->product_type->name, 'property');
 			}
 
 			OpenGraph::setTitle($site_title);
-			OpenGraph::setDescription($article->meta_description);
-			OpenGraph::setUrl(route('article', ['categorykey' => $categorykey, 'articlekey' => $articlekey]));
-			OpenGraph::addProperty('type', 'article');
+			OpenGraph::setDescription($product->meta_description);
+			OpenGraph::setUrl($product->getLink());
+			OpenGraph::addProperty('type', 'product');
 			OpenGraph::addProperty('locale', app()->getLocale());
 			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
 
-			OpenGraph::addImage($article->getFirstAttachment());
-			OpenGraph::addImage($article->attachments->lists('path'));
-			OpenGraph::addImage(['url' => Image::url($article->getFirstAttachment(),300,300,array('crop')), 'size' => 300]);
+			OpenGraph::addImage($product->getThumnail());
+			OpenGraph::addImage($product->attachments->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($product->getThumnail(),300,300,array('crop')), 'size' => 300]);
 			// end metadata
 
-			return view('frontend.sites.article',compact('article'));
-		}
-		else
-			return view('errors.404');
-	}
+			$attachments = $product->attachments;
+			$wards = $product->district->wards;
 
-	public function about()
-	{
-		return view('frontend.sites.about');
-	}
-
-	public function contact()
-	{
-		$this->setMetadata('Liên hệ');
-
-		return view('frontend.sites.contact');
-	}
-
-	public function createContact(Request $request)
-	{
-		$json = json_decode('{"success":false, "message": "Đăng ký không thành công"}');
-		//$arrayName = array('success' =>  false, 'message' => 'Đăng ký không thành công' );
-		$validator = Validator::make($request->get('Contact'), Contact::$rules);
-		if ($validator->fails())
-		{
-			if ($request->ajax()) {
-				return response()->json($json);
-			}
-			else{
-				return redirect()->back()->withErrors($validator->errors());
-			}
-		}
-		else
-		{
-			$contact = new Contact;
-
-			$contact->full_name = $request->input('Contact.full_name');
-			$contact->email = $request->input('Contact.email');
-			$contact->phone = $request->input('Contact.phone');
-			$contact->subject = $request->input('Contact.subject');
-			$contact->content = $request->input('Contact.content');
-	 
-			//Tiến hành lưu dữ liệu vào database
-			$contact->save();
-
-			// send email
-			$common = new Common;
-			$config = new Config;
-			try{
-				$common->sendEmail('frontend.emails.contact', $data = ['contact' => $contact], $to = $config->getValueByKey('address_received_mail'), $toName = $contact->full_name, $subject = $contact->subject, $cc = $contact->email, $replyTo = $contact->email);
-			}catch(Exception $e){
-
-			}
-			if ($request->ajax()) {
-				$json->success = true;
-				$json->message = 'Chúng tôi sẽ chủ động cập nhật thông tin mới nhất đến bạn.';
-				return response()->json($json);
-			}
-			else{
-				return redirect(route('contact'))->with('contact-status', 'Nội dung liên hệ của quý khách đã được gửi đến ban quản trị. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
-			}
-		}
-	}
-
-	public function search(Request $request)
-	{
-		$validator = Validator::make($request->all(), ['keyword' => 'required']);
-		if ($validator->fails())
-		{
-			return redirect()->back()->withErrors($validator->errors());
-		}
-		else 
-		{
-			$this->setMetadata('Tìm kiếm');
-
-			$name = $request->input('keyword');
-			$limit = Config::findByKey('rows_per_page_article')->first()->value;
-			$articles = Article::whereHas('translations', function ($query) use ($name) {
-				$query->where('locale', app()->getLocale())->where('is_publish',1)->where('name','LIKE', '%'. $name .'%')->orderBy('priority')->orderBy('created_at','desc');
-			})->paginate($limit);
-
-			return view('frontend.sites.searchResult', ['articles'=> $articles]);
-		}
-	}
-	
-	public function tutor()
-	{
-		$this->setMetadata('Gia sư hiện có');
-
-		return view('frontend.sites.tutor');
-	}
-
-	
-	public function tutorRegister()
-	{
-		$this->setMetadata('Đăng ký làm gia sư');
-
-		$districts = District::where('is_publish',1)->get();
-		$subjects = Subject::where('is_publish',1)->orderBy('priority')->get();
-		$teachTimes = TeachTime::where('is_publish',1)->orderBy('priority')->get();
-		return view('frontend.sites.tutorRegister',['districts'=> $districts, 'subjects' => $subjects, 'teachTimes'=> $teachTimes]);
-	}
-
-	public function createTutorRegister(Request $request)
-	{
-		$validator = Validator::make($request->get('TutorRegister'), TutorRegister::$rules);
-		if ($validator->fails())
-		{
-			return redirect()->back()->withErrors($validator->errors());
-		}
-		else
-		{
-			$strSubjects = $request->input('arrSubjects');
-			$strTeachTime = $request->input('arrTeachTime');
-			$strDistrict = $request->input('arrDistrict');
-			if(empty($strSubjects) || empty($strTeachTime) || empty($strDistrict))
+			$heading = $product->product_type->name.' '. (isset($product->ward_id) && $product->ward_id > 0 ? $product->ward->name :$product->district->name );
+			// $link ='';
+			if(isset($product->ward_id) && $product->ward_id > 0)
 			{
-				return redirect()->back()->withErrors("Môn học, thời gian dạy, nơi dạy vui lòng nhập đầy đủ.");
+				$link = route('product_type_province_district_ward',['product_type_key'=> $product->product_type->key, 'province_key'=> $product->province->key, 'district_key' =>$product->district->key, 'ward_key'=>$product->ward->key]);
+				$relate_products = $product->ward->products()->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+				if(count($relate_products) ==0)
+					$relate_products = $product->district()->products->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
 			}
-			$arrSubjects = preg_split('/(,{1}[\s]?|\sand\s)+/', $strSubjects);
-
-			$arrTeachTime = preg_split('/(,{1}[\s]?|\sand\s)+/', $strTeachTime);
-
-			$arrDistrict = preg_split('/(,{1}[\s]?|\sand\s)+/', $strDistrict);
-
-			$tutorRegister = new TutorRegister;
-			$tutorRegister->name = $request->input('TutorRegister.name');
-			$tutorRegister->email = $request->input('TutorRegister.email');
-			$tutorRegister->mobile = $request->input('TutorRegister.mobile');
-			$tutorRegister->sex = $request->input('TutorRegister.sex');
-			$tutorRegister->district_id = $request->input('TutorRegister.district_id');
-			$tutorRegister->address = $request->input('TutorRegister.address');
-			$tutorRegister->teacher_level = $request->input('TutorRegister.teacher_level');
-			$tutorRegister->experient = $request->input('TutorRegister.experient');
-			$tutorRegister->company = $request->input('TutorRegister.company');
-			$tutorRegister->primary = $request->input('TutorRegister.primary');
-			$tutorRegister->secondary = $request->input('TutorRegister.secondary');
-			$tutorRegister->highshool = $request->input('TutorRegister.highshool');
-			$tutorRegister->salary = $request->input('TutorRegister.salary');
-			$tutorRegister->other_require = $request->input('TutorRegister.other_require');
-
-			$tutorRegister->save();
-
-			$tutorRegister->subjects()->sync($arrSubjects);
-			$tutorRegister->teachTimes()->sync($arrTeachTime);
-			$tutorRegister->districts()->sync($arrDistrict);
-			return redirect(route('tutorRegister'))->with('register-status', 'Đăng ký làm gia sư thành công. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
-		}
-	}
-
-	public function studentRegister()
-	{
-		$this->setMetadata('Đăng ký tìm gia sư');
-
-		$districts = District::where('is_publish',1)->get();
-		$subjects = Subject::where('is_publish',1)->orderBy('priority')->get();
-		$teachTimes = TeachTime::where('is_publish',1)->orderBy('priority')->get();
-		return view('frontend.sites.studentRegister',['districts'=> $districts, 'subjects' => $subjects, 'teachTimes'=> $teachTimes]);
-	}
-
-	public function createStudentRegister(Request $request)
-	{
-		$validator = Validator::make($request->get('StudentRegister'), StudentRegister::$rules);
-		if ($validator->fails())
-		{
-			return redirect()->back()->withErrors($validator->errors());
-		}
-		else
-		{
-			$arrSubjects = $request->input('StudentRegister.subjects');// $request->input('arrSubjects');
-			$arrTeachTime = $request->input('StudentRegister.teachTimes');// $request->input('arrTeachTime');
-			if(empty($arrSubjects) || empty($arrTeachTime))
+			else
 			{
-				return redirect()->back()->withErrors("vui lòng chọn môn học, thời gian học.");
+				$link = route('product_type_province_district',['product_type_key'=> $product->product_type->key, 'province_key'=> $product->province->key, 'district_key' =>$product->district->key]);
+				$relate_products = $product->district()->products->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
 			}
 
-			$studentRegister = new StudentRegister;
-			$studentRegister->name = $request->input('StudentRegister.name');
-			$studentRegister->email = $request->input('StudentRegister.email');
-			$studentRegister->mobile = $request->input('StudentRegister.mobile');
-			$studentRegister->sex = $request->input('StudentRegister.sex');
-			$studentRegister->district_id = $request->input('StudentRegister.district_id');
-			$studentRegister->address = $request->input('StudentRegister.address');
-			$studentRegister->class = $request->input('StudentRegister.class');
-			$studentRegister->level = $request->input('StudentRegister.level');
-			$studentRegister->school = $request->input('StudentRegister.company');
-			$studentRegister->cost = $request->input('StudentRegister.cost');
-			$studentRegister->other_require = $request->input('StudentRegister.other_require');
+			$breadcrumb = '<ul class="breadcrumb pull-left padl0"> 
+			<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+			<li class="active"><a href="'.route('products').'">Căn hộ</a></li> 
+			<li class="active"><a href="'.route('product_type',['product_type_key'=> $product->product_type->key]).'">'.$product->product_type->name.'</a></li> 
+			<li class="active"><a href="'.route('product_type_province',['product_type_key'=> $product->product_type->key, 'province_key'=>$product->province->key]).'">'.$product->province->name.'</a></li> 
+			<li class="active"><a href="'.route('product_type_province_district',['product_type_key'=> $product->product_type->key, 'province_key'=>$product->province->key, 'district_key'=> $product->district->key]).'">'.$product->district->name.'</a></li> 
+			'.(isset($product->ward_id) && $product->ward_id > 0 ? '<li class=""><a href="'.$link.'">'.$product->ward->name.'</a></li> ' :'').'
+			</ul>';
 
-			$studentRegister->save();
-
-			$studentRegister->subjects()->sync($arrSubjects);
-			$studentRegister->teachTimes()->sync($arrTeachTime);
-			return redirect(route('studentRegister'))->with('register-status', 'Đăng ký tìm gia sư thành công. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
+			return view('frontend.sites1.product_detail',['product'=> $product, 'attachments'=>$attachments
+				, 'product_type'=>$product->product_type, 'wards'=> $wards, 'price_ranges' => $price_ranges, 'area_ranges'=> $area_ranges, 'incense_types' => $incense_types
+				, 'relate_products'=> $relate_products, 'search_type'=> 'product_detail', 'link'=> $link, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
 		}
-	}
-
-	
-	public function newClass()
-	{
-		$this->setMetadata('Lớp mới');
-
-		$limit = Config::findByKey('rows_per_page_article')->first()->value;
-		$newclass = NewClass::where('is_publish',1)->orderBy('priority')->paginate($limit);	
-		return view('frontend.sites.newClass', ['newclass' => $newclass]);
-	}
-
-	public function searchNewClass(Request $request)
-	{
-		$this->setMetadata('Lớp mới');
-
-		$status = $request->input('status');
-		$newclass = null;
-
-		$limit = Config::findByKey('rows_per_page_article')->first()->value;
-
-		if(is_null($status) || $status == "")
-			$newclass = NewClass::where('is_publish',1)->orderBy('priority')->paginate($limit);
 		else
-			$newclass = NewClass::where('is_publish',1)->where('status',$status)->orderBy('priority')->paginate($limit);
-		return view('frontend.sites.newClass', ['newclass' => $newclass]);
+			return view('frontend.sites1.product_detail');
+	}
+
+	public function product_search(Request $request)
+	{		
+		$this->setMetadata('Tìm kiếm tin đăng');
+		$product_type_id = $request->input('product_type');			
+		$province_id = $request->input('province');			
+		$district_id = $request->input('district');			
+		$ward_id = $request->input('ward');			
+		$street_id = $request->input('street');				
+		$price_range_id = $request->input('price');			
+		$area_range_id = $request->input('area');			
+		$incense_type_id = $request->input('incense');	
+		$limit = Config::findByKey('rows_per_page_product')->first()->value;		
+
+		$searchDescription = "";
+		$product_type = null;
+		$province = null;
+		$district = null;
+		$ward = null;
+		$street = null;
+		$query = Product::query();
+		try{
+			if(isset($product_type_id) && $product_type_id != "")
+			{
+				$query->where('product_type_id',$product_type_id);
+				$product_type = product_type::findOrFail($product_type_id);
+				$searchDescription .= $product_type->name;
+			}
+			if(isset($province_id) && $province_id != "")
+			{
+				$query->where('province_id',$province_id);
+				$province = Province::findOrFail($province_id);
+				$searchDescription .= ", ". $province->name;
+			}
+			if(isset($district_id) && $district_id != "")
+			{
+				$query->where('district_id',$district_id);			
+				$district = District::findOrFail($district_id);
+				$searchDescription .= ", ". $district->name;
+			}
+			if(isset($ward_id) && $ward_id != "")
+			{
+				$query->where('ward_id',$ward_id);
+				$ward = Ward::findOrFail($ward_id);
+				$searchDescription .= ", ". $ward->name;
+			}
+			if(isset($street_id) && $street_id != "")
+			{
+				$query->where('street_id',$street_id);
+				$street = Street::findOrFail($street_id);
+				$searchDescription .= ", ". $street->name;
+			}
+		} catch(Exception $e){
+		};
+		$products = $query->paginate($limit);
+		$product_types = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$hcmProvince = Province::findByKey('ho-chi-minh')->first();
+		// dd($hcmProvince->id);
+		$districtProduct = District::where('province_id','=', $hcmProvince->id)->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		return view('frontend.sites1.product_search', ['products'=> $products, 'product_types'=> $product_types, 'districtProduct' => $districtProduct, 'searchDescription'=> $searchDescription]);
+	
 	}
 
 	/**
@@ -479,42 +574,8 @@ class SiteProjectcontrollers extends Controller
 	}
 
 
-	// FOR PRODUCT
-	public function product($districtkey,$productkey)
-	{
-		$product = Product::where('key',$productkey)->first();
-		if($product != null){
-			$other_products = Product::where('active',1)->orderBy('priority')->take(5)->get();
-
-			// metadata
-			$site_title = $product->name . ' - ' . Config::findByKey('site_title')->first()->value;
-			SEOMeta::setTitle($site_title);
-			SEOMeta::setDescription($product->meta_description);
-			SEOMeta::addKeyword([$product->meta_keywords]);
-			SEOMeta::addMeta('product:published_time', $product->created_at->toW3CString(), 'property');
-			if (isset($product->product_type->name)) {
-				SEOMeta::addMeta('product:section', $product->product_type->name, 'property');
-			}
-
-			OpenGraph::setTitle($site_title);
-			OpenGraph::setDescription($product->meta_description);
-			OpenGraph::setUrl($product->getLink());
-			OpenGraph::addProperty('type', 'product');
-			OpenGraph::addProperty('locale', app()->getLocale());
-			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
-
-			OpenGraph::addImage($product->getThumnail());
-			OpenGraph::addImage($product->attachments->lists('path'));
-			OpenGraph::addImage(['url' => Image::url($product->getThumnail(),300,300,array('crop')), 'size' => 300]);
-			// end metadata
-			return view('frontend.sites.product',compact('product'));
-		}
-		else
-			return view('errors.404');
-	}
-
-	public function product_type($producttypekey)
+	/*public function product_type($producttypekey)
 	{
 		return redirect()->route('homepage');
-	}
+	}*/
 }

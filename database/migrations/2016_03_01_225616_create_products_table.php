@@ -23,17 +23,23 @@ class CreateProductsTable extends Migration
             $table->integer('ward_id')->nullable();
             $table->integer('street_id')->nullable();
             $table->integer('project_id')->nullable();
+
+            $table->integer('price_range_id')->nullable();
+            $table->integer('area_range_id')->nullable();
+            $table->integer('incense_type_id')->nullable();
+
             $table->integer('area');
             $table->integer('price');
-            $table->integer('price_type')->nullable();//
+            $table->integer('price_type_id')->nullable();//
             $table->string('total_price')->nullable();
             $table->string('address',250);
 
+            $table->timestamps('expire_at')->nullable();
             $table->text('summary');
             $table->text('description');
             $table->integer('home_direction')->nullable();
-            $table->integer('room_number')->nullable();
-            $table->integer('toilet_number')->nullable();
+            $table->integer('rooms')->nullable();
+            $table->integer('toilets')->nullable();
             $table->text('interior')->nullable();
             $table->string('main_image',250)->nullable();  
 
@@ -49,6 +55,7 @@ class CreateProductsTable extends Migration
 
             $table->integer('priority');
             $table->boolean('active')->default(0);
+            $table->integer('user_id');
             $table->string('created_by', 50);
             $table->string('updated_by', 50)->nullable();
             $table->string('deleted_by', 50)->nullable();

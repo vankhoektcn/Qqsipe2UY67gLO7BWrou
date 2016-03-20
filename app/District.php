@@ -24,6 +24,10 @@ class District extends BaseModel
     {
         return $this->belongsTo('App\Province');
     }
+	public function wards()
+	{
+		return $this->hasMany('App\Ward');
+	}
 	public function translations()
 	{
 		return $this->hasMany('App\DistrictTranslation');

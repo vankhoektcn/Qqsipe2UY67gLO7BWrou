@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="page-title mrgt1x mrgb05 clearfix">
 			<h4 class="page-name">Tìm kiếm dự án</h4>
-			<div class="tag-bar"> <a href="{{Request::url(). (Request::getQueryString() ? ('?' . Request::getQueryString()) : '')}}"><span>{!!$searchProperty!!}</span></a> </div>
+			<div class="tag-bar"> <a href="{{Request::url(). (Request::getQueryString() ? ('?' . Request::getQueryString()) : '')}}"><span>{!!$searchDescription!!}</span></a> </div>
 			<ul class="breadcrumb">
 				<li><a href="{{ route('homepage') }}">Trang chủ</a></li>
 				<li class="active"><a href="{{ route('project_search') }}">Tìm dự án</a></li>
@@ -100,5 +100,4 @@
 @endsection
 
 @section('body.js')
-	<script type="text/javascript" src="/frontend/js1/pages/project_search.js"></script>
 @endsection

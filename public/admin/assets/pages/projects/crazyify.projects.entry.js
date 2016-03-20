@@ -463,7 +463,7 @@ crazyify.projects.entry = {
 	languageControls: [
 		
 	],
-	mainData: null,
+	mainData: {},
 	init: function () {
 		var thisObj = crazyify.projects.entry;
 		if ($('#project-form input[name="_method"]').length && $('#project-form input[name="_method"]').val() != 'POST') {

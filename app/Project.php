@@ -48,6 +48,10 @@ class Project extends BaseModel
 	{
 		return $this->belongsToMany('App\Agent');
 	}	
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
 	public function project_parts()
     {
         return $this->hasMany('App\Project_part');
