@@ -13,6 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        $this->call(Price_typesTableSeeder::class);
+        $this->call(Price_rangesTableSeeder::class);
+        $this->call(Area_rangesTableSeeder::class);
+        $this->call(Incense_typesTableSeeder::class);
+        $this->call(UtilitiesTableSeeder::class);
 
         $this->call(LanguagesTableSeeder::class);
         $this->call(ConfigsTableSeeder::class);

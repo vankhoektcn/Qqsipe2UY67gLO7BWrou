@@ -24,7 +24,7 @@ class Project_type extends BaseModel
 
 	public function getLink()
 	{
-		return route('project_type', ['typekey' => $this->key]);
+		return route('project_type', ['project_type_key' => $this->key]);
 	}
 
 	public function getProjectsByTypeKey($typeKey = '', $limit = 0)

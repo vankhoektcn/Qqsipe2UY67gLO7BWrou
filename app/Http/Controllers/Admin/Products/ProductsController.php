@@ -12,6 +12,7 @@ use App\Common;
 use App\Attachment;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 class ProductsController extends Controller
 {
@@ -71,17 +72,27 @@ class ProductsController extends Controller
 			$product->ward_id = $request->input('Product.ward_id');
 			$product->street_id = $request->input('Product.street_id');
 			$product->project_id = $request->input('Product.project_id');
+
+			$product->price_range_id = $request->input('Product.price_range_id');
+			$product->area_range_id = $request->input('Product.area_range_id');
+			$product->incense_type_id = $request->input('Product.incense_type_id');
+
 			$product->area = $request->input('Product.area');
 			$product->price = $request->input('Product.price');
-			$product->price_type = $request->input('Product.price_type');
+			$product->price_type_id = $request->input('Product.price_type_id');
 			$product->total_price = $request->input('Product.total_price');
 			$product->address = $request->input('Product.address');
+			if($request->input('Product.expire_at') != null && $request->input('Product.expire_at') !='')
+			{
+				$expire_at = Carbon::createFromFormat('d/m/Y', $request->input('Product.expire_at'))->toDateString();;
+				$product->expire_at = $expire_at;
+			}
 			$product->summary = $request->input('Product.summary');
 			
 			$product->description = $request->input('Product.description');
 			$product->home_direction = $request->input('Product.home_direction');
-			$product->room_number = $request->input('Product.room_number');
-			$product->toilet_number = $request->input('Product.toilet_number');
+			$product->rooms = $request->input('Product.rooms');
+			$product->toilets = $request->input('Product.toilets');
 			$product->interior = $request->input('Product.interior');
 			$product->main_image = $request->input('Product.main_image');
 
@@ -97,6 +108,7 @@ class ProductsController extends Controller
 
 			$product->priority = $request->input('Product.priority');
 			$product->active = $request->input('Product.active');
+			$product->user_id = $user->id;
 			$product->created_by = $user->name;
 			$product->updated_by = $user->name;
 			$product->save();
@@ -184,17 +196,27 @@ class ProductsController extends Controller
 			$product->ward_id = $request->input('Product.ward_id');
 			$product->street_id = $request->input('Product.street_id');
 			$product->project_id = $request->input('Product.project_id');
+
+			$product->price_range_id = $request->input('Product.price_range_id');
+			$product->area_range_id = $request->input('Product.area_range_id');
+			$product->incense_type_id = $request->input('Product.incense_type_id');
+			
 			$product->area = $request->input('Product.area');
 			$product->price = $request->input('Product.price');
-			$product->price_type = $request->input('Product.price_type');
+			$product->price_type_id = $request->input('Product.price_type_id');
 			$product->total_price = $request->input('Product.total_price');
 			$product->address = $request->input('Product.address');
+			if($request->input('Product.expire_at') != null && $request->input('Product.expire_at') !='')
+			{
+				$expire_at = Carbon::createFromFormat('d/m/Y', $request->input('Product.expire_at'))->toDateString();
+				$product->expire_at = $expire_at;
+			}
 			$product->summary = $request->input('Product.summary');
 
 			$product->description = $request->input('Product.description');
 			$product->home_direction = $request->input('Product.home_direction');
-			$product->room_number = $request->input('Product.room_number');
-			$product->toilet_number = $request->input('Product.toilet_number');
+			$product->rooms = $request->input('Product.rooms');
+			$product->toilets = $request->input('Product.toilets');
 			$product->interior = $request->input('Product.interior');
 			$product->main_image = $request->input('Product.main_image');
 
@@ -210,6 +232,7 @@ class ProductsController extends Controller
 
 			$product->priority = $request->input('Product.priority');
 			$product->active = $request->input('Product.active');
+			$product->user_id = $user->id;
 			$product->created_by = $user->name;
 			$product->updated_by = $user->name;
 			$product->save();

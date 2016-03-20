@@ -4,6 +4,29 @@ html {
 body{
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+a:hover {
+    color: #EF5424;
+    text-decoration: underline;
+}
+.text-nowrap{white-space: nowrap;}
+.hide-normal{display: none;}
+
+.cl-pink{color: #f65280}
+.cl-black{color: #2f2f2f}
+.cl-grey{color: #9faab6}
+.cl-blue{color: #09b9e5}
+.cl-dark-blue{color: #1078f9}
+.cl-green{color: #35b538}
+.cl-yellow{color: #edc714}
+.cl-orange{color: #fa8526}
+
+.cl-lit-purple{color: #d971f2} 
+.cl-purple{color: #8a6ced} 
+.cl-navy{color: #233e5c} 
+.cl-sea-green{color: #64dbd7} 
+.cl-brown{color: #874a25} 
+.cl-red{color: #f53838} 
+
 .ps-relative{position: relative;}
 .fs10{font-size: 10px !important}
 .fs11{font-size: 11px !important}
@@ -54,29 +77,33 @@ body{
     width: 100%;
 }
 
+/*///////////////////////// for PRODUCT ITEM ////////////////////////////////////*/
 .apartment-item{
-	border: 1px solid #09B9E5;
-    padding: 10px 10px;
+    border: 1px solid #09B9E5;
+    padding: 5px 5px 0px 5px;
+}
+.blog-text p {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 .blog-text .time {
-	border-radius: 3px;
-    color: #999;
-    right: 5px;
+    border-radius: 3px; color: #999;padding: 1px 3px; float: right;
+    /*right: 5px;
     bottom: 25px;
-    position: absolute;
-    padding: 1px 3px;
+    position: absolute;*/
 }
 .blog-text .time li a {
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #a5a5a5;
-    font-size: 15px;
+    font-size: 13px;
 }
 .item_price .price{
-	color: #f53838;
+    color: #f53838;
 }
 .item_price .acreage{
 color:#055699
 }
+/*///////////////////////// END for PRODUCT ITEM ////////////////////////////////////*/
 .top-tabs .tab-content{
 	background-color: #D9EDF7;
 }
@@ -198,9 +225,22 @@ li:hover .dropdown-menu{
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
+.btn-group{
+    width: 100%;
+}
+button.multiselect{
+    width: 100%;
+    min-height: 38px;
+    border-radius: 0;
+}
+.search-box-min button.multiselect{
+    min-height: 34px;
+}
+.accomodation li {
+    margin-bottom: 5px;
+}
 
-
-///////////////////////// for SEARCH BOX MIN ////////////////////////////////////
+/*///////////////////////// for SEARCH BOX MIN ////////////////////////////////////*/
 .search-box-min{ padding-top: 10px; }
 .search-box-min .search-form label {
     margin-bottom: 2px;
@@ -215,4 +255,15 @@ li:hover .dropdown-menu{
 .search-box-min .search-form .form-section {
     margin-bottom: 10px;
 }
-///////////////////////// END for SEARCH BOX MIN ////////////////////////////////////
+/*///////////////////////// END for SEARCH BOX MIN ////////////////////////////////////*/
+
+/*///////////////////////// for RIGHT SIDE BAR ////////////////////////////////////*/
+.right-side-bar .rightbar-heading h4::after { width: 100%;}
+/*///////////////////////// END for RIGHT SIDE BAR ////////////////////////////////////*/
+
+/*///////////////////////// for PRODUCT DETAIL ////////////////////////////////////*/
+.description-content li {
+    margin-bottom: 5px;
+    display: table-row;
+}
+/*///////////////////////// END for PRODUCT DETAIL ////////////////////////////////////*/

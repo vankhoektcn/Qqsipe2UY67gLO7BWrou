@@ -23,7 +23,13 @@ $.format = function jQuery_dotnet_string_format(text) {
 };
 
 $.crazyifyAjax = function (options) {
-	return $.ajax(options);
+	var commonOption = {
+		headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+	};
+	$.extend(true, commonOption, options);
+	return $.ajax(commonOption);
 };
 
 $.getLanguages = function (callback) {

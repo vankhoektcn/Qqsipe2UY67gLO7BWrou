@@ -48,6 +48,37 @@ class Product extends BaseModel
         return $this->belongsTo('App\Project');
     }
 
+
+    public function price_type()
+    {
+        return $this->belongsTo('App\Price_type');
+    }
+
+    public function price_range()
+    {
+        return $this->belongsTo('App\Price_range');
+    }
+    
+    public function area_range()
+    {
+        return $this->belongsTo('App\Area_range');
+    }
+    
+    public function incense_type()
+    {
+        return $this->belongsTo('App\Incense_type');
+    }
+
+    public function utilitys()
+    {
+        return $this->belongsToMany('App\Utility');
+    }   
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function attachments()
     {
         return $this->hasMany('App\Attachment', 'entry_id')->where('table_name', '=', 'products');
@@ -67,8 +98,7 @@ class Product extends BaseModel
     }
     public function getLink()
     {
-        $district_key = $this->district->key;
-        $link = route('product', ['districtkey' => $district_key, 'productkey' => $this->key]);
+        $link = route('product_detail', ['product_id' => $this->id, 'product_key' => $this->key]);
         return $link;
     }
 

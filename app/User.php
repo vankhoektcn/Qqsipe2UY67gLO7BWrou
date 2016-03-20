@@ -46,4 +46,10 @@ class User extends Model implements AuthenticatableContract,
 		'password'  =>'required|max:60|confirmed',
 		'password_confirmation'=>'required|max:60'
 	];
+
+
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
 }

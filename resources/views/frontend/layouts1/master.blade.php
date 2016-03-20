@@ -7,7 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <link href="/frontend/css1/bootstrap.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/frontend/css1/bootstrap-multiselect.css" type="text/css"/>
 <link href="/frontend/css1/animate.css" rel="stylesheet" type="text/css">
 
 <link href="/frontend/css1/font-awesome.css" rel="stylesheet" type="text/css">
@@ -108,7 +111,9 @@
 <script src="/frontend/js1/jquery.js" type="text/javascript"></script> 
 <script src="/frontend/js1/jquery-ui.js" type="text/javascript"></script> 
 <script src="/frontend/js1/bootstrap.js" type="text/javascript"></script> 
+<script type="text/javascript" src="/frontend/js1/bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="/frontend/js1/jquery.appear.js"></script> 
+<script type="text/javascript" src="/frontend/js1/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/frontend/js1/jquery.mixitup.min.js"></script> 
 <script type="text/javascript" src="/frontend/js1/owl.carousel.min.js"></script> 
 <script type="text/javascript" src="/frontend/js1/jquery.photobox.js"></script> 
@@ -118,6 +123,9 @@
 <script type="text/javascript" src="/frontend/js1/pages/core.js"></script>
 <script type="text/javascript" src="/frontend/js1/scripts.js"></script>
 <script type="text/javascript" src="/frontend/js1/pages/common.js"></script>
+
+<script type="text/javascript" src="/frontend/js1/pages/partials/project_search.js"></script>
+<script type="text/javascript" src="/frontend/js1/pages/partials/product_search.js"></script>
 @yield('body.js')
 </body>
 </html>

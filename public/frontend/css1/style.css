@@ -72,7 +72,7 @@ span{
     opacity: 0;
 }
 .no-margin{ margin:0px;}
-.mrgt05 {margin-top: 5px;}
+.mrgt0 {margin-top: 0px;}.mrgt05 {margin-top: 5px;}
 .mrgt1x {margin-top: 10px;}
 .mrgt2x {margin-top: 20px;}
 .mrgt3x {margin-top: 30px;}
@@ -84,7 +84,7 @@ span{
 .mrgt9x { margin-top:90px;}
 .mrgt10x { margin-top:110px;}
 
-.mrgr05 {margin-right: 5px;}
+.mrgr0 {margin-right: 0px;}.mrgr05 {margin-right: 5px;}
 .mrgr1x {margin-right: 10px;}
 .mrgr2x {margin-right: 20px;}
 .mrgr3x {margin-right: 30px;}
@@ -96,7 +96,7 @@ span{
 .mrgr9x { margin-right:90px;}
 .mrgr10x { margin-right:110px;}
 
-.mrgb05 {margin-bottom: 5px;}
+.mrgb0 {margin-bottom: 0px;} .mrgb05 {margin-bottom: 5px;}
 .mrgb1x {margin-bottom: 10px;}
 .mrgb2x {margin-bottom: 20px;}
 .mrgb3x {margin-bottom: 30px;}	
@@ -109,8 +109,21 @@ span{
 .mrgb10x { margin-bottom:110px;}
 
 
+.mrgl0 {margin-left: 0px;} .mrgl05 {margin-left: 5px;}
+.mrgl1x {margin-left: 10px;}
+.mrgl2x {margin-left: 20px;}
+.mrgl3x {margin-left: 30px;}	
+.mrgl4x { margin-left: 40px;}
+.mrgl5x { margin-left: 50px;}
+.mrgl6x { margin-left: 60px;}
+.mrgl7x { margin-left:75px;}
+.mrgl8x { margin-left:80px;}
+.mrgl9x { margin-left:90px;}
+.mrgl10x { margin-left:110px;}
+
+
 .no-padding{ padding:0px;}
-.padl05 {padding-left: 5px;}
+.padl0 {padding-left: 0px;} .padl05 {padding-left: 5px;}
 .padl1x {padding-left: 10px;}
 .padl2x {padding-left: 20px;}
 .padl3x {padding-left: 30px;}
@@ -123,7 +136,7 @@ span{
 .padl10x { padding-left:110px;}
 
 
-.padt05 {padding-top: 5px;}
+.padt0 {padding-top: 0px;}.padt05 {padding-top: 5px;}
 .padt1x {padding-top: 10px;}
 .padt2x {padding-top: 20px;}
 .padt3x {padding-top: 30px;}
@@ -135,7 +148,7 @@ span{
 .padt9x { padding-top:90px;}
 .padt10x { padding-top:110px;}
 
-.padr05 {padding-right: 5px;}
+.padr0 {padding-right: 0px;} .padr05 {padding-right: 5px;}
 .padr1x {padding-right: 10px;}
 .padr2x {padding-right: 20px;}
 .padr3x {padding-right: 30px;}
@@ -147,7 +160,7 @@ span{
 .padr9x { padding-right:90px;}
 .padr10x { padding-right:110px;}
 
-.padb05 {padding-bottom: 5px;}
+.padb0 {padding-bottom: 0px;} .padb05 {padding-bottom: 5px;}
 .padb1x {padding-bottom: 10px;}
 .padb2x {padding-bottom: 20px;}
 .padb3x {padding-bottom: 30px;}	
@@ -160,7 +173,7 @@ span{
 .padb10x { padding-bottom:110px;}
 
 
-.padl05 {padding-left: 5px;}
+.padl0 {padding-left: 0px;}.padl05 {padding-left: 5px;}
 .padl1x {padding-left: 10px;}
 .padl2x {padding-left: 20px;}
 .padl3x {padding-left: 30px;}
@@ -1825,12 +1838,12 @@ footer .contact li {
 	margin-top:0px;
 }
 .rightbar-heading h4::after {
-    background-color: #09b9e5;
+    background-color: #fa8526;/*background-color: #09b9e5;*/
     content: " ";
     display: block;
     height: 2px;
     margin-top: 18px;
-    width: 55px;
+    /*width: 55px;*/
 }
 .define-property {
     margin-top: 20px;

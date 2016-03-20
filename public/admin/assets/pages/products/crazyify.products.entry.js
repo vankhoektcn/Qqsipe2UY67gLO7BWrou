@@ -120,6 +120,22 @@ crazyify.products.entry = {
 			'dbfieldname': 'street_id'
 		},
 		{
+			'label': 'Dự án',
+			'id': 'project_id',
+			'name': 'Product[project_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'project_id'
+		},
+		{
 			'label': 'Địa chỉ',
 			'id': 'address',
 			'name': 'Product[address]',
@@ -136,10 +152,10 @@ crazyify.products.entry = {
 			'dbfieldname': 'address'
 		},
 		{
-			'label': 'Diện tích',
+			'label': 'Diện tích (m²)',
 			'id': 'area',
 			'name': 'Product[area]',
-			'type': 'number',
+			'type': 'text',
 			'required': false,
 			'placeholder': '',
 			'cssclass': '',
@@ -152,10 +168,26 @@ crazyify.products.entry = {
 			'dbfieldname': 'area'
 		},
 		{
+			'label': 'Loại diện tích',
+			'id': 'area_range_id',
+			'name': 'Product[area_range_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'area_range_id'
+		},
+		{
 			'label': 'Giá',
 			'id': 'price',
 			'name': 'Product[price]',
-			'type': 'number',
+			'type': 'text',
 			'required': false,
 			'placeholder': '',
 			'cssclass': '',
@@ -166,6 +198,102 @@ crazyify.products.entry = {
 			'help_block': '',
 			'input_icon': '',
 			'dbfieldname': 'price'
+		},
+		{
+			'label': 'Đơn vị giá',
+			'id': 'price_type_id',
+			'name': 'Product[price_type_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'price_type_id'
+		},
+		{
+			'label': 'Loại mức giá',
+			'id': 'price_range_id',
+			'name': 'Product[price_range_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'price_range_id'
+		},
+		{
+			'label': 'Hướng căn hộ',
+			'id': 'incense_type_id',
+			'name': 'Product[incense_type_id]',
+			'type': 'select',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'incense_type_id'
+		},
+		{
+			'label': 'Số phòng ngủ',
+			'id': 'rooms',
+			'name': 'Product[rooms]',
+			'type': 'number',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'rooms'
+		},
+		{
+			'label': 'Số toilet',
+			'id': 'toilets',
+			'name': 'Product[toilets]',
+			'type': 'number',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'toilets'
+		},
+		{
+			'label': 'Ngày hết hạn',
+			'id': 'expire_at',
+			'name': 'Product[expire_at]',
+			'type': 'text',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'expire_at'
 		},
 		{
 			'label': 'Tóm tắt',
@@ -315,7 +443,7 @@ crazyify.products.entry = {
 	languageControls: [
 		
 	],
-	mainData: null,
+	mainData: {},
 	init: function () {
 		var thisObj = crazyify.products.entry;
 		if ($('#product-form input[name="_method"]').length && $('#product-form input[name="_method"]').val() != 'POST') {
@@ -375,6 +503,10 @@ crazyify.products.entry = {
 										if(mainData.street_id) $('select#street_id').val(mainData.street_id);
 									}
 								);
+								crazyify.common.filterProject(null, function(){
+									if(mainData.project_id) 
+										$('select#project_id').val(mainData.project_id);
+								});
 							}		
 						}
 					);
@@ -382,6 +514,26 @@ crazyify.products.entry = {
 			}
 		);
 		
+		crazyify.common.loadDropdow($('select#area_range_id:not(.no-ajax)'), '/extra/area_ranges', 'GET', '--Chọn mức diện tích--', 'id', 'name',
+				function(data){
+					if(mainData.area_range_id) $('select#area_range_id').val(mainData.area_range_id);
+				}
+			);
+		crazyify.common.loadDropdow($('select#price_range_id:not(.no-ajax)'), '/extra/price_ranges', 'GET', '--Chọn mức giá--', 'id', 'name',
+				function(data){
+					if(mainData.price_range_id) $('select#price_range_id').val(mainData.price_range_id);
+				}
+			);
+		crazyify.common.loadDropdow($('select#price_type_id:not(.no-ajax)'), '/extra/price_types', 'GET', '--Chọn loại giá--', 'id', 'name',
+				function(data){
+					if(mainData.price_type_id) $('select#price_type_id').val(mainData.price_type_id);
+				}
+			);
+		crazyify.common.loadDropdow($('select#incense_type_id:not(.no-ajax)'), '/extra/incense_types', 'GET', '--Chọn hướng--', 'id', 'name',
+				function(data){
+					if(mainData.incense_type_id) $('select#incense_type_id').val(mainData.incense_type_id);
+				}
+			);
 	},
 	loadProduct_type: function()
 	{
