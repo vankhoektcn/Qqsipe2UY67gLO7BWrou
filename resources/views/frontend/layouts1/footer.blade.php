@@ -12,7 +12,7 @@
 						<h4>LOẠI BẤT ĐỘNG SẢN</h4>
 					</div>
 					<ul class="widget-area service-list">
-					@foreach ($product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get() as $product_type)
+					@foreach ($product_type_inject as $product_type)
 						<li><a href="{{$product_type->getLink()}}"><i class="fa fa-play-circle"></i><span>{{$product_type->name}}</span></a></li>
 					@endforeach
 					</ul>
@@ -33,10 +33,10 @@
 						<h4>LIÊN HỆ</h4>
 					</div>
 					<ul class="widget-area contact clearfix">
-						<li> <a href="javascript:;"><i class="icon-location10"></i><span>789h An Phú, Q.2, Hồ Chí Minh<span></a></li>
-						<li> <a href="javascript:;"><i class="icon-earth"></i><span>http://www.vanland.com.vn</span></a></li>
-						<li> <a href="javascript:;"><i class="fa fa-phone"></i><span>0932 622 017</span></a></li>
-						<li> <a href="javascript:;"><i class="icon-email4"></i><span>support@vanland.com.vn</span></a></li>
+						<li> <a href="javascript:;"><i class="icon-location10"></i><span>{{ $config->getValueByKey('headquarter_address') }}<span></a></li>
+						<li> <a href="http://www.vanland.com.vn"><i class="icon-earth"></i><span>{{route('homepage')}}</span></a></li>
+						<li> <a href="tel:{{ $config->getValueByKey('headquarter_phone_number') }}"><i class="fa fa-phone"></i><span>{{ $config->getValueByKey('headquarter_phone_number') }}</span></a></li>
+						<li> <a href="mailto:{{ $config->getValueByKey('address_received_mail') }}"><i class="icon-email4"></i><span>{{ $config->getValueByKey('address_received_mail') }}</span></a></li>
 					</ul>
 					<ul class="footer-social-media">
 						<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>

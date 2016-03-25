@@ -255,8 +255,49 @@ Route::group(['namespace' => 'Frontend'], function()
 			'uses' => 'SiteControllers@searchNewClass'
 		]);*/
 
-//---------------------------- FOR PROJECTS		 ----------------------------------------------------------
+	
+/***************************** FOR PROJECTS  ******************************/
 	// ALL	
+	Route::get('/du-an.html', [
+			'as' => 'projects',
+			'uses' => 'SiteProjectcontrollers@projects'
+		]);
+
+	// SEARCH
+	//PRODUCT_TYPE
+	Route::get('/du-an/{project_type_key}.html', [
+			'as' => 'project_type',
+			'uses' => 'SiteProjectcontrollers@project_type'
+		]);	
+	//PRODUCT_TYPE vs PROVINCE
+	Route::get('/du-an/{project_type_key}/{province_key}.html', [
+			'as' => 'project_type_province',
+			'uses' => 'SiteProjectcontrollers@project_type_province'
+		]);
+	//PRODUCT_TYPE vs PROVINCE vs DISTRICT
+	Route::get('/du-an/{project_type_key}/{province_key}/{district_key}.html', [
+			'as' => 'project_type_province_district',
+			'uses' => 'SiteProjectcontrollers@project_type_province_district'
+		]);
+	//PRODUCT_TYPE vs PROVINCE vs DISTRICT vs WARD
+	Route::get('/du-an/{project_type_key}/{province_key}/{district_key}/{ward_key}.html', [
+			'as' => 'project_type_province_district_ward',
+			'uses' => 'SiteProjectcontrollers@project_type_province_district_ward'
+		]);
+	Route::get('/thong-tin-du-an/{project_id}/{project_key}.html', [
+			'as' => 'project_detail',
+			'uses' => 'SiteProjectcontrollers@project_detail'
+		]);
+	Route::get('/thong-tin-du-an/{project_id}/{project_key}/{project_part_id}/{project_part_key}.html', [
+			'as' => 'project_part',
+			'uses' => 'SiteProjectcontrollers@project_part'
+		]);
+	Route::get('/tim-kiem-du-an.html', [
+		'as' => 'project_search',
+		'uses' => 'SiteProjectcontrollers@project_search'
+	]);	
+/***************************** end FOR PROJECTS  ******************************/
+	/*// ALL	
 	Route::get('/du-an.html', [
 			'as' => 'du_an',
 			'uses' => 'SiteProjectcontrollers@du_an'
@@ -278,9 +319,9 @@ Route::group(['namespace' => 'Frontend'], function()
 	Route::get('/du-an/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
 			'as' => 'project_part',
 			'uses' => 'SiteProjectcontrollers@project_part'
-		]);
+		]);*/
 
-//---------------------------- FOR PRODUCT  ----------------------------------------------------------
+/***************************** FOR PRODUCT  ******************************/
 	// ALL	
 	Route::get('/can-ho.html', [
 			'as' => 'products',
@@ -313,10 +354,10 @@ Route::group(['namespace' => 'Frontend'], function()
 			'uses' => 'SiteProjectcontrollers@product_detail'
 		]);
 	Route::get('/tim-kiem-can-ho.html', [
-			'as' => 'product_search',
-			'uses' => 'SiteProjectcontrollers@product_search'
-		]);	
-
+		'as' => 'product_search',
+		'uses' => 'SiteProjectcontrollers@product_search'
+	]);	
+/***************************** end FOR PRODUCT  ******************************/
 	
 
 	//FOR LAYOUT 1
@@ -324,10 +365,13 @@ Route::group(['namespace' => 'Frontend'], function()
 			'as' => 'homepage',
 			'uses' => 'SiteProjectcontrollers@index'
 		]);
-
-	Route::get('/homepage', [
-			'as' => 'homepage1',
-			'uses' => 'SiteProjectcontrollers@index1'
+	Route::get('/lien-he.html', [
+			'as' => 'contact',
+			'uses' => 'SiteProjectcontrollers@contact'
+		]);
+	Route::post('/lien-he.html', [
+			'as' => 'contact',
+			'uses' => 'SiteProjectcontrollers@createContact'
 		]);
 	//END FOR LAYOUT 1
 });

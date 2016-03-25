@@ -286,7 +286,7 @@ crazyify.products.entry = {
 			'type': 'text',
 			'required': false,
 			'placeholder': '',
-			'cssclass': '',
+			'cssclass': 'datepicker',
 			'value': '0',
 			'disabled': false,
 			'readonly': false,
@@ -343,6 +343,70 @@ crazyify.products.entry = {
 			'input_icon': '',
 			'dbfieldname': 'attachments',
 			'selected': true
+		},
+		{
+			'label': 'Tên liên hệ',
+			'id': 'br_name',
+			'name': 'Product[br_name]',
+			'type': 'text',
+			'required': true,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'br_name'
+		},
+		{
+			'label': 'Địa chỉ',
+			'id': 'br_address',
+			'name': 'Product[br_address]',
+			'type': 'text',
+			'required': false,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'br_address'
+		},
+		{
+			'label': 'Di động',
+			'id': 'br_phone',
+			'name': 'Product[br_phone]',
+			'type': 'text',
+			'required': true,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'br_phone'
+		},
+		{
+			'label': 'Email',
+			'id': 'br_email',
+			'name': 'Product[br_email]',
+			'type': 'email',
+			'required': true,
+			'placeholder': '',
+			'cssclass': '',
+			'value': '0',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'br_email'
 		},
 		{
 			'label': 'Thứ tự ưu tiên',
@@ -475,6 +539,9 @@ crazyify.products.entry = {
 
 	},
 	pageLoad: function(){
+		$("input.datepicker").datepicker({
+			dateFormat: "dd/mm/yy"
+		});
 		$this = crazyify.products.entry;
 		mainData = $this.mainData;
 		//crazyify.products.entry.loadProduct_type();

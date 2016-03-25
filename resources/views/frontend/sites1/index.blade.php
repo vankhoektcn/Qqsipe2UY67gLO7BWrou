@@ -22,7 +22,7 @@
 			<div class="section-heading mrgb3x">
 				<h3><span>DỰ ÁN NỔI BẬT</span></h3>
 			</div>
-			<div class="section-detail mrgb3x">
+			<div class="section-detail mrgb3x clearfix">
 				@foreach ($projectsSpecial as $project)
 				<div class="col-md-4 col-sm-6">
 					<div class="place-img"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="#"/>
@@ -34,6 +34,11 @@
 					</div>
 				</div>
 				@endforeach
+			</div>
+			<div class="section-more pull-right clearfix">
+				<a href="{{route('projects')}}" title="Xem thêm dự án" class="text-primary">
+	                <i class="fa fa-arrow-right"></i> xem thêm dự án
+	            </a>
 			</div>
 		</div>
 	</div>
@@ -47,7 +52,7 @@
 			<div class="section-heading mrgb3x">
 				<h3><span>DỰ ÁN MỚI NHẤT</span></h3>
 			</div>
-			<div class="section-detail mrgb3x">
+			<div class="section-detail mrgb3x clearfix">
 				@foreach ($projectsNew as $project)
 				<div class="col-md-4 col-sm-6">
 					<div class="home2 property-box border-hover animated out" data-delay="0" data-animation="fadeInUp">
@@ -77,6 +82,11 @@
 				</div>
 				@endforeach
 			</div>
+			<div class="section-more pull-right clearfix">
+				<a href="{{route('projects')}}" title="Xem thêm dự án" class="text-primary">
+	                <i class="fa fa-arrow-right"></i> xem thêm dự án
+	            </a>
+			</div>
 		</div>
 	</div>
 </section>
@@ -95,27 +105,10 @@
 					</div>
 					<div class="section-detail">
 						@foreach ($products as $product)
-						<!-- <div class="blog clearfix apartment-item ps-relative mrgt2x">
-							<div class="blog-img"><img src="{{Image::url($product->getThumnail(),100,100,array('crop'))}}" class="img-responsive" alt="#" /></div>
-							<div class="blog-text">
-								<a class="fw-bold fs15" href="{{$product->getLink()}}">{{$product->title}}</a>
-								<div class="address mrgt05"> <i class="fa fa-map-marker project-marker mrgr05"></i> <small><em>{{$product->address}}, Quận 9, Hồ Chí Minh</em></small> </div>
-								<div class="item_price mrgt05">
-                                    Giá:
-                                    <span class="price fw-bold mrgr2x"> {{$product->price}} {{$product->price_type->name}} </span>
-                                    Diện tích:
-                                    <span class="acreage fw-bold"> {{$product->area}} m²</span>
-                                    <ul class="time">
-										<li><a href="javascript:;"><i class="icon-access-time mrgr05 cl-green"></i>{{$product->updated_at->format('d/m/Y')}}</a></li>
-									</ul>
-                                </div>
-								<p>{{{$product->summary}}}</p>								
-							</div>
-						</div> -->
 							@include('frontend.partials.product_item')
 						@endforeach
 					</div>
-					<div class="section-more pull-right">
+					<div class="section-more pull-right clearfix">
 						<a href="{{$product_type->getLink()}}" title="Xem thêm {{$product_type->name}}" class="text-primary">
 			                <i class="fa fa-arrow-right"></i> xem thêm các tin {{$product_type->name}}
 			            </a>
@@ -153,7 +146,7 @@
 							<ul class="agent-mail">
 								<li><i class="icon-email4"></i></li>
 								<li><span>E-mail</span></li>
-								<li class="contact-info"><a href="email:{{$agent->email}}"> {{$agent->email}}</a></li>
+								<li class="contact-info"><a href="mailto:{{$agent->email}}"> {{$agent->email}}</a></li>
 							</ul>
 							<ul class="social-profile">
 								<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
