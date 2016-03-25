@@ -23,7 +23,7 @@
 				@endif -->
 			</div>
 			@if(isset($product->summary) && $product->summary != '')
-			<div class="padb1x">
+			<div class="padb1x fs16">
 				{!!$product->summary!!}
 			</div>
 			@endif
@@ -55,10 +55,9 @@
 						<li class="col-md-3 no-padding"><span class="description-title">Phòng ngủ </span><span class="title-detail cl-blue">{{$product->rooms}}</span></li>
 						<li class="col-md-3 no-padding"><span class="description-title">Toilet </span><span class="title-detail cl-blue">{{$product->toilets}}</span></li>
 						<li class="col-md-12 no-padding"><span class="description-title">Địa chỉ </span><span class="title-detail fw-bold cl-dark-blue"> {{$product->addressFull()}}</span></li>
-						<li class="col-md-3 no-padding"><span class="description-title">Liên hệ</span><span class="title-detail fw-bold cl-dark-blue">{{$product->user->name}}</span></li>
-						<li class="col-md-3 no-padding"><span class="description-title">Điện thoại </span><span class="title-detail fw-bold cl-red"><a class="cl-red" href="tel:{{$product->user->phone}}">{{$product->user->phone}}</a></span></li>
-						<li class="col-md-3 no-padding"><span class="description-title">Mobile</span><span class="title-detail fw-bold cl-red"><a class="cl-red" href="tel:{{$product->user->mobile}}">{{$product->user->mobile}}</a></span></li>
-						<li class="col-md-3 no-padding"><span class="description-title">Email</span><span class="title-detail cl-dark-blue"><a class="cl-red" href="mailto:{{$product->user->email}}">{{$product->user->email}}</a></span></li>
+						<li class="col-md-3 no-padding"><span class="description-title">Liên hệ</span><span class="title-detail fw-bold cl-dark-blue">{{$product->br_name}}</span></li>
+						<li class="col-md-3 no-padding"><span class="description-title">Điện thoại </span><span class="title-detail fw-bold cl-red"><a class="cl-red" href="tel:{{$product->br_phone}}">{{$product->br_phone}}</a></span></li>
+						<li class="col-md-3 no-padding"><span class="description-title">Email</span><span class="title-detail cl-dark-blue"><a class="cl-red" href="mailto:{{$product->br_email}}">{{$product->br_email}}</a></span></li>
 					</ul>
 				</div>
 			</div>
@@ -66,7 +65,7 @@
 				<div class="property-heading">
 					<h4><span>Mô tả căn hộ</span></h4>
 				</div>
-				<div class="description-text">
+				<div class="description-text fs16">
 					{!!$product->description!!}
 				</div>
 			</div>

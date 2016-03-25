@@ -217,7 +217,7 @@ span{
 	position: absolute;
 	top:0;
 	left:-7%;
-	background:url(../images/partner-leftarrow.jpg) no-repeat;
+	background:url(../images1/partner-leftarrow.jpg) no-repeat;
 	width: 52px;
 	height: 52px;
 }
@@ -227,7 +227,7 @@ span{
 	position:absolute;
 	top:0;
 	right:-7%;
-	background:url(../images/partner-ritarrow.jpg) no-repeat;
+	background:url(../images1/partner-ritarrow.jpg) no-repeat;
 	width: 52px;
 	height: 52px;
 }
@@ -236,7 +236,7 @@ span{
 	position:relative;
 }
 .property-carousel .owl-controls .owl-prev {
-	background:url(../images/property-prevbtn.jpg) no-repeat;
+	background:url(../images1/property-prevbtn.jpg) no-repeat;
 	bottom: -38%;
     cursor: pointer;
     height: 141px;
@@ -247,7 +247,7 @@ span{
 	color:transparent;
 }
 .property-carousel .owl-controls .owl-next {
-	background:url(../images/property-nextbtn.jpg) no-repeat;
+	background:url(../images1/property-nextbtn.jpg) no-repeat;
  	bottom: -38%;
     cursor: pointer;
     height: 141px;
@@ -273,12 +273,12 @@ span{
 	width:152px !important;
 }
 .property-single-rightbar .property-carousel .owl-controls .owl-next {
-	background:url(../images/slider-2-nextbtn.jpg) no-repeat;
+	background:url(../images1/slider-2-nextbtn.jpg) no-repeat;
 	height:106px;
 	bottom:-30%;
 }
 .property-single-rightbar .property-carousel .owl-controls .owl-prev {
-	background:url(../images/slider-2-prvbtn.jpg) no-repeat;
+	background:url(../images1/slider-2-prvbtn.jpg) no-repeat;
 	height:106px;
 	bottom:-30%;
 }
@@ -536,7 +536,7 @@ span{
 	background-color:#09b9e5;  
 }
 .vacation-bg {
-	background:url(../images/vacation-bg-1.jpg) no-repeat;
+	background:url(../images1/vacation-bg-1.jpg) no-repeat;
 	background-size:cover;
 }
 .action-text {
@@ -1206,7 +1206,7 @@ span{
 }
 /*.......................................parallex-section................................*/
 .parallex {
-	background:url(../images/parallex.PNG) no-repeat;
+	background:url(../images1/parallex.PNG) no-repeat;
 	 background-attachment: fixed;
     background-color: transparent;
 	 background-size: cover;
@@ -1900,7 +1900,7 @@ input[type="checkbox"] {
 }
 .checkbox span.bg-checkbox {
 	content: "";
-    background: rgba(0, 0, 0, 0) url("../images/checkbox.png") no-repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) url("../images1/checkbox.png") no-repeat scroll 0 0;
     height: 20px;
     left: -13px;
     pointer-events: none;
@@ -1910,7 +1910,7 @@ input[type="checkbox"] {
     z-index: 0;
 }
 .checkbox span.bg-checkbox.checked {
-	background: rgba(0, 0, 0, 0) url("../images/checkedbox.png") no-repeat scroll 0 0;
+	background: rgba(0, 0, 0, 0) url("../images1/checkedbox.png") no-repeat scroll 0 0;
 }
 
 .checkbox span {
@@ -2582,7 +2582,7 @@ input[type="checkbox"] {
 }
 .radio span.bg-radio {
 	content: "";
-    background: rgba(0, 0, 0, 0) url("../images/radio-btn.jpg") no-repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) url("../images1/radio-btn.jpg") no-repeat scroll 0 0;
     height: 20px;
     left: 26px;
     pointer-events: none;
@@ -2592,7 +2592,7 @@ input[type="checkbox"] {
     z-index: 0;
 }
 .radio span.bg-radio.checked {
-	background: rgba(0, 0, 0, 0) url("../images/radio-checked.jpg") no-repeat scroll 0 0;
+	background: rgba(0, 0, 0, 0) url("../images1/radio-checked.jpg") no-repeat scroll 0 0;
 }
 .form-group img {
     margin-top: 12px;
@@ -2608,7 +2608,7 @@ input[type="checkbox"] {
 .post-form .form-group label {
 	margin-bottom:20px;
 	font-size:16px;
-	color:#565656;
+	/*color:#565656;*/
 	font-weight:normal;
 }
 .form-control::-moz-placeholder {
@@ -2769,7 +2769,7 @@ contact-info-rightbar {
 	color:#09b9e5;
 }
 .vacation-bg-2 {
-	background:url(../images/vacation-bg-2.jpg) no-repeat;
+	background:url(../images1/vacation-bg-2.jpg) no-repeat;
 	background-size:cover;
 }
 .vacation-bg-2 .action-btn a {
@@ -2822,7 +2822,7 @@ contact-info-rightbar {
 	content: "\f068";
 }
 .vacation-bg-3 {
-	background:url(../images/vacation-bg-3.jpg) no-repeat;
+	background:url(../images1/vacation-bg-3.jpg) no-repeat;
 	background-size:cover;
 }
 .faq.vacation-bg-3 .get-start {

@@ -104,8 +104,14 @@ class Product extends BaseModel
 
     public function addressFull()
     {
-        $province = $this->district->province;
-        $address = $this->address . ', ' . $this->district->name . ', ' . $province->name;
+        $address = $this->address;
+        if(isset($this->street->id))
+            $address .= ', '. $this->street->name. ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
+        else if(isset($this->ward->id))
+            $address .= ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
+        else if(isset($this->district->id))
+            $address .= ', '. $this->district->name . ', ' . $this->province->name;
+
         return $address;
     }
 

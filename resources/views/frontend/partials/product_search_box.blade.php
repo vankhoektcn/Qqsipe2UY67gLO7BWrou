@@ -1,4 +1,10 @@
-<div id="products-search" class="tab-pane fade">
+@inject('product_type', 'App\Product_type')
+@inject('province', 'App\Province')
+<?php 
+	$product_type_inject = $product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
+	$province_inject = $province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
+?>
+<div id="products-search" class="tab-pane fade in active">
 				<div class="search-options">
 					<div class="search-form">
 						{!! Form::open(['route' => 'product_search', 'method' => 'GET', 'id' => 'product-search', 'name' => 'productsearch']) !!}	
@@ -7,14 +13,21 @@
 									<div class="form-section col-md-3">
 										<label>Loại tin đăng</label>
 										<div class="select-box">
-											<select class="form-control no-request" name="product_type" id="product_type_id" type="PRODUCT">
+											<select class="form-control no-request no-ajax" name="product_type" id="product_type_id" type="PRODUCT">
+												@foreach ($product_type_inject as $product_type)
+													<option value="{{$product_type->id}}" key="{{$product_type->key}}">{{$product_type->name}}</option>
+												@endforeach
 											</select>
 										</div>
 									</div>
 									<div class="form-section col-md-3">
 										<label>Tỉnh/thành phố</label>
 										<div class="select-box">
-											<select class="form-control no-request" name="province" id="province_id" type="PRODUCT">
+											<select class="form-control no-request no-ajax" name="province" id="province_id" type="PRODUCT">
+												<option value="">--Chọn thành phố--</option>
+												@foreach ($province_inject as $province)
+													<option value="{{$province->id}}" key="{{$province->key}}">{{$province->name}}</option>
+												@endforeach
 											</select>
 										</div>
 									</div>

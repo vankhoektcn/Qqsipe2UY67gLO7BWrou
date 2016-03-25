@@ -14,8 +14,8 @@ class ConfigsTableSeeder extends Seeder
     {
         Config::create([
 			'key' => 'site_title',
-			'text' => 'Tiêu đề trang web',
-			'value' => 'Tiêu đề trang web'
+			'text' => 'Mua bán căn hộ quận 2 | Sang nhượng, cho thuê căn hộ quận 2',
+			'value' => 'Mua bán căn hộ quận 2 | Sang nhượng, cho thuê căn hộ quận 2'
 		]);
 		Config::create([
 			'key' => 'meta_description',
@@ -34,7 +34,7 @@ class ConfigsTableSeeder extends Seeder
 		]);
 		Config::create([
 			'key' => 'rows_per_page_product',
-			'text' => 'Số sản phẩm hiển thị trên một trang',
+			'text' => 'Số tin rao hiển thị trên một trang',
 			'value' => '20'
 		]);
 		Config::create([
@@ -50,12 +50,12 @@ class ConfigsTableSeeder extends Seeder
 		Config::create([
 			'key' => 'headquarter_phone_number',
 			'text' => 'Số điện thoại trụ sở chính',
-			'value' => '0909-999999'
+			'value' => '0932622017'
 		]);
 		Config::create([
 			'key' => 'address_sender_mail',
 			'text' => 'Địa chỉ gửi email',
-			'value' => 'no-reply@crazyify.com'
+			'value' => 'no-reply@vanland.com.vn'
 		]);
 		Config::create([
 			'key' => 'display_name_send_mail',
@@ -65,7 +65,7 @@ class ConfigsTableSeeder extends Seeder
 		Config::create([
 			'key' => 'address_received_mail',
 			'text' => 'Địa chỉ nhận email liên hệ',
-			'value' => 'phantsang@gmail.com'
+			'value' => 'vankhoektcn@gmail.com'
 		]);
 
 		Config::create([
@@ -82,6 +82,16 @@ class ConfigsTableSeeder extends Seeder
 			'key' => 'facebook_page',
 			'text' => 'Địa chỉ Facebook',
 			'value' => 'https://fb.com/'
+		]);
+		Config::create([
+			'key' => 'twitter_page',
+			'text' => 'Địa chỉ Twitter',
+			'value' => 'https://twitter.com/'
+		]);
+		Config::create([
+			'key' => 'google_page',
+			'text' => 'Địa chỉ Google',
+			'value' => 'https://google.com/'
 		]);
     }
 }

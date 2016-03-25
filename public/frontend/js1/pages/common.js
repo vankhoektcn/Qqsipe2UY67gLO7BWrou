@@ -4,20 +4,10 @@ if (typeof crazyify.common == 'undefined')
 	crazyify.common = {};
 
 crazyify.common = {
+	_parentForm : null,
 	_productPrefix : '/can-ho',
 	_projectPrefix : '/du-an',
-	_project_type : $('select[name="project_type"]'),
-	_product_type : $('select[name="product_type"]'),
-	_province : $('select[name="province"]'),
-	_district : $('select[name="district"]'),
 
-	_ward : $('select[name="ward"]'),
-	_street : $('select[name="street"]'),
-	_project : $('select[name="project"]'),
-	_utility : $('select[name="utility"]'),
-	_price : $('select[name="price"]'),
-	_area : $('select[name="area"]'),
-	_incense : $('select[name="incense"]'),
 	init: function () 
 	{
 		var thisObj = crazyify.common;
@@ -58,6 +48,9 @@ crazyify.common = {
 			crazyify.common.filterProject($(this).attr('type'));
 		});
 
+		$('.number').keyup(function(e){
+			if(/\D/g.test(this.value)) {this.value=this.value.replace(/\D/g,'');}
+		});
 	},
 	pageLoad: function(){
 
@@ -202,3 +195,36 @@ jQuery.fn.extend({
         return $('option:selected',$(this)).attr('key') 
     } // put comma here if you want to add more functions
 });
+
+var isValidControl=function($obj,type){
+	var value=true;
+	switch(type){
+		case"null":
+		if($obj&&(!$obj.val()||$obj.val().trim()==''))
+			{value=false;}
+		break;
+	}
+	var $group=$obj.parents(".form-group");
+	if(!value)
+		{
+			$group.addClass("has-error");
+			$('.error-label',$group).slideDown();
+		}
+	else{
+		$group.removeClass("has-error");$('.error-label',$group).slideUp();
+	}
+	return value;
+};
+var removeError=function($parent){
+	if($parent){
+		$(".has-error",$parent).each(function(){
+			$(this).removeClass("has-error")
+			;$('.error-label',$(this)).slideUp();});
+	}
+	else{
+		$(".has-error").each(function(){
+			$(this).removeClass("has-error");
+			$('.error-label',$(this)).slideUp();
+		});
+	}
+};

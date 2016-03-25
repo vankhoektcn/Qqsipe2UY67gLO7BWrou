@@ -63,15 +63,21 @@ class Project extends BaseModel
 
     public function getLink()
     {
-        $district_key = $this->district->key;
-        $link = route('project', ['districtkey' => $district_key, 'projectkey' => $this->key]);
+        // $district_key = $this->district->key;
+        $link = route('project_detail', ['project_id' => $this->id, 'project_key' => $this->key]);
         return $link;
     }
 
     public function addressFull()
     {
-        $province = $this->district->province;
-        $address = $this->address . ', ' . $this->district->name . ', ' . $province->name;
+        $address = $this->address;
+        if(isset($this->street->id))
+            $address .= ', '. $this->street->name. ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
+        else if(isset($this->ward->id))
+            $address .= ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
+        else if(isset($this->district->id))
+            $address .= ', '. $this->district->name . ', ' . $this->province->name;
+
         return $address;
     }
 

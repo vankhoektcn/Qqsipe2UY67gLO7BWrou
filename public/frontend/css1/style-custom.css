@@ -10,6 +10,7 @@ a:hover {
 }
 .text-nowrap{white-space: nowrap;}
 .hide-normal{display: none;}
+.error-label{display:none;}
 
 .cl-pink{color: #f65280}
 .cl-black{color: #2f2f2f}
@@ -19,6 +20,7 @@ a:hover {
 .cl-green{color: #35b538}
 .cl-yellow{color: #edc714}
 .cl-orange{color: #fa8526}
+.cl-white{color: #fff}
 
 .cl-lit-purple{color: #d971f2} 
 .cl-purple{color: #8a6ced} 
@@ -239,6 +241,9 @@ button.multiselect{
 .accomodation li {
     margin-bottom: 5px;
 }
+.send-msg .post-msg i {
+    color: #fff;
+}
 
 /*///////////////////////// for SEARCH BOX MIN ////////////////////////////////////*/
 .search-box-min{ padding-top: 10px; }
@@ -266,4 +271,18 @@ button.multiselect{
     margin-bottom: 5px;
     display: table-row;
 }
+.property-single-rightbar .property-carousel .owl-controls .owl-prev {
+    bottom: -23%;
+}
+.property-single-rightbar .property-carousel .owl-controls .owl-next {
+    bottom: -23%;
+}
 /*///////////////////////// END for PRODUCT DETAIL ////////////////////////////////////*/
+
+/*///////////////////////// for MEDIA RESPONSIVE ////////////////////////////////////*/
+@media (min-width:800px) and (max-width:960px){
+.nav.navbar-nav > li:last-child {
+    padding: 20px 16px;
+}
+}
+/*///////////////////////// END for MEDIA RESPONSIVE ////////////////////////////////////*/

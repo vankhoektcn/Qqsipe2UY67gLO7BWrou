@@ -51,11 +51,6 @@ class SiteProjectcontrollers extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index1()
-	{
-		$this->setMetadata();
-		return view('frontend.sites1.index1');
-	}
 	public function index()
 	{
 		$this->setMetadata();
@@ -355,7 +350,7 @@ class SiteProjectcontrollers extends Controller
 			$incense_types = Incense_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
 						
 			// metadata
-			$site_title = $product->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			$site_title = $product->title . ' - ' . Config::findByKey('site_title')->first()->value;
 			SEOMeta::setTitle($site_title);
 			SEOMeta::setDescription($product->meta_description);
 			SEOMeta::addKeyword([$product->meta_keywords]);
@@ -376,7 +371,7 @@ class SiteProjectcontrollers extends Controller
 			OpenGraph::addImage(['url' => Image::url($product->getThumnail(),300,300,array('crop')), 'size' => 300]);
 			// end metadata
 
-			$attachments = $product->attachments;
+			$attachments = $product->attachments()->take(5)->get();
 			$wards = $product->district->wards;
 
 			$heading = $product->product_type->name.' '. (isset($product->ward_id) && $product->ward_id > 0 ? $product->ward->name :$product->district->name );
@@ -497,11 +492,169 @@ class SiteProjectcontrollers extends Controller
 	}
 
 
-	//FOR PROJECTS
+	/******************************FOR PROJECTS *************************************************************************/
+	/**
+	 * PROJECT
+	 */
+	public function projects( Request $request)
+	{		
+		$this->setMetadata('Tin rao căn hộ');
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
+		$searchDescription = 'Dự án';
+		$link = route('projects');
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class=""><a href="'.$link.'">căn hộ</a></li> 
+		</ul>';
+		$projects = Project::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
 
-	public function project($districtkey,$projectkey)
+		$project_types = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$provinces = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		$heading = 'Dự án';
+		return view('frontend.sites1.project_search', ['projects'=> $projects,'provinces'=> $provinces, 'project_types'=>$project_types //
+			, 'search_type'=> 'projects', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PROJECT_TYPE
+	 */
+	public function project_type($project_type_key, Request $request)
+	{	
+		$provinces = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		
+			
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
+		$project_type = Project_type::findByKey($project_type_key)->first();
+		if(is_null($project_type) )
+			$project_type = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		
+		$projects = $project_type->projects()->where('active',1);
+
+		$projects =$projects->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $project_type->name;
+		$link = route('project_type',['project_type_key'=> $project_type->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('projects').'">Dự án</a></li> 
+		<li class=""><a href="'.$link.'">'.$project_type->name.'</a></li> 
+		</ul>';
+		$heading = $project_type->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'project_type'=>$project_type,'provinces'=> $provinces
+			, 'search_type'=> 'project_type', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PROJECT_TYPE vs PROVINCE
+	 */
+	public function project_type_province($project_type_key, $province_key, Request $request)
+	{	
+		$province = Province::findByKey($province_key)->first();
+		$districts = District::where('province_id', $province->id)->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		
+			
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
+		$project_type = Project_type::findByKey($project_type_key)->first();
+		if(is_null($project_type) )
+			$project_type = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		
+		if(is_null($province) )
+			$province = Province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+
+		$projects = Project::where('project_type_id',$project_type->id)->where('province_id',$province->id)->where('active',1);
+		
+		$projects =$projects->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $project_type->name.' '.$province->name;
+		$link = route('project_type_province',['project_type_key'=> $project_type->key, 'province_key'=> $province->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('projects').'">Dự án</a></li> 
+		<li class="active"><a href="'.route('project_type',['project_type_key'=> $project_type->key]).'">'.$project_type->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$province->name.'</a></li> 
+		</ul>';
+		
+		$heading = $project_type->name.' '. $province->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'project_type'=>$project_type,'province'=> $province, 'districts'=> $districts
+			, 'search_type'=> 'project_type_province', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PROJECT_TYPE vs PROVINCE vs DISTRICT
+	 */
+	public function project_type_province_district($project_type_key, $province_key, $district_key, Request $request)
+	{	
+		$district = District::findByKey($district_key)->first();
+		if(is_null($district) )
+			$district = District::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		$province = $district->province;
+		$wards = $district->wards()->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+		
+			
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
+		$project_type = Project_type::findByKey($project_type_key)->first();
+		if(is_null($project_type) )
+			$project_type = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		
+	
+		$projects = Project::where('project_type_id',$project_type->id)->where('district_id',$district->id)->where('active',1);
+		
+		$projects =$projects->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $project_type->name.' '. $province->name.' '. $district->name;
+		$link = route('project_type_province_district',['project_type_key'=> $project_type->key, 'province_key'=> $province->key, 'district_key' =>$district->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('projects').'">Dự án</a></li> 
+		<li class="active"><a href="'.route('project_type',['project_type_key'=> $project_type->key]).'">'.$project_type->name.'</a></li> 
+		<li class="active"><a href="'.route('project_type_province',['project_type_key'=> $project_type->key, 'province_key'=>$province->key]).'">'.$province->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$district->name.'</a></li> 
+		</ul>';
+		
+		$heading = $project_type->name.' '. $province->name.' '. $district->name;
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'project_type'=>$project_type, 'province'=>$province, 'district'=> $district, 'wards'=>$wards
+			, 'search_type'=> 'project_type_province_district', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+	/**
+	 * PROJECT_TYPE vs PROVINCE vs DISTRICT vs WARD
+	 */
+	public function project_type_province_district_ward($project_type_key, $province_key, $district_key, $ward_key, Request $request)
 	{
-		$project = Project::where('key',$projectkey)->first();
+		$ward = Ward::findByKey($ward_key)->first();
+		if(is_null($ward) )
+			$ward = Ward::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+		$district = $ward->district;
+		$province = $district->province;
+		
+			
+		$limit = Config::findByKey('rows_per_page_project')->first()->value;
+		$project_type = Project_type::findByKey($project_type_key)->first();
+		if(is_null($project_type) )
+			$project_type = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+				
+
+		$projects = Project::where('project_type_id',$project_type->id)->where('district_id',$district->id)->where('active',1);
+		
+		$projects =$projects->orderBy('priority')->orderBy('created_at','desc')->paginate($limit);
+		$searchDescription = $project_type->name.' '. $province->name.' '. $district->name.' '. $ward->name;
+		$link = route('project_type_province_district_ward',['project_type_key'=> $project_type->key, 'province_key'=> $province->key, 'district_key' =>$district->key, 'ward_key'=>$ward->key]);
+		$breadcrumb = '<ul class="breadcrumb"> 
+		<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+		<li class="active"><a href="'.route('projects').'">Dự án</a></li> 
+		<li class="active"><a href="'.route('project_type',['project_type_key'=> $project_type->key]).'">'.$project_type->name.'</a></li> 
+		<li class="active"><a href="'.route('project_type_province',['project_type_key'=> $project_type->key, 'province_key'=>$province->key]).'">'.$province->name.'</a></li> 
+		<li class="active"><a href="'.route('project_type_province_district',['project_type_key'=> $project_type->key, 'province_key'=>$province->key, 'district_key'=> $district->key]).'">'.$district->name.'</a></li> 
+		<li class=""><a href="'.$link.'">'.$ward->name.'</a></li> 
+		</ul>';
+		
+		$heading = $project_type->name.' '. $province->name.' '. $district->name.' '. $ward->name;
+		$projectCategory = new ProjectCategory;
+		$projectsSpecial = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 5);
+		$this->setMetadata($searchDescription);
+		return view('frontend.sites1.project_search', ['projects'=> $projects, 'project_type'=>$project_type, 'district'=> $district, 'projectsSpecial'=>$projectsSpecial
+			, 'search_type'=> 'project_type_province_district', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading]);
+	}
+
+	public function project_detail($project_id,$project_key)
+	{
+		$project = Project::where('key',$project_key)->first();
 		if($project != null){
 			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
 			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
@@ -535,9 +688,9 @@ class SiteProjectcontrollers extends Controller
 		else
 			return view('errors.404');
 	}
-	public function project_part($districtkey, $projectkey, $projectpartid ,$projectpartkey)
+	public function project_part($project_id, $project_key, $project_part_id ,$project_part_key)
 	{
-		$project_part = Project_part::findOrFail($projectpartid);
+		$project_part = Project_part::findOrFail($project_part_id);
 		if($project_part != null){
 			$project = $project_part->project;
 			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
@@ -571,6 +724,60 @@ class SiteProjectcontrollers extends Controller
 		}
 		else
 			return view('errors.404');
+	}
+
+
+	public function contact()
+	{
+		$this->setMetadata('Liên hệ');
+
+		return view('frontend.sites1.contact');
+	}
+
+	public function createContact(Request $request)
+	{
+		$json = json_decode('{"success":false, "message": "Đăng ký không thành công"}');
+		//$arrayName = array('success' =>  false, 'message' => 'Đăng ký không thành công' );
+		$validator = Validator::make($request->get('Contact'), Contact::$rules);
+		if ($validator->fails())
+		{
+			if ($request->ajax()) {
+				return response()->json($json);
+			}
+			else{
+				return redirect()->back()->withErrors($validator->errors());
+			}
+		}
+		else
+		{
+			$contact = new Contact;
+
+			$contact->full_name = $request->input('Contact.full_name');
+			$contact->email = $request->input('Contact.email');
+			$contact->phone = $request->input('Contact.phone');
+			$contact->subject = $request->input('Contact.subject');
+			$contact->content = $request->input('Contact.content');
+	 
+			//Tiến hành lưu dữ liệu vào database
+			$contact->save();
+
+			// send email
+			$common = new Common;
+			$config = new Config;
+			/*try{
+				$common->sendEmail('frontend.emails.contact', $data = ['contact' => $contact], $to = $config->getValueByKey('address_received_mail'), $toName = $contact->full_name, $subject = $contact->subject, $cc = $contact->email, $replyTo = $contact->email);
+			}catch(Exception $e){
+
+			}*/
+			if ($request->ajax()) {
+				$json->success = true;
+				$json->message = 'Chúng tôi sẽ chủ động cập nhật thông tin mới nhất đến bạn.';
+				return response()->json($json);
+			}
+			else{
+				return redirect(route('contact'))->with('contact-status', 'Nội dung liên hệ của quý khách đã được gửi đến ban quản trị. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
+			}
+		}
 	}
 
 

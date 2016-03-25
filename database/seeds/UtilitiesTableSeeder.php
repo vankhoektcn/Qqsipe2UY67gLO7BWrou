@@ -14,7 +14,7 @@ class UtilitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $names = ['Hồ bơi', 'Công viên', 'Khu thương mại', 'Phòng tập Gym'];
+        $names = ['Hồ bơi', 'Công viên', 'Khu thương mại', 'Phòng tập Gym', 'Siêu thị', 'Phòng Karaoke'];
         
         foreach ($names as $key => $value) 
         {
