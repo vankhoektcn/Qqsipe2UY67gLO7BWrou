@@ -53,6 +53,10 @@ crazyify.common = {
 		});
 	},
 	pageLoad: function(){
+		var thisObj=crazyify.common;
+		thisObj.setSelectCookie('pdt', $('select[name="product_type"]'));
+		thisObj.setSelectCookie('pjt', $('select[name="project_type"]'));
+		thisObj.setSelectCookie('pro', $('select[name="province"]'));
 
 		crazyify.common.loadDropdow($('select#product_type_id:not(.no-ajax)'), '/extra/product_types', 'GET', null, 'id', 'name');
 		crazyify.common.loadDropdow($('select#project_type_id:not(.no-ajax)'), '/extra/project_types', 'GET', null, 'id', 'name');
@@ -65,6 +69,15 @@ crazyify.common = {
 		crazyify.common.loadDropdow($('select#area_range_id:not(.no-ajax)'), '/extra/area_ranges', 'GET', '--Chọn diện tích--', 'id', 'name');
 
 		$('select[multiple="multiple"].no-ajax').multiselect();
+	},
+	setSelectCookie:function(cookieName, objSelect){
+		var objCookie = $.GetCookie(cookieName);
+		if(!$.isEmptyObject(objCookie))
+		{
+			objCookie = JSON.parse(objCookie);
+			$(objSelect).val(objCookie.id);
+			$(objSelect).trigger('change');
+		}
 	},
 
 	loadDropdow: function(obj, url, method, emptyItemName, idKey, nameKey, callback){
@@ -133,7 +146,7 @@ crazyify.common = {
 					$obj.append('<option value="">--Chọn dự án--</option>');
 					$.each(data, function(index, item)
 					{
-						$obj.append('<option value="'+ item.id +'">'+ item.name +'</option>');
+						$obj.append('<option value="'+ item.id +'" key="'+item.key+'" >'+ item.name +'</option>');
 					});
 					if(data != null && data.length >0 && callback != null && typeof callback == 'function')
 						callback(data);
@@ -178,9 +191,9 @@ crazyify.common = {
 			}
 		});
 		console.log(query);
-		if(escape && escape.length>0)
-			query=escape(query.substring(1));
-		console.log(query);
+		if(query && query.length>0)
+			query=query.substring(1);//escape(query.substring(1));
+		//console.log(query);
 		return query
 	}
 
@@ -192,7 +205,11 @@ $(function () {
 
 jQuery.fn.extend({
     selectedKey: function() {
-        return $('option:selected',$(this)).attr('key') 
+        return $('option:selected',$(this)).attr('key');
+    }, // put comma here if you want to add more functions
+
+    selectedText: function() {
+        return $('option:selected',$(this)).text();
     } // put comma here if you want to add more functions
 });
 

@@ -710,7 +710,6 @@ return array(
     'TranslatableTest' => $vendorDir . '/dimsav/laravel-translatable/tests/TranslatableTest.php',
     'UsersTableSeeder' => $baseDir . '/database/seeds/UsersTableSeeder.php',
     'UtilitiesTableSeeder' => $baseDir . '/database/seeds/UtilitiesTableSeeder.php',
-    'UtilitysTableSeeder' => $baseDir . '/database/seeds/UtilitysTableSeeder.php',
     'WardsTableSeeder' => $baseDir . '/database/seeds/WardsTableSeeder.php',
     'aCssAtBlockEndToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
     'aCssAtBlockStartToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',

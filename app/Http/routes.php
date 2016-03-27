@@ -202,176 +202,142 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::group(['namespace' => 'Frontend'], function()
 {
-	/*Route::get('/', [
-			'as' => 'homepage',
-			'uses' => 'SiteControllers@index'
-		]);*/
-	/*Route::get('/lien-he.html', [
-			'as' => 'contact',
-			'uses' => 'SiteControllers@contact'
-		]);
-	Route::post('/lien-he.html', [
-			'as' => 'contact',
-			'uses' => 'SiteControllers@createContact'
-		]);
-	Route::get('/{categorykey}/{articlekey}.html', [
-			'as' => 'article',
-			'uses' => 'SiteControllers@article'
-		]);
-	Route::get('/search.html', [
-			'as' => 'search',
-			'uses' => 'SiteControllers@search'
-		]);	
-	Route::get('/gia-su-hien-co.html', [
-			'as' => 'tutor',
-			'uses' => 'SiteControllers@tutor'
-		]);
-	Route::get('/dang-ky-lam-gia-su.html', [
-			'as' => 'tutorRegister',
-			'uses' => 'SiteControllers@tutorRegister'
-		]);
-
-	Route::post('/dang-ky-lam-gia-su.html', [
-			'as' => 'createTutorRegister',
-			'uses' => 'SiteControllers@createTutorRegister'
-		]);
-
-	Route::get('/dang-ky-tim-gia-su.html', [
-			'as' => 'studentRegister',
-			'uses' => 'SiteControllers@studentRegister'
-		]);
-
-	Route::post('/dang-ky-tim-gia-su.html', [
-			'as' => 'createStudentRegister',
-			'uses' => 'SiteControllers@createStudentRegister'
-		]);
-
-	Route::get('/lop-moi.html', [
-			'as' => 'newClass',
-			'uses' => 'SiteControllers@newClass'
-		]);
-	Route::post('/lop-moi.html', [
-			'as' => 'searchNewClass',
-			'uses' => 'SiteControllers@searchNewClass'
-		]);*/
-
 	
 /***************************** FOR PROJECTS  ******************************/
 	// ALL	
 	Route::get('/du-an.html', [
 			'as' => 'projects',
-			'uses' => 'SiteProjectcontrollers@projects'
+			'uses' => 'SiteControllers@projects'
 		]);
 
 	// SEARCH
 	//PRODUCT_TYPE
 	Route::get('/du-an/{project_type_key}.html', [
 			'as' => 'project_type',
-			'uses' => 'SiteProjectcontrollers@project_type'
+			'uses' => 'SiteControllers@project_type'
 		]);	
 	//PRODUCT_TYPE vs PROVINCE
 	Route::get('/du-an/{project_type_key}/{province_key}.html', [
 			'as' => 'project_type_province',
-			'uses' => 'SiteProjectcontrollers@project_type_province'
+			'uses' => 'SiteControllers@project_type_province'
 		]);
 	//PRODUCT_TYPE vs PROVINCE vs DISTRICT
 	Route::get('/du-an/{project_type_key}/{province_key}/{district_key}.html', [
 			'as' => 'project_type_province_district',
-			'uses' => 'SiteProjectcontrollers@project_type_province_district'
+			'uses' => 'SiteControllers@project_type_province_district'
 		]);
 	//PRODUCT_TYPE vs PROVINCE vs DISTRICT vs WARD
 	Route::get('/du-an/{project_type_key}/{province_key}/{district_key}/{ward_key}.html', [
 			'as' => 'project_type_province_district_ward',
-			'uses' => 'SiteProjectcontrollers@project_type_province_district_ward'
+			'uses' => 'SiteControllers@project_type_province_district_ward'
 		]);
 	Route::get('/thong-tin-du-an/{project_id}/{project_key}.html', [
 			'as' => 'project_detail',
-			'uses' => 'SiteProjectcontrollers@project_detail'
+			'uses' => 'SiteControllers@project_detail'
 		]);
 	Route::get('/thong-tin-du-an/{project_id}/{project_key}/{project_part_id}/{project_part_key}.html', [
 			'as' => 'project_part',
-			'uses' => 'SiteProjectcontrollers@project_part'
+			'uses' => 'SiteControllers@project_part'
 		]);
 	Route::get('/tim-kiem-du-an.html', [
 		'as' => 'project_search',
-		'uses' => 'SiteProjectcontrollers@project_search'
+		'uses' => 'SiteControllers@project_search'
 	]);	
 /***************************** end FOR PROJECTS  ******************************/
 	/*// ALL	
 	Route::get('/du-an.html', [
 			'as' => 'du_an',
-			'uses' => 'SiteProjectcontrollers@du_an'
+			'uses' => 'SiteControllers@du_an'
 		]);
 	// SEARCH
 		Route::get('/tim-kiem-du-an.html', [
 			'as' => 'project_search',
-			'uses' => 'SiteProjectcontrollers@project_search'
+			'uses' => 'SiteControllers@project_search'
 		]);	
 	// PROJECT_TYPE
 	Route::get('/du-an/{producttypekey}.html', [
 			'as' => 'project_type',
-			'uses' => 'SiteProjectcontrollers@project_type'
+			'uses' => 'SiteControllers@project_type'
 		]);
 	Route::get('/du-an/{districtkey}/{projectkey}.html', [
 			'as' => 'project',
-			'uses' => 'SiteProjectcontrollers@project'
+			'uses' => 'SiteControllers@project'
 		]);
 	Route::get('/du-an/{districtkey}/{projectkey}/{projectpartid}/{projectpartkey}.html', [
 			'as' => 'project_part',
-			'uses' => 'SiteProjectcontrollers@project_part'
+			'uses' => 'SiteControllers@project_part'
 		]);*/
 
 /***************************** FOR PRODUCT  ******************************/
 	// ALL	
 	Route::get('/can-ho.html', [
 			'as' => 'products',
-			'uses' => 'SiteProjectcontrollers@products'
+			'uses' => 'SiteControllers@products'
 		]);
 
 	// SEARCH
 	//PRODUCT_TYPE
 	Route::get('/can-ho/{product_type_key}.html', [
 			'as' => 'product_type',
-			'uses' => 'SiteProjectcontrollers@product_type'
+			'uses' => 'SiteControllers@product_type'
 		]);	
 	//PRODUCT_TYPE vs PROVINCE
 	Route::get('/can-ho/{product_type_key}/{province_key}.html', [
 			'as' => 'product_type_province',
-			'uses' => 'SiteProjectcontrollers@product_type_province'
+			'uses' => 'SiteControllers@product_type_province'
 		]);
 	//PRODUCT_TYPE vs PROVINCE vs DISTRICT
 	Route::get('/can-ho/{product_type_key}/{province_key}/{district_key}.html', [
 			'as' => 'product_type_province_district',
-			'uses' => 'SiteProjectcontrollers@product_type_province_district'
+			'uses' => 'SiteControllers@product_type_province_district'
 		]);
 	//PRODUCT_TYPE vs PROVINCE vs DISTRICT vs WARD
 	Route::get('/can-ho/{product_type_key}/{province_key}/{district_key}/{ward_key}.html', [
 			'as' => 'product_type_province_district_ward',
-			'uses' => 'SiteProjectcontrollers@product_type_province_district_ward'
+			'uses' => 'SiteControllers@product_type_province_district_ward'
 		]);
 	Route::get('/thong-tin-can-ho/{product_id}/{product_key}.html', [
 			'as' => 'product_detail',
-			'uses' => 'SiteProjectcontrollers@product_detail'
+			'uses' => 'SiteControllers@product_detail'
 		]);
 	Route::get('/tim-kiem-can-ho.html', [
 		'as' => 'product_search',
-		'uses' => 'SiteProjectcontrollers@product_search'
+		'uses' => 'SiteControllers@product_search'
 	]);	
 /***************************** end FOR PRODUCT  ******************************/
+
+/***************************** FOR ARTICLE  ******************************/
+	// ALL	
+	Route::get('/tin-tuc.html', [
+			'as' => 'articles',
+			'uses' => 'SiteControllers@articles'
+		]);
 	
+	//PRODUCT_TYPE
+	Route::get('/tin-tuc/{article_category_key}.html', [
+			'as' => 'article_category',
+			'uses' => 'SiteControllers@article_category'
+		]);	
+	// ARTICLE
+	Route::get('/tin/{article_id}/{article_key}.html', [
+			'as' => 'article_detail',
+			'uses' => 'SiteControllers@article_detail'
+		]);
+/***************************** end FOR ARTICLE  ******************************/
+
 
 	//FOR LAYOUT 1
 	Route::get('/', [
 			'as' => 'homepage',
-			'uses' => 'SiteProjectcontrollers@index'
+			'uses' => 'SiteControllers@index'
 		]);
 	Route::get('/lien-he.html', [
 			'as' => 'contact',
-			'uses' => 'SiteProjectcontrollers@contact'
+			'uses' => 'SiteControllers@contact'
 		]);
 	Route::post('/lien-he.html', [
 			'as' => 'contact',
-			'uses' => 'SiteProjectcontrollers@createContact'
+			'uses' => 'SiteControllers@createContact'
 		]);
 	//END FOR LAYOUT 1
 });

@@ -40,10 +40,16 @@ crazyify.product_search = {
 			else if( !$.isEmptyObject(_root._province.selectedKey()) )
 			{
 				link += '/'+_root._product_type.selectedKey()+'/'+_root._province.selectedKey()+'.html';
+				var pdt = {id: _root._product_type.val(), key: _root._product_type.selectedKey(), name:_root._product_type.selectedText()};
+				$.SetCookie('pdt',JSON.stringify(pdt), 1);
+				var pro = {id: _root._province.val(), key: _root._province.selectedKey(), name:_root._province.selectedText()};
+				$.SetCookie('pro',JSON.stringify(pro), 1);
 			}
 			else if( !$.isEmptyObject(_root._product_type.selectedKey()) )
 			{
 				link += '/'+_root._product_type.selectedKey()+'.html';
+				var pdt = {id: _root._product_type.val(), key: _root._product_type.selectedKey(), name:_root._product_type.selectedText()};
+				$.SetCookie('pdt',JSON.stringify(pdt), 1);
 			}
 			else
 				link += '.html';

@@ -42,6 +42,7 @@ a:hover {
 .fs19{font-size: 19px !important}
 .fs20{font-size: 20px !important}
 .fw-bold{font-weight: bold !important;}
+.fs-italic{font-style: italic;}
 .fw-normal{font-weight: normal !important;}
 .top-tabs .tab-content {
     border: 1px solid #d5d5d5;
@@ -244,7 +245,22 @@ button.multiselect{
 .send-msg .post-msg i {
     color: #fff;
 }
+.datetime{
+    color: #a5a5a5;
+}
+.apartment-item.border-gray{
+    border: 1px solid #e7e7e7;
+}
 
+.bdb-gray{
+    border-bottom: 1px dotted #ccc;
+}
+.right-side-bar .blog-img {
+    margin-right: 10px;
+}
+.tag-bar span {
+    font-size: 14px;
+}
 /*///////////////////////// for SEARCH BOX MIN ////////////////////////////////////*/
 .search-box-min{ padding-top: 10px; }
 .search-box-min .search-form label {

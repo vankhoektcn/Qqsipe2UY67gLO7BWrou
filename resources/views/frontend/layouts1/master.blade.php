@@ -28,10 +28,12 @@
 @inject('config', 'App\Config')
 @inject('project_type', 'App\Project_type')
 @inject('product_type', 'App\Product_type')
+@inject('articleCategory', 'App\ArticleCategory')
 
 <?php 
 	$product_type_inject = $product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
 	$project_type_inject = $project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
+	$articleCategory_inject = $articleCategory::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
 ?>
 <div class="top-bar">
 	<div class="container">
@@ -90,7 +92,13 @@
 							@foreach ($product_type_inject as $product_type)
 							<li><a href="{{$product_type->getLink()}}">{{$product_type->name}}</a></li>
 							@endforeach
-							<li><a href="agents.html">TIN TỨC</a></li>
+							<li><a href="{{route('articles')}}">TIN TỨC</a>
+								<ul class="dropdown-menu" role="menu">								
+									@foreach ($articleCategory_inject as $articleCategory)
+									<li><a href="{{$articleCategory->getLink()}}">{{$articleCategory->name}}</a></li>
+									@endforeach
+								</ul>
+							</li>
 							<li><a href="{{route('contact')}}">LIÊN HỆ</a></li>
 						</ul>
 					</div>

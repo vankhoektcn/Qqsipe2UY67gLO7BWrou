@@ -34,7 +34,7 @@ class CreateProductsTable extends Migration
             $table->string('total_price')->nullable();
             $table->string('address',250);
 
-            $table->timestamps('expire_at')->nullable();
+            $table->timestamp('expire_at')->nullable();
             $table->text('summary');
             $table->text('description');
             $table->integer('home_direction')->nullable();
