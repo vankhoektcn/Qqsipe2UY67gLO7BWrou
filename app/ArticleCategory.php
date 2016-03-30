@@ -46,7 +46,7 @@ class ArticleCategory extends BaseModel
 
 	public function getLink()
 	{
-		return route('category', ['categorykey' => $this->key]);
+		return route('article_category', ['article_category_key' => $this->key]);
 	}
 
 	public function getAllTopLevel()

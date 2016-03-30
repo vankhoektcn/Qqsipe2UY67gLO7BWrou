@@ -182,7 +182,7 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 	#subscribe-form {
 	    position: absolute;
 	    bottom: 160px;
-	    right: -100px;
+	    /*right: -100px;*/
 	    width: 100%;
 	    height: 270px;
 	}

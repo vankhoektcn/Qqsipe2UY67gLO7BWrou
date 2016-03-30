@@ -15,7 +15,7 @@
 		</div>
 	</div>
 </div>
-@if ($projectsNew != null && count($projectsNew) > 0)
+@if ($projectsSpecial != null && count($projectsSpecial) > 0)
 <section>
 	<div class="container mrgt6x">
 		<div class="visit-place ">
@@ -25,7 +25,7 @@
 			<div class="section-detail mrgb3x clearfix">
 				@foreach ($projectsSpecial as $project)
 				<div class="col-md-4 col-sm-6">
-					<div class="place-img"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="#"/>
+					<div class="place-img"> <a href="{{$project->getLink()}}" target="_blank"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}"/> </a>
 						<div class="place-text">
 							<h2>{{$project->name}}</h2>
 							<a href="{{$project->getLink()}}" target="blank" class="btn btn-primary"><i class="fa fa-map-marker project-marker mrgr05 location-icon"></i>{{$project->addressFull()}}</a>
@@ -56,21 +56,23 @@
 				@foreach ($projectsNew as $project)
 				<div class="col-md-4 col-sm-6">
 					<div class="home2 property-box border-hover animated out" data-delay="0" data-animation="fadeInUp">
-						<div class="appartment-img"><img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="#" />
+						<div class="appartment-img"><a href="{{$project->getLink()}}" target="_blank"><img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}" /></a>
 							<!-- <div class="room-price"><span>$699<sup>/week</sup></span></div> -->
 							<div class="like-btn"><a href="javascript:;"><i class="fa fa-heart"></i></a></div>
 						</div>
 						<div class="property-text">
 							<div class="resort-name">
-								<h4>{{$project->name}}</h4>
+								<h4><a href="{{$project->getLink()}}" target="_blank">{{$project->name}}</a></h4>
 								<div class="rating"> <!-- <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> --> </div>
 								<div class="address">
 									<i class="fa fa-map-marker project-marker mrgr05"></i>
 									<small><em>{{$project->addressFull()}}</em></small>
 								</div>
-								<p>{!!$project->content!!}</p>
+								<div class="read-more-container divSummary">
+									<p>{!!$project->content!!}</p>
+								</div>
 							</div>
-							<div class="detail-btn mrgt4x mrgb3x"> <a href="{{$project->getLink()}}" target="blank" class="more-detail"><i class="fa fa-angle-right"></i>CHI TIẾT</a> </div>
+							<div class="detail-btn mrgt3x mrgb1x text-right"> <a href="{{$project->getLink()}}" target="blank" class="more-detail"><i class="fa fa-angle-right"></i>CHI TIẾT</a> </div>
 						</div>
 						<!-- <ul class="home2 appartment-detail">
 							<li>1 Room</li>
@@ -167,5 +169,6 @@
 @endsection
 
 @section('body.js')
-<script type="text/javascript" src="/frontend/js1/pages/index.js"></script>
+<!-- <script type="text/javascript" src="/frontend/js1/pages/index.js"></script> -->
+{!! Minify::javascript('/frontend/js1/pages/index.js') !!}
 @endsection

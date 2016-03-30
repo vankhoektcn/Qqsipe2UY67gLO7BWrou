@@ -21,7 +21,7 @@
 
             <div class="property-small-content">
                 <a class="property-small-title" href="{{ $project->getLink() }}">{{$project->name}}</a>
-                <div class="property-small-address"><i class="fa fa-map-marker project-marker"></i> {{$project->address}}</div>
+                <div class="property-small-address"><i class="fa fa-map-marker project-marker"></i> {{$project->addressFull()}}</div>
             </div>
         </div>
 		@endforeach

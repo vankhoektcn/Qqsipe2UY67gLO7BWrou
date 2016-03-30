@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguagesTableSeeder::class);
         $this->call(ConfigsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        //$this->call(ArticlesTableSeeder::class);
+        
         $this->call(ProvincesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
         //$this->call(SubjectsTableSeeder::class);
@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AgentsTableSeeder::class);
         $this->call(WardsTableSeeder::class);
         $this->call(StreetsTableSeeder::class);
+
+        $this->call(ArticlesTableSeeder::class);
         
         Model::reguard();
     }

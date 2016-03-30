@@ -83,7 +83,7 @@ class Project extends BaseModel
 
     public function getFirstImage()
     {
-        $images = $this->project_images()->where('active', 1)->orderBy('priority')->first();
+        $images = $this->project_images()->where('path', '<>',$this->logo)->where('active', 1)->orderBy('priority')->first();
         $thumnail = "/uploads/notfound.jpg" ;
         if(isset($images))
             $thumnail = $images->path;

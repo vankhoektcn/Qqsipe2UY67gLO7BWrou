@@ -20,17 +20,18 @@ class ArticlesTableSeeder extends Seeder
     {
         $generator = \Faker\Factory::create('vi_VN');
 		
-        $articleCategories = ['Lớp cần gia sư', 'Gia sư theo quận', 'Thông tin cần biết', 'Vị trí bài viết', 'Slideshow chính', 'Trang chủ', 'Slideshow footer'];
+        $articleCategories = ['Thị trường nhà đất', 'Dự án căn hộ', 'Đầu tư căn hộ', 'Lời khuyên'];
+        //, 'Vị trí bài viết', 'Slideshow chính', 'Trang chủ', 'Slideshow footer'];
 
         $articleCategoryPositionArticles = null;
         foreach ($articleCategories as $key => $value) {
 	        $articleCategory = ArticleCategory::create([
 				'key' => Common::createKeyURL($value),
 				'parent_id' => is_null($articleCategoryPositionArticles) ? 0 : $articleCategoryPositionArticles->id,
-				'priority' => 0,
+				'priority' => $key,
 				'is_publish' => 1,
-				'created_by' => 'phantsang',
-				'updated_by' => 'phantsang'
+				'created_by' => 'vankhoektcn',
+				'updated_by' => 'vankhoektcn'
 			]);
 			ArticleCategoryTranslation::create([
 				'article_category_id' => $articleCategory->id,
@@ -45,14 +46,14 @@ class ArticlesTableSeeder extends Seeder
 			}
         }
 
-        $articles = ['Giới Thiệu', 'Học Phí', 'Gia Sư Hiện Có', 'Tuyển Dụng', 'Tài Khoản Giao Dịch'];
+        $articles = ['Giới Thiệu', 'Tuyển Dụng', 'Tài Khoản Giao Dịch'];
         foreach ($articles as $key => $value) {
         	$article = Article::create([
 				'key' => Common::createKeyURL($value),
-				'priority' => 0,
+				'priority' => $key,
 				'is_publish' => 1,
-				'created_by' => 'phantsang',
-				'updated_by' => 'phantsang'
+				'created_by' => 'vankhoektcn',
+				'updated_by' => 'vankhoektcn'
 			]);
 			ArticleTranslation::create([
 				'article_id' => $article->id,
@@ -67,15 +68,15 @@ class ArticlesTableSeeder extends Seeder
 
         $categories = ArticleCategory::where('parent_id','=',0)->lists('id');
         $categories2 = ArticleCategory::where('parent_id','<>',0)->lists('id');
-		for ($i=0; $i < 100; $i++) { 
+		for ($i=0; $i < 3; $i++) { 
 			$name = $generator->sentence($nbWords = 6);
 			$key = Common::createKeyURL($name);
 			$article = Article::create([
 				'key' => $key,
-				'priority' => 0,
+				'priority' => $i,
 				'is_publish' => 1,
-				'created_by' => 'phantsang',
-				'updated_by' => 'phantsang'
+				'created_by' => 'vankhoektcn',
+				'updated_by' => 'vankhoektcn'
 			]);
 			ArticleTranslation::create([
 				'article_id' => $article->id,
@@ -98,7 +99,7 @@ class ArticlesTableSeeder extends Seeder
 
 			
 			$article->categories()->attach($categories->random());
-			$article->categories()->attach($categories2->random());
+			//$article->categories()->attach($categories2->random());
 		}
     }
 }

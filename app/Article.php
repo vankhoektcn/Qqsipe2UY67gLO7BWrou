@@ -47,10 +47,18 @@ class Article extends BaseModel
 				$categorykey = $category->key;
 		}
 
-		$link = route('article', ['categorykey' => $categorykey, 'articlekey' => $this->key]);
+		$link = route('article_detail', ['article_id' => $this->id, 'article_key' => $this->key]);
 		return $link;
 	}
 
+	public function getThumnail()
+	{
+		$attachment = $this->attachments()->where('is_publish', 1)->orderBy('priority')->first();
+		$thumnail = "/uploads/notfound.jpg" ;
+		if(isset($attachment))
+			$thumnail = $attachment->path;
+		return $thumnail;
+	}
 	public function getFirstAttachment()
 	{
 		$attachment = $this->attachments()->where('is_publish', 1)->orderBy('priority')->first();
@@ -62,7 +70,7 @@ class Article extends BaseModel
 
 	public static function specialArticleLink($linkKey)
 	{
-		$link = route('article', ['categorykey' => app()->getLocale(), 'articlekey' => $linkKey]);
+		$link = '';//route('article', ['categorykey' => app()->getLocale(), 'articlekey' => $linkKey]);
 		return $link;
 	}
 }

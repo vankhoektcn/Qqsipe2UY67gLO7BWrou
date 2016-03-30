@@ -1,6 +1,6 @@
 // config cookie
-$.cookie.raw = true;
-$.cookie.json = true;
+/*$.cookie.raw = true;
+$.cookie.json = true;*/
 // config bootbox
 /*bootbox.addLocale('vi', {OK : 'Đồng ý', CANCEL : 'Thoát', CONFIRM : 'Xác nhận'});
 bootbox.setLocale('vi');*/
