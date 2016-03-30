@@ -323,6 +323,7 @@ Route::group(['namespace' => 'Frontend'], function()
 			'as' => 'article_detail',
 			'uses' => 'SiteControllers@article_detail'
 		]);
+	
 /***************************** end FOR ARTICLE  ******************************/
 
 

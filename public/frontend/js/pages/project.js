@@ -60,36 +60,49 @@ crazyify.project = {
 		});
 		$(document).on('click', 'a.close-auto-menu', function () {
 			if (!$(this).hasClass("close-auto-menu-out")) {
-				$(this).addClass('close-auto-menu-out');
-				$('i',$(this)).removeClass('fa-angle-double-left');
-				$('i',$(this)).addClass('fa-angle-double-right');
-				$('i',$(this)).attr('title','Hiện menu');
-				$('nav#rightMenuScrollspy').removeClass('in');
+				$(this).addClass('isClick');
+				crazyify.project.showLinkActiveRightMenu(false);
 			}
 			else
 			{
-				$(this).removeClass('close-auto-menu-out');
-				$('i',$(this)).addClass('fa-angle-double-left');
-				$('i',$(this)).removeClass('fa-angle-double-right');
-				$('i',$(this)).attr('title','Ẩn menu');
-				$('nav#rightMenuScrollspy').addClass('in');
+				$(this).removeClass('isClick');
+				crazyify.project.showLinkActiveRightMenu(true);			
 			}
 		});
 	},
+	showLinkActiveRightMenu: function(isShow){
+		var _aCloseMenu = $('a.close-auto-menu');
+		if(isShow)
+		{
+			$(_aCloseMenu).removeClass('close-auto-menu-out');
+			$('i',$(_aCloseMenu)).addClass('fa-angle-double-left');
+			$('i',$(_aCloseMenu)).removeClass('fa-angle-double-right');
+			$('i',$(_aCloseMenu)).attr('title','Ẩn menu');
+			$('nav#rightMenuScrollspy').addClass('in');
+		}
+		else
+		{
+			$(_aCloseMenu).addClass('close-auto-menu-out');
+			$('i',$(_aCloseMenu)).removeClass('fa-angle-double-left');
+			$('i',$(_aCloseMenu)).addClass('fa-angle-double-right');
+			$('i',$(_aCloseMenu)).attr('title','Hiện menu');
+			$('nav#rightMenuScrollspy').removeClass('in');
+		}
+	},
 	CheckShowRightMenu: function () {
-		if (!$('a.close-auto-menu').hasClass("close-auto-menu-out")) {
-			if (!$('ul.cl-effect-1').is(":inView") && !$('a.close-auto-menu').hasClass("close-auto-menu-out")) {
+		if (!$('a.close-auto-menu').hasClass("isClick")) {//.hasClass("close-auto-menu-out")) {
+			if (!$('ul.cl-effect-1').is(":inView") ) {// && !$('a.close-auto-menu').hasClass("close-auto-menu-out")) {
 				var page_content_width = $(".page-content").width();
-				if(window.innerWidth > ( page_content_width + 240))
+				if(window.innerWidth >= 1024)//if(window.innerWidth > ( page_content_width + 240))
 				{
-					$('nav#rightMenuScrollspy').addClass('in');
+					crazyify.project.showLinkActiveRightMenu(true);
 				}
 				else{
-					$('nav#rightMenuScrollspy').removeClass('in');
+					crazyify.project.showLinkActiveRightMenu(false);
 				}
 			}
 			else{
-				$('nav#rightMenuScrollspy').removeClass('in');
+				crazyify.project.showLinkActiveRightMenu(false);
 			}
 		}
 	},

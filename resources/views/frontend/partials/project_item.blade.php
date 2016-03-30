@@ -15,9 +15,11 @@
 										<i class="fa fa-map-marker project-marker mrgr05"></i>
 										<small><em>{{$project->addressFull()}}</em></small>
 									</div>
+									<div class="read-more-container divSummary">
 									<p>{!!$project->content!!}</p>
+									</div>
 								</div>
-								<div class="detail-btn mrgt3x"> <a href="{{$project->getLink()}}" target="_blank" class="sale">CHI TIẾT DỰ ÁN</a> </div>						     
+								<div class="detail-btn mrgt3x full text-center"> <a href="{{$project->getLink()}}" target="_blank" class="sale">CHI TIẾT DỰ ÁN</a> </div>						     
 							</div>
 						</div>
 					</li>

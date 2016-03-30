@@ -6,25 +6,19 @@
 {!! Twitter::generate() !!}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/frontend/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+<!-- <link href="/frontend/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="/admin/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/toastr.min.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/style.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/right-menu.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css/flexslider.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css/project.css" rel="stylesheet" type="text/css">
+<link href="/frontend/css/project.css" rel="stylesheet" type="text/css"> -->
   
-<!-- <link rel="stylesheet" href="/frontend/css/bootstrap.css">
-  <script src="/frontend/js/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></scr‌​ipt>
-  <script src="/frontend/js/bootstrap.min.js"></script>
-  <script src="/frontend/js/crazyify.core.js"></script>
-    
-<link href="/admin/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css/right-menu.css" rel="stylesheet" type="text/css">
-{!! Minify::stylesheet(array('/frontend/css/bootstrap.css', '/frontend/css/style.css','/frontend/css/flexslider.css', '/frontend/css/custom.css')) !!}
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
- -->
+
+{!! Minify::stylesheet(array('/frontend/css/bootstrap.css', '/frontend/css/font-awesome.css','/frontend/css/toastr.min.css', '/frontend/css/style.css'
+, '/frontend/css/right-menu.css','/frontend/css/flexslider.css', '/frontend/css/project.css')) !!}
+
 <style>
   </style>
 </head>
@@ -32,15 +26,16 @@
 
 <div class="menu-right">
 	<nav class="rightMenuScrollspy" id="rightMenuScrollspy">
-        <a class="close close-auto-menu">
+        <a class="close close-auto-menu dropdown-toggle">
             <i class="fa fa-angle-double-left" title="Ẩn menu"></i>
         </a>
 	  <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
         @if (!empty($project->content))
-            <li><a href="{{Route::is('project') ? '' : $project->getLink()}}#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
+            <li><a href="#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
+            <!-- {{Route::is('project') ? '' : $project->getLink()}} -->
         @endif
         @foreach ($project_parts as $key => $part)
-            <li><a href="{{Route::is('project') ? '' : $project->getLink()}}#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
+            <li><a href="#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
         @endforeach
 	  </ul>
 	</nav>
@@ -83,7 +78,7 @@
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-    @if (Route::is('project') && !empty($project->show_slide))
+    @if (Route::is('project_detail') && !empty($project->show_slide))
 	<div class="flexslider" id="main-flexslider">
 		<ul class="slides">
             @foreach ($project_images as $key => $image)
@@ -220,12 +215,13 @@
 </footer>
 </div>
 <!-- {!! Minify::javascript(array('/frontend/js/jquery.appear.js' , '/frontend/js/jquery.shuffle.modernizr.js', '/frontend/js/jquery.shuffle.js' , '/frontend/js/owl.carousel.js', '/frontend/js/jquery.ajaxchimp.min.js','/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!} -->
-<script src="/frontend/js/jquery1.11.3.min.js"></script>
+<!-- <script src="/frontend/js/jquery1.11.3.min.js"></script>
 <script src="/frontend/js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/frontend/js/bootstrap.min.js"></script>
 <script src="/frontend/js/crazyify.core.js"></script>
-<script src="/frontend/js/toastr.min.js"></script>
-{!! Minify::javascript(array('/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
+<script src="/frontend/js/toastr.min.js"></script> -->
+{!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
+,'/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
 @yield('body.js')
 </body>
 </html>

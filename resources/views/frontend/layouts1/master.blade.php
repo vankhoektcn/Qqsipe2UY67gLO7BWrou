@@ -9,7 +9,7 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<link href="/frontend/css1/bootstrap.css" rel="stylesheet" type="text/css">
+<!-- <link href="/frontend/css1/bootstrap.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/frontend/css1/bootstrap-multiselect.css" type="text/css"/>
 <link href="/frontend/css1/animate.css" rel="stylesheet" type="text/css">
 
@@ -21,7 +21,12 @@
 <link href="/frontend/css1/photobox.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/revolution-slider.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/owl.carousel.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/responsive.css" rel="stylesheet" type="text/css">
+<link href="/frontend/css1/responsive.css" rel="stylesheet" type="text/css"> -->
+
+{!! Minify::stylesheet(array('/frontend/css1/bootstrap.css', '/frontend/css1/bootstrap-multiselect.css', '/frontend/css1/animate.css'
+,'/frontend/css1/font-awesome.css', '/frontend/css1/style.css', '/frontend/css1/style-custom.css'
+, '/frontend/css1/photobox.css', '/frontend/css1/revolution-slider.css', '/frontend/css1/owl.carousel.css'
+, '/frontend/css1/responsive.css')) !!}
 </head>
 <body>
 <!-- header -->
@@ -117,19 +122,13 @@
 @include('frontend.layouts1.footer')
 
 <!-- <script src="/frontend/js1/jquery.js" type="text/javascript"></script> 
-<script src="/frontend/js1/bootstrap.js" type="text/javascript"></script> 
-<script src="/frontend/js1/jquery-ui.js" type="text/javascript"></script> 
-<script type="text/javascript" src="/frontend/js1/jquery.appear.js"></script>
-<script type="text/javascript" src="/frontend/js1/scripts.js"></script> -->
-
-<script src="/frontend/js1/jquery.js" type="text/javascript"></script> 
 <script src="/frontend/js1/jquery-ui.js" type="text/javascript"></script> 
 <script src="/frontend/js1/bootstrap.js" type="text/javascript"></script> 
 <script type="text/javascript" src="/frontend/js1/bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="/frontend/js1/jquery.appear.js"></script> 
 <script type="text/javascript" src="/frontend/js1/owl.carousel.min.js"></script>
 <script type="text/javascript" src="/frontend/js1/jquery.mixitup.min.js"></script> 
-<script type="text/javascript" src="/frontend/js1/owl.carousel.min.js"></script> 
+
 <script type="text/javascript" src="/frontend/js1/jquery.photobox.js"></script> 
 <script src="/frontend/js1/jquery.themepunch.revolution.js" type="text/javascript"></script> 
 <script src="/frontend/js1/jquery.themepunch.tools.min.js" type="text/javascript"></script> 
@@ -139,7 +138,15 @@
 <script type="text/javascript" src="/frontend/js1/pages/common.js"></script>
 
 <script type="text/javascript" src="/frontend/js1/pages/partials/project_search.js"></script>
-<script type="text/javascript" src="/frontend/js1/pages/partials/product_search.js"></script>
+<script type="text/javascript" src="/frontend/js1/pages/partials/product_search.js"></script> -->
+
+{!! Minify::javascript(array('/frontend/js1/jquery.js','/frontend/js1/jquery-ui.js','/frontend/js1/bootstrap.js'
+, '/frontend/js1/bootstrap-multiselect.js', '/frontend/js1/jquery.appear.js', '/frontend/js1/owl.carousel.min.js'
+, '/frontend/js1/jquery.mixitup.min.js', '/frontend/js1/jquery.photobox.js', '/frontend/js1/jquery.themepunch.revolution.js'
+, '/frontend/js1/jquery.themepunch.tools.min.js'
+, '/frontend/js1/pages/core.js', '/frontend/js1/scripts.js', '/frontend/js1/pages/common.js'
+, '/frontend/js1/pages/partials/project_search.js', '/frontend/js1/pages/partials/product_search.js')) !!}
+
 @yield('body.js')
 </body>
 </html>

@@ -30,7 +30,7 @@ use Mail;
 use App\Project;
 use App\Project_part;
 
-class SiteProjectcontrollers extends Controller
+class SiteProjectcontrollers_ extends Controller
 {
 	/**
 	 * Display a listing of the resource.

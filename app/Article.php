@@ -70,7 +70,7 @@ class Article extends BaseModel
 
 	public static function specialArticleLink($linkKey)
 	{
-		$link = route('article', ['categorykey' => app()->getLocale(), 'articlekey' => $linkKey]);
+		$link = '';//route('article', ['categorykey' => app()->getLocale(), 'articlekey' => $linkKey]);
 		return $link;
 	}
 }
