@@ -23,7 +23,7 @@
 <link href="/frontend/css1/owl.carousel.css" rel="stylesheet" type="text/css">
 <link href="/frontend/css1/responsive.css" rel="stylesheet" type="text/css"> -->
 
-{!! Minify::stylesheet(array('/frontend/css1/bootstrap.css', '/frontend/css1/bootstrap-multiselect.css', '/frontend/css1/animate.css'
+{!! Minify::stylesheet(array('/frontend/css1/icon-font.css', '/frontend/css1/jquery-ui.css', '/frontend/css1/bootstrap.css', '/frontend/css1/bootstrap-multiselect.css', '/frontend/css1/animate.css'
 ,'/frontend/css1/font-awesome.css', '/frontend/css1/style.css', '/frontend/css1/style-custom.css'
 , '/frontend/css1/photobox.css', '/frontend/css1/revolution-slider.css', '/frontend/css1/owl.carousel.css'
 , '/frontend/css1/responsive.css')) !!}
