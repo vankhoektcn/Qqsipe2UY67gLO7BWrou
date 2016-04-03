@@ -130,11 +130,11 @@ class Project_partsController extends Controller
 			return redirect()->back()->withErrors($validationMessages)->withInput();
 		}
 		
+		$project_part = Project_part::findOrFail($id);
 		// sure execute success, if not success rollback
-		DB::transaction(function () use ($request, $id) {
+		DB::transaction(function () use ($request, $project_part) {
 			$user = $request->user();
 
-			$project_part = Project_part::findOrFail($id);
 			$project_part->key = Common::createKeyURL($request->input('Project_part.name'));
         	$project_part->name = $request->input('Project_part.name');
 			// get thumnail 
@@ -154,7 +154,7 @@ class Project_partsController extends Controller
 
 		});
 
-		return redirect()->route('admin.project_parts.index', ['project_id' => 1]);
+		return redirect()->route('admin.project_parts.index',['project_id' => $project_part->project_id]);
 	}
 
 	/**

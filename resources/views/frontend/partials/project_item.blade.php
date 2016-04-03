@@ -1,4 +1,3 @@
-					@foreach ($projects as $project)				
 					<li class="col-md-4 mrgb5x col-sm-4">
 						<div class="property-box sale-2 animated out" data-delay="0" data-animation="fadeInUp">
 							<div class="appartment-img">
@@ -23,4 +22,3 @@
 							</div>
 						</div>
 					</li>
-					@endforeach	

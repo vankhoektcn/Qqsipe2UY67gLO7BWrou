@@ -188,8 +188,11 @@
                 </div>
             </div>
             <div class="col-xs-12 district-link text-center">
-                <a href="/du-an/danh-sach?dist=10">Quận 1</a>
-                <a href="/du-an/danh-sach?dist=14">Quận 2</a>
+            @if(isset($hmcDistrict))
+                @foreach ($hmcDistrict as $district)
+                <a href="{{$district->getLink()}}">{{$district->name}}</a>
+                @endforeach
+                <!-- <a href="/du-an/danh-sach?dist=14">Quận 2</a>
                 <a href="/du-an/danh-sach?dist=15">Quận 3</a>
                 <a href="/du-an/danh-sach?dist=16">Quận 4</a>
                 <a href="/du-an/danh-sach?dist=17">Quận 5</a>
@@ -205,7 +208,8 @@
                 <a href="/du-an/danh-sach?dist=9">Phú Nhuận</a>
                 <a href="/du-an/danh-sach?dist=12">Tân Bình</a>
                 <a href="/du-an/danh-sach?dist=23">Tân Phú</a>
-                <a href="/du-an/danh-sach?dist=6">Gò Vấp</a>
+                <a href="/du-an/danh-sach?dist=6">Gò Vấp</a> -->
+            @endif
             </div>
             <div class="col-xs-12 text-center">
                 <div class="copyright">© 2015 Bản quyền thuộc về&nbsp; <a target="_blank" href="http://www.myvanland.com.vn" title="MyvanLand.com.vn">MyvanLand.com.vn</a></div>

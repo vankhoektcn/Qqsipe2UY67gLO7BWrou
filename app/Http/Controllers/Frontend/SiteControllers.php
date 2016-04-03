@@ -699,7 +699,8 @@ class SiteControllers extends Controller
 			OpenGraph::addImage($project_images->lists('path'));
 			OpenGraph::addImage(['url' => Image::url($project->logo,300,300,array('crop')), 'size' => 300]);
 			// end metadata
-			return view('frontend.sites.project',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents'));
+			$hmcDistrict = Province::findByKey('ho-chi-minh')->first()->districts()->where('is_publish', 1)->orderBy('priority')->get();
+			return view('frontend.sites.project',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents', 'hmcDistrict'));
 		}
 		else
 			return view('errors.404');

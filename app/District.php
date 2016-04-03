@@ -42,4 +42,10 @@ class District extends BaseModel
 	{
 		return $this->hasMany('App\Product');
 	}
+
+    public function getLink()
+    {
+        $link = route('project_type_province_district', ['project_type_key' => 'can-ho-chung-cu', 'province_key' => $this->province->key, 'district_key' => $this->key]);
+        return $link;
+    }
 }
