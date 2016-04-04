@@ -25,10 +25,10 @@
 			<div class="section-detail mrgb3x clearfix">
 				@foreach ($projectsSpecial as $project)
 				<div class="col-md-4 col-sm-6">
-					<div class="place-img"> <a href="{{$project->getLink()}}" target="_blank"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}"/> </a>
+					<div class="place-img pointer"> <a href="{{$project->getLink()}}" target="_blank"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}"/> </a>
 						<div class="place-text">
 							<h2>{{$project->name}}</h2>
-							<a href="{{$project->getLink()}}" target="blank" class="btn btn-primary"><i class="fa fa-map-marker project-marker mrgr05 location-icon"></i>{{$project->addressFull()}}</a>
+							<a href="{{$project->getLink()}}" target="blank" class="btn btn-primary address-text"><i class="fa fa-map-marker project-marker mrgr05 location-icon"></i>{{$project->addressFull()}}</a>
 						</div>
 						<div class="btn btn-primary btnProjectSpecalDetail"><a href="{{$project->getLink()}}" target="_blank">CHI TIẾT</a></div>
 					</div>

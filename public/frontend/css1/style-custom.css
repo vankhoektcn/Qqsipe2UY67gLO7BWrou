@@ -11,6 +11,7 @@ a:hover {
 .text-nowrap{white-space: nowrap;} .full{width: 100%;}
 .hide-normal{display: none;}
 .error-label{display:none;}
+.pointer{cursor: pointer;}
 
 .cl-pink{color: #f65280}
 .cl-black{color: #2f2f2f}
@@ -308,3 +309,10 @@ button.multiselect{
     overflow: hidden;
 }
 .divSummary{ max-height: 150px;position: relative; overflow: hidden;}
+div.place-text a.address-text{
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    white-space: inherit;
+}

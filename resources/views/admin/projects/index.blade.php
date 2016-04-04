@@ -61,13 +61,13 @@
 							<td class="text-right">{{ $project->priority }}</td>
 							<td class="text-center">{!! $project->active == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}</td>
 							<td>
-								<a href="{{ route('admin.projects.edit', ['projects' => $project->id]) }}" class="btn btn-xs green-jungle" target="blank">
+								<a href="{{ route('admin.projects.edit', ['projects' => $project->id]) }}" class="btn btn-xs green-jungle" >
 									<i class="fa fa-edit"></i> Sửa
 								</a>
-								<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}" class="btn btn-xs yellow-gold" target="blank">
+								<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}" class="btn btn-xs yellow-gold" >
 									<i class="fa fa-edit"></i> Nội dung
 								</a>
-								<a href="{{ $project->getLink() }}" class="btn btn-xs green-sharp" target="blank">
+								<a href="{{ $project->getLink() }}" class="btn btn-xs green-sharp" >
 									<i class="fa fa-eye"></i> View
 								</a>
 								<a href="javascript:;" class="btn btn-xs red-thunderbird action-delete" data-id="{{ $project->id }}">

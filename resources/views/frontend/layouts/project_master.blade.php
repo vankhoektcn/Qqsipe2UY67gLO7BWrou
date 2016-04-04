@@ -24,6 +24,10 @@
 </head>
 <body style="position: relative;"  data-spy="scroll" data-target="#rightMenuScrollspy" data-offset="15">
 
+@inject('product_type', 'App\Product_type')
+<?php 
+    $product_type_inject = $product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
+?>
 <div class="menu-right">
 	<nav class="rightMenuScrollspy" id="rightMenuScrollspy">
         <a class="close close-auto-menu dropdown-toggle">
@@ -145,10 +149,10 @@
                 <div class="footer-box">
                     <h4>Liên kết</h4>
                     <ul class="help-link">
-                        <li><a title="Hợp tác môi giới" href="/mg">Hợp tác môi giới</a></li>
-                        <li><a title="Góp ý trang tìm kiếm" ref="nofollow" target="_blank" href="https://docs.google.com/forms/d/1ONSyRk6SX0PduKseMEVKUdOMzwo1liRYjNgp2jCc4G4/viewform">Góp ý trang tìm kiếm</a></li>
-                        <li><a title="Góp ý trang đăng tin" ref="nofollow" target="_blank" href="https://docs.google.com/forms/d/1hWb59BRzQEsGGLiJ9I9LeCzJZNOWWXYrI60nNLQzxkY/viewform">Góp ý trang đăng tin</a></li>
-                        <li><a title="Chính sách" href="/quy-che">Quy chế hoạt động</a></li>
+                        <li><a title="Hợp tác môi giới" href="#">Hợp tác môi giới</a></li>
+                        <li><a title="Góp ý trang tìm kiếm" ref="nofollow" href="#">Góp ý trang tìm kiếm</a></li>
+                        <li><a title="Góp ý trang đăng tin" ref="nofollow" href="#">Góp ý trang đăng tin</a></li>
+                        <li><a title="Chính sách" href="#">Quy chế hoạt động</a></li>
                     </ul>
                 </div>
                 <!-- <div class="footer-box">
@@ -164,10 +168,9 @@
                 <div class="footer-box">
                     <h4>Loại Bất Động Sản</h4>
                     <ul class="help-link">
-                        <li><a title="" href="/nha">Nhà riêng</a></li>
-                        <li><a title="" href="/phong-cho-thue">Phòng cho thuê</a></li>
-                        <li><a title="" href="/can-ho">Căn hộ</a></li>
-                        <li><a title="" href="/du-an/danh-sach">Dự án</a></li>
+                        @foreach ($product_type_inject as $product_type)
+                        <li><a href="{{$product_type->getLink()}}">{{$product_type->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -175,15 +178,15 @@
                 <div class="footer-box">
                     <h4>Chức năng</h4>
                     <ul class="help-link">
-                        <li><a href="/form/can-tim-nha">Tìm nhà cùng MyvanLand</a></li>
+                        <li><a href="/form/can-tim-nha">Tìm nhà cùng VanLand</a></li>
                         <li><a href="/kien-thuc">Kiến thức bất động sản</a></li>
-                        <li><a target="_blank" href="http://thamdinhgia.myvanland.com.vn/">Tài liệu thẩm định giá</a></li>
+                        <li><a target="_blank" href="#">Tài liệu thẩm định giá</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col-xs-12">
                 <div class="footer-box">
-                    <h4>MyvanLand.com.vn</h4>
+                    <h4>VanLand.com.vn</h4>
                     <p>Là trang truyền thông bất động sản của Việt Nam, phát triển dựa trên nền tảng công nghệ mới - ứng dụng bản đồ,  hỗ trợ tối đa công cụ tìm kiếm và đăng tin.</p>
                 </div>
             </div>
@@ -192,27 +195,10 @@
                 @foreach ($hmcDistrict as $district)
                 <a href="{{$district->getLink()}}">{{$district->name}}</a>
                 @endforeach
-                <!-- <a href="/du-an/danh-sach?dist=14">Quận 2</a>
-                <a href="/du-an/danh-sach?dist=15">Quận 3</a>
-                <a href="/du-an/danh-sach?dist=16">Quận 4</a>
-                <a href="/du-an/danh-sach?dist=17">Quận 5</a>
-                <a href="/du-an/danh-sach?dist=18">Quận 6</a>
-                <a href="/du-an/danh-sach?dist=19">Quận 7</a>
-                <a href="/du-an/danh-sach?dist=20">Quận 8</a>
-                <a href="/du-an/danh-sach?dist=21">Quận 9</a>
-                <a href="/du-an/danh-sach?dist=11">Quận 10</a>
-                <a href="/du-an/danh-sach?dist=12">Quận 11</a>
-                <a href="/du-an/danh-sach?dist=13">Quận 12</a>
-                <a href="/du-an/danh-sach?dist=24">Thủ Đức</a>
-                <a href="/du-an/danh-sach?dist=3">Bình Thạnh</a>
-                <a href="/du-an/danh-sach?dist=9">Phú Nhuận</a>
-                <a href="/du-an/danh-sach?dist=12">Tân Bình</a>
-                <a href="/du-an/danh-sach?dist=23">Tân Phú</a>
-                <a href="/du-an/danh-sach?dist=6">Gò Vấp</a> -->
             @endif
             </div>
             <div class="col-xs-12 text-center">
-                <div class="copyright">© 2015 Bản quyền thuộc về&nbsp; <a target="_blank" href="http://www.myvanland.com.vn" title="MyvanLand.com.vn">MyvanLand.com.vn</a></div>
+                <div class="copyright">© 2016 Bản quyền thuộc về&nbsp; <a target="_blank" href="{{route('homepage')}}" title="MyvanLand.com.vn">VanLand.com.vn</a></div>
             </div>
         </div>
     </div>

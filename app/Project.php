@@ -72,7 +72,7 @@ class Project extends BaseModel
     {
         $address = $this->address;
         if(isset($this->street->id))
-            $address .= ', '. $this->street->name. ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
+            $address .= ', '. $this->street->name. (isset($this->ward->id) ?', '. $this->ward->name : ''). ', '. $this->district->name . ', ' . $this->province->name;
         else if(isset($this->ward->id))
             $address .= ', '. $this->ward->name. ', '. $this->district->name . ', ' . $this->province->name;
         else if(isset($this->district->id))
