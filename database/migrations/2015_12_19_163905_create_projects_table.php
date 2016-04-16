@@ -30,6 +30,7 @@ class CreateProjectsTable extends Migration
             $table->boolean('show_slide')->default(1);
             $table->string('map_latitude',50)->nullable();          
             $table->string('map_longitude',50)->nullable();
+            $table->string('summary',500)->nullable();
             $table->text('content')->nullable();
             $table->string('meta_description', 500);
             $table->string('meta_keywords', 500);

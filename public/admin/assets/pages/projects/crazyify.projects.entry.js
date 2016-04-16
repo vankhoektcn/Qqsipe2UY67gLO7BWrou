@@ -300,7 +300,23 @@ crazyify.projects.entry = {
 			'selected': true
 		},
 		{
-			'label': 'Mô tả dự án',
+			'label': 'Điểm nổi bật dự án',
+			'id': 'summary',
+			'name': 'Project[summary]',
+			'type': 'textarea',
+			'required': false,
+			'placeholder': 'Mô tả những điểm nổi bật nhất của dự án, tối đá 500 ký tự.',
+			'cssclass': '',
+			'value': '',
+			'disabled': false,
+			'readonly': false,
+			'datas': [],
+			'help_block': '',
+			'input_icon': '',
+			'dbfieldname': 'summary'
+		},
+		{
+			'label': 'Tổng quan dự án',
 			'id': 'content',
 			'name': 'Project[content]',
 			'type': 'editor',

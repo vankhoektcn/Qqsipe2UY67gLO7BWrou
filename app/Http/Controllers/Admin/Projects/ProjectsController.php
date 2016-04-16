@@ -90,10 +90,10 @@ class ProjectsController extends Controller
 
 			$project->logo = $request->input('Project.logo');
 			$project->show_slide = $request->input('Project.show_slide');
+			$project->summary = $request->input('Project.summary');
 			$project->content = $request->input('Project.content');
 			$project->map_latitude = $request->input('Project.map_latitude');
 			$project->map_longitude = $request->input('Project.map_longitude');
-			$project->content = $request->input('Project.content');
 
 			$project->meta_description = $request->input('Project.meta_description');
 			$project->meta_keywords = $request->input('Project.meta_keywords');
@@ -249,10 +249,10 @@ class ProjectsController extends Controller
 
 			$project->logo = $request->input('Project.logo');
 			$project->show_slide = $request->input('Project.show_slide');
+			$project->summary = $request->input('Project.summary');
 			$project->content = $request->input('Project.content');
 			$project->map_latitude = $request->input('Project.map_latitude');
 			$project->map_longitude = $request->input('Project.map_longitude');
-			$project->content = $request->input('Project.content');
 
 			$project->meta_description = $request->input('Project.meta_description');
 			$project->meta_keywords = $request->input('Project.meta_keywords');
