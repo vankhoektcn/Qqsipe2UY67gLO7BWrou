@@ -340,6 +340,30 @@ Route::group(['namespace' => 'Frontend'], function()
 			'as' => 'contact',
 			'uses' => 'SiteControllers@createContact'
 		]);
+
+	Route::get('/googledfe457f9ba912579.html', function () {
+	    return 'google-site-verification: googledfe457f9ba912579.html';
+	});	
+	Route::get('/sitemap.xml', function()
+	{
+		$file = public_path(). "/sitemap/sitemap.xml";  // <- Replace with the path to your .xml file
+		// check if the file exists
+		if (file_exists($file)) {
+	    	// read the file into a string
+	    	$content = file_get_contents($file);
+	    	// create a Laravel Response using the content string, an http response code of 200(OK),
+	    	//  and an array of html headers including the pdf content type
+	    	return Response::make($content, 200, array('content-type'=>'application/xml'));
+		}
+	});
+	Route::get('/sitemap.html', function()
+	{
+		$file = public_path(). "/sitemap/sitemap.html";  // <- Replace with the path to your .xml file
+		// check if the file exists
+		if (file_exists($file)) {
+	    	return file_get_contents($file);; //file_get_contents(base_path().'\\public\\sitemap\\sitemap.html');
+		}
+	});
 	//END FOR LAYOUT 1
 });
 
