@@ -60,7 +60,7 @@
 		<div class="full container" style="background-color: #8BCA30;">
 			
 			<div id="logo" class="col-sm-3">
-				<h1 id="site_title"><a href="http://myvanland.com" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 65%;"></a></h1>
+				<h1 id="site_title"><a href="{{route('homepage')}}" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 65%;"></a></h1>
 			</div>
 			<div class="head-nav">
 				<span class="menu"> </span>
@@ -133,12 +133,22 @@
 
 <div class="container page-content" id="page-content">
 	<div class="page-content-mobile">
+        @if (Route::is('project_detail'))
+        <div class="col-md-12 bann-right pull-left">
+            @yield('body.content')
+        </div>
+        <div class="col-md-12 bann-left pull-right">
+            @include('frontend.layouts.project_bottom_box')
+        </div>
+        @else
 		<div class="col-md-9 bann-right pull-left">
 			@yield('body.content')
 		</div>
-		<div class="col-md-3 bann-left pull-right">
-			@include('frontend.layouts.project_rightbox')
-		</div>
+        <div class="col-md-3 bann-left pull-right">
+            @include('frontend.layouts.project_rightbox')
+        </div>
+        @endif
+        
 	</div>
 </div>
 <div id="footer-main">

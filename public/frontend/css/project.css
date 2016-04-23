@@ -30,9 +30,14 @@ footer .footer-box h4::after {border-bottom: 2px solid #fff; width: 118px;displa
 /*end footer*/
 
 /*Right box*/
-.property-small {
+.rightBox .property-small {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     padding: 15px 0px;
+}
+.bottomBox .property-small {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    margin-top: 20px;
+    min-height: 240px;
 }
 .property-small-content{
 	padding: 15px 0px 0px;
