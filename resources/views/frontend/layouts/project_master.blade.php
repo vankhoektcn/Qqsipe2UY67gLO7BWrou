@@ -103,7 +103,7 @@
                 <div class="col-md-4 col-lg-4">
                     <form id="subscribe-form">
                         <div class="subscribe-form-heading-1">
-                            <h3>Đăng ký nhận thông tin</h3>
+                            <h3>Đăng ký đặt mua <a href="tel:0932622017" style="color: red;"> đt: 0932.622.017</a></h3>
                         </div>
                         <hr style="border-color: #fff;">
                         <fieldset class="form-group">
