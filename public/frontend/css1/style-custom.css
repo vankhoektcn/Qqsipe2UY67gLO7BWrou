@@ -316,3 +316,7 @@ div.place-text a.address-text{
     width: 100%;
     white-space: inherit;
 }
+
+.li-project-item{
+    height: 465px;
+}

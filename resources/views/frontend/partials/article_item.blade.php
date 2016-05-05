@@ -1,7 +1,7 @@
 				<!-- @foreach ($articles as $article)				 -->
 				<div class="blog clearfix apartment-item border-gray ps-relative mrgt05 mrgb1x">
 					<div class="blog-img">
-						<a href="{{$article->getLink()}}"><img src="{{Image::url($article->getThumnail(),150,130,array('crop'))}}" class="img-responsive" alt="{{$article->name}}" /></a>
+						<a href="{{$article->getLink()}}"><img class="lazy img-responsive" src="/frontend/images/spacer.gif" data-src="{{Image::url($article->getThumnail(),150,130,array('crop'))}}" alt="{{$article->name}}" /></a>
 					</div>
 					<div class="blog-text">
 						<a class="fw-bold fs16" href="{{$article->getLink()}}">{{$article->name}}</a>

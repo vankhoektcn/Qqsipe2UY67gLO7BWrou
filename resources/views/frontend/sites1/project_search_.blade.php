@@ -31,7 +31,7 @@
 						<div class="property-box sale-2 animated out" data-delay="0" data-animation="fadeInUp">
 							<div class="appartment-img">
 								<a href="{{$project->getLink()}}" target="_blank">
-									<img class="lazy" src="/frontend/images/spacer.gif" data-src="{{ Image::url($project->getFirstImage(),300,200,array('crop'))}}" class="img-responsive" alt="{{$project->name}}" />
+									<img class="lazy img-responsive" src="/frontend/images/spacer.gif" data-src="{{ Image::url($project->getFirstImage(),300,200,array('crop'))}}"  alt="{{$project->name}}" />
 								</a>
 								<!-- <div class="room-price"><span>$699<sup>/week</sup></span></div> -->
 								<div class="like-btn"><a href="javascript:;"><i class="fa fa-heart"></i></a></div>
