@@ -18,7 +18,7 @@
         		<div class="property-small col-md-4">
                     <a href="{{ $project->getLink() }}" class="property-simple-image">
                     	<i class="fa fa-search-plus property-simple-hover-icon"></i>
-                        <img width="100%" src="{{ Image::url($project->getFirstImage(),814,364,array('crop')) }}" alt="">
+                        <img class="lazy" src="/frontend/images/spacer.gif" data-src="{{ Image::url($project->getFirstImage(),814,364,array('crop')) }}" alt="{{$project->name}}" width="100%">
                     </a>
 
                     <div class="property-small-content">
@@ -42,7 +42,7 @@
                     <div class="agent-small-inner">
                         <div class="agent-small-image">
                             <a href="javascript:;" class="agent-small-image-inner">
-                                <img src="{{$agent->thumnail}}" alt="">
+                                <img class="lazy" src="/frontend/images/spacer.gif" data-src="{{$agent->thumnail}}" alt="">
                             </a><!-- /.agent-small-image-inner -->
                         </div><!-- /.agent-small-image -->
 

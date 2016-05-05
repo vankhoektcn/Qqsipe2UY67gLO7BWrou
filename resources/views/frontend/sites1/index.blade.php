@@ -25,7 +25,7 @@
 			<div class="section-detail mrgb3x clearfix">
 				@foreach ($projectsSpecial as $project)
 				<div class="col-md-4 col-sm-6">
-					<div class="place-img pointer"> <a href="{{$project->getLink()}}" target="_blank"> <img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}"/> </a>
+					<div class="place-img pointer"> <a href="{{$project->getLink()}}" target="_blank"> <img class="lazy" src="/frontend/images/spacer.gif" data-src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}"/> </a>
 						<div class="place-text">
 							<h2>{{$project->name}}</h2>
 							<a href="{{$project->getLink()}}" target="blank" class="btn btn-primary address-text"><i class="fa fa-map-marker project-marker mrgr05 location-icon"></i>{{$project->addressFull()}}</a>
@@ -56,7 +56,7 @@
 				@foreach ($projectsNew as $project)
 				<div class="col-md-4 col-sm-6">
 					<div class="home2 property-box border-hover animated out" data-delay="0" data-animation="fadeInUp">
-						<div class="appartment-img"><a href="{{$project->getLink()}}" target="_blank"><img src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}" /></a>
+						<div class="appartment-img"><a href="{{$project->getLink()}}" target="_blank"><img class="lazy" src="/frontend/images/spacer.gif" data-src="{{ Image::url($project->getFirstImage(),350,225,array('crop'))}}" class="img-responsive" alt="{{$project->name}}" /></a>
 							<!-- <div class="room-price"><span>$699<sup>/week</sup></span></div> -->
 							<div class="like-btn"><a href="javascript:;"><i class="fa fa-heart"></i></a></div>
 						</div>
@@ -132,7 +132,7 @@
 			@foreach ($agents as $agent)			
 				<div class="col-md-3 col-sm-4 mrgb8x animated out" data-delay="0" data-animation="fadeInUp">
 					<div class="agent-profile">
-						<div class="agent-img"><img src="{{ Image::url($agent->thumnail,215,190,array('crop'))}}" class="img-responsive" alt="#" />
+						<div class="agent-img"><img class="lazy" src="/frontend/images/spacer.gif" data-src="{{ Image::url($agent->thumnail,215,190,array('crop'))}}" class="img-responsive" alt="#" />
 							<div class="img-hover"> <a href="{{$agent->thumnail}}" class="plus-link"></a></div>
 						</div>
 						<div class="agent-detail">

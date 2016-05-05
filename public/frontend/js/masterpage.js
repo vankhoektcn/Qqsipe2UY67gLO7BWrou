@@ -2,6 +2,7 @@ if(typeof crazyify=='undefined')var crazyify={};
 crazyify.masterpage={
 	init:function(){
 		var thisObj=crazyify.masterpage;thisObj.events();
+		$('img.lazy').lazy();
 	},
 	events:function(){
 		var thisObj=crazyify.masterpage;

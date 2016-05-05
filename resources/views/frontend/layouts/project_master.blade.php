@@ -87,7 +87,7 @@
 		<ul class="slides">
             @foreach ($project_images as $key => $image)
 			<li>
-				<img src="{{$image->path}}" />
+				<img class="lazy" src="/frontend/images/spacer.gif" data-src="{{$image->path}}" alt="{{$image->caption}}" />
 				<p class="flex-caption">{{$image->caption}}</p>
 			</li>
             @endforeach
@@ -220,7 +220,7 @@
 <script src="/frontend/js/bootstrap.min.js"></script>
 <script src="/frontend/js/crazyify.core.js"></script>
 <script src="/frontend/js/toastr.min.js"></script> -->
-{!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
+{!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js1/jquery.lazy.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
 ,'/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
 @yield('body.js')
 </body>

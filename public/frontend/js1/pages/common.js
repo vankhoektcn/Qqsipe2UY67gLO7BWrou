@@ -53,6 +53,8 @@ crazyify.common = {
 		});
 	},
 	pageLoad: function(){
+		$('img.lazy').lazy();
+		
 		var thisObj=crazyify.common;
 		thisObj.setSelectCookie('pdt', $('select[name="product_type"]'));
 		thisObj.setSelectCookie('pjt', $('select[name="project_type"]'));
