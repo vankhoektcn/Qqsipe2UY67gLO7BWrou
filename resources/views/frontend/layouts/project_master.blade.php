@@ -222,6 +222,16 @@
 <script src="/frontend/js/toastr.min.js"></script> -->
 {!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js1/jquery.lazy.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
 ,'/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77761453-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 @yield('body.js')
 </body>
 </html>
