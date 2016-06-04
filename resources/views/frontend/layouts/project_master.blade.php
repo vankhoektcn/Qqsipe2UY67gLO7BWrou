@@ -60,9 +60,9 @@
 		<div class="full container" style="background-color: #8BCA30;">
 			
 			<div id="logo" class="col-sm-3">
-				<h1 id="site_title"><a href="{{route('homepage')}}" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 65%;"></a></h1>
+				<h1 id="site_title"><a href="{{route('homepage')}}" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 90%;"></a></h1>
 			</div>
-			<div class="head-nav">
+			<div class="head-nav" style="max-width: 985px;">
 				<span class="menu"> </span>
 					<ul class="cl-effect-1" id="project-menu">
                         <li>
