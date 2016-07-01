@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->integer('incense_type_id')->nullable();
 
             $table->integer('area');
-            $table->integer('price');
+            $table->float('price');
             $table->integer('price_type_id')->nullable();//
             $table->string('total_price')->nullable();
             $table->string('address',250);

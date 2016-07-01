@@ -10,9 +10,12 @@ class Product extends BaseModel
 
 	protected $table = "products";
     protected $fillable = ['key', 'priority', 'active', 'created_by', 'updated_by'];
+    protected $regex = "/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/";
     public static $rules = [
         'priority' => 'integer',
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'price' => array('required','regex:/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/'),
+        'expire_at' => 'date_format:d/m/Y'
     ];
 
 	protected $dates = ['deleted_at'];

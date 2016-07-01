@@ -4,7 +4,7 @@
 	$product_type_inject = $product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
 	$province_inject = $province::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get(); 
 ?>
-<div id="products-search" class="tab-pane fade in active">
+<div id="products-search" class="tab-pane fade in">
 				<div class="search-options">
 					<div class="search-form">
 						{!! Form::open(['route' => 'product_search', 'method' => 'GET', 'id' => 'product-search', 'name' => 'productsearch']) !!}	

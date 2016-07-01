@@ -84,7 +84,7 @@ class ProductsController extends Controller
 			$product->address = $request->input('Product.address');
 			if($request->input('Product.expire_at') != null && $request->input('Product.expire_at') !='')
 			{
-				$expire_at = Carbon::createFromFormat('d/m/Y', $request->input('Product.expire_at'))->toDateString();;
+				$expire_at = Carbon::createFromFormat('d/m/Y', $request->input('Product.expire_at'))->toDateString();
 				$product->expire_at = $expire_at;
 			}
 			$product->summary = $request->input('Product.summary');
@@ -202,7 +202,10 @@ class ProductsController extends Controller
 			$product->incense_type_id = $request->input('Product.incense_type_id');
 			
 			$product->area = $request->input('Product.area');
-			$product->price = $request->input('Product.price');
+
+			$price = floatval(str_replace(',', '.', $request->input('Product.price')));
+			$product->price = $price;		
+				
 			$product->price_type_id = $request->input('Product.price_type_id');
 			$product->total_price = $request->input('Product.total_price');
 			$product->address = $request->input('Product.address');
