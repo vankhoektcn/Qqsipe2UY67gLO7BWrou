@@ -385,6 +385,7 @@ class SiteControllers extends Controller
 			// end metadata
 
 			$attachments = $product->attachments()->take(5)->get();
+			dd($attachments);
 			$wards = $product->district->wards;
 
 			$heading = $product->product_type->name.' '. (isset($product->ward_id) && $product->ward_id > 0 ? $product->ward->name :$product->district->name );
@@ -796,6 +797,82 @@ class SiteControllers extends Controller
 				return redirect(route('contact'))->with('contact-status', 'Nội dung liên hệ của quý khách đã được gửi đến ban quản trị. Chúng tôi sẽ phản hồi quý khách trong thời gian sớm nhất. Xin cảm ơn!');
 			}
 		}
+	}
+
+
+
+	// FOR PROJECT DETAIL QVRENTY TEMPLATE
+	public function project_detail_qvrenty($project_key)
+	{
+		$project = Project::findByKey($project_key)->first();
+		if($project != null){
+	//dd($product);
+			
+			$district = District::findOrFail($project->district_id);
+			if(is_null($district) )
+				$district = District::where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+			$province = $district->province;
+			$wards = $district->wards()->where('is_publish',1)->orderBy('priority')->orderBy('created_at','desc')->get();
+			
+				
+			$limit = Config::findByKey('rows_per_page_project')->first()->value;
+			$project_type = $project->project_type;//Project_type::findByKey($project->project_type_id);
+			if(is_null($project_type) )
+				$project_type = Project_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->first();
+			
+			$searchDescription = $project_type->name.' '. $province->name.' '. $district->name;
+			$link = route('project_type_province_district',['project_type_key'=> $project_type->key, 'province_key'=> $province->key, 'district_key' =>$district->key]);
+			$breadcrumb = '<ul class="breadcrumb pull-left padl0"> 
+			<li class="active"><a href="'.route('homepage').'">Trang chủ</a></li> 
+			<li class="active"><a href="'.route('projects').'">Dự án</a></li> 
+			<li class="active"><a href="'.route('project_type',['project_type_key'=> $project_type->key]).'">'.$project_type->name.'</a></li> 
+			<li class="active"><a href="'.route('project_type_province',['project_type_key'=> $project_type->key, 'province_key'=>$province->key]).'">'.$province->name.'</a></li> 
+			<li class=""><a href="'.$link.'">'.$district->name.'</a></li> 
+			</ul>';
+			
+			$heading = $project_type->name.' '. $province->name.' '. $district->name;
+			
+
+			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
+			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
+			$project_images = $project->project_images()->take(5)->get();
+			//dd($project_images[0]->path);
+			/*$project_images = $project->project_images()->where('active',1)->where('path', '<>',$project->logo)->orderBy('priority')->take(5)->get();
+			dd($project_images);*/
+			$other_projects = Project::where('active',1)->orderBy('priority')->take(5)->get();
+			$project_agents = $project->agents()->get();
+
+			// metadata
+			$site_title = $project->name . ' - ' . Config::findByKey('site_title')->first()->value;
+			SEOMeta::setTitle($site_title);
+			SEOMeta::setDescription($project->meta_description);
+			SEOMeta::addKeyword([$project->meta_keywords]);
+			SEOMeta::addMeta('project:published_time', $project->created_at->toW3CString(), 'property');
+			if (isset($project->district->name)) {
+				SEOMeta::addMeta('project:section', $project->district->name, 'property');
+			}
+
+			OpenGraph::setTitle($site_title);
+			OpenGraph::setDescription($project->meta_description);
+			OpenGraph::setUrl( $project->getLink());
+			OpenGraph::addProperty('type', 'project');
+			OpenGraph::addProperty('locale', app()->getLocale());
+			OpenGraph::addProperty('locale:alternate', ['vi-vn', 'en-us']);
+
+			OpenGraph::addImage($project->logo);
+			OpenGraph::addImage($project_images->lists('path'));
+			OpenGraph::addImage(['url' => Image::url($project->logo,300,300,array('crop')), 'size' => 300]);
+			// end metadata
+			
+			/*return view('frontend.sites1.project_detail',compact('project', 'project_parts','project_articles','project_images','other_projects','project_agents', 'hmcDistrict'));*/
+
+			return view('frontend.sites1.project_detail', ['project'=> $project, 'other_projects'=> $other_projects, 'project_type'=>$project_type, 'province'=>$province, 'district'=> $district, 'wards'=>$wards
+				, 'search_type'=> 'project_type_province_district', 'link'=> $link, 'searchDescription'=> $searchDescription, 'breadcrumb' => $breadcrumb, 'heading' => $heading
+				, 'project_parts' =>$project_parts, 'project_articles' =>$project_articles
+				, 'project_images' =>$project_images, 'project_agents' =>$project_agents]);
+		}
+		else
+			return redirect()->route('homepage');;
 	}
 
 
