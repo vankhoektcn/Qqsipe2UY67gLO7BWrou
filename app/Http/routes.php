@@ -304,6 +304,14 @@ Route::group(['namespace' => 'Frontend'], function()
 		'as' => 'product_search',
 		'uses' => 'SiteControllers@product_search'
 	]);	
+
+
+
+	//PROJECT DETAIL QVRENTY &&  DISTRICT RELATED
+	Route::get('/{project_key}', [
+		'as' => 'project_detail_qvrenty',
+		'uses' => 'SiteControllers@project_detail_qvrenty'
+	]);
 /***************************** end FOR PRODUCT  ******************************/
 
 /***************************** FOR ARTICLE  ******************************/
