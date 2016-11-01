@@ -385,7 +385,7 @@ class SiteControllers extends Controller
 			// end metadata
 
 			$attachments = $product->attachments()->take(5)->get();
-			dd($attachments);
+			
 			$wards = $product->district->wards;
 
 			$heading = $product->product_type->name.' '. (isset($product->ward_id) && $product->ward_id > 0 ? $product->ward->name :$product->district->name );
