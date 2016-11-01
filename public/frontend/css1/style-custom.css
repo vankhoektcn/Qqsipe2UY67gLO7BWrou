@@ -146,6 +146,7 @@ color:#055699
     border: 1px solid #d5d5d5;
     border-top: none;
     padding-top: 15px;
+    background-color: #D9EDF7;
 }
 .form-control {
      min-height: 38px; 
@@ -316,3 +317,12 @@ div.place-text a.address-text{
     width: 100%;
     white-space: inherit;
 }
+
+.li-project-item{
+    height: 465px; /*////*/
+}
+
+.error-404 h1{font-size:11.1em;font-weight:700;color:#26313b;margin:0;padding:0;text-transform:uppercase;}
+.error-404 p{color:#f53f1a;margin:0;font-size:1.2em;text-transform:uppercase;}
+a.b-home{background:#09b9e5;padding:0.8em 3em;display:inline-block;color:#FFF;text-decoration:none;margin-top:1.1em;}
+a.b-home:hover{background:#f53f1a;color:#fff;}

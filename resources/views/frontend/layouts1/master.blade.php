@@ -9,19 +9,6 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<!-- <link href="/frontend/css1/bootstrap.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/frontend/css1/bootstrap-multiselect.css" type="text/css"/>
-<link href="/frontend/css1/animate.css" rel="stylesheet" type="text/css">
-
-<link href="/frontend/css1/font-awesome.css" rel="stylesheet" type="text/css">
-
-<link href="/frontend/css1/style.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/style-custom.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/vuighe.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/photobox.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/revolution-slider.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/owl.carousel.css" rel="stylesheet" type="text/css">
-<link href="/frontend/css1/responsive.css" rel="stylesheet" type="text/css"> -->
 
 {!! Minify::stylesheet(array('/frontend/css1/icon-font.css', '/frontend/css1/jquery-ui.css', '/frontend/css1/bootstrap.css', '/frontend/css1/bootstrap-multiselect.css', '/frontend/css1/animate.css'
 ,'/frontend/css1/font-awesome.css', '/frontend/css1/style.css', '/frontend/css1/style-custom.css'
@@ -65,10 +52,7 @@
 				<li><span>Gửi email</span></li>
 				<li class="contact-info"><a href="mailto:{{ $config->getValueByKey('address_received_mail') }}">{{ $config->getValueByKey('address_received_mail') }}</a></li>
 			</ul>
-			<!-- <ul class="login">
-				<li><i class="icon-login"></i></li>
-				<li><a href="javascript:;"><span>Đăng nhập</span></a></li>
-			</ul> -->
+
 		</div>
 	</div>
 </div>
@@ -87,7 +71,7 @@
 							<li><a href="/" title="Trang chủ">
 								<i class="icon-home10 home-icon"></i>
 							</a></li>
-							<li><a href="{{route('projects')}}">DỰ ÁN</a><!-- aria-expanded="true" role="button" data-toggle="dropdown" class="dropdown-toggle" -->
+							<li><a href="{{route('projects')}}">DỰ ÁN</a>
 								<ul class="dropdown-menu" role="menu">								
 									@foreach ($project_type_inject as $project_type)
 									<li><a href="{{$project_type->getLink()}}">{{$project_type->name}}</a></li>
@@ -121,32 +105,23 @@
 <!-- end content -->
 @include('frontend.layouts1.footer')
 
-<!-- <script src="/frontend/js1/jquery.js" type="text/javascript"></script> 
-<script src="/frontend/js1/jquery-ui.js" type="text/javascript"></script> 
-<script src="/frontend/js1/bootstrap.js" type="text/javascript"></script> 
-<script type="text/javascript" src="/frontend/js1/bootstrap-multiselect.js"></script>
-<script type="text/javascript" src="/frontend/js1/jquery.appear.js"></script> 
-<script type="text/javascript" src="/frontend/js1/owl.carousel.min.js"></script>
-<script type="text/javascript" src="/frontend/js1/jquery.mixitup.min.js"></script> 
-
-<script type="text/javascript" src="/frontend/js1/jquery.photobox.js"></script> 
-<script src="/frontend/js1/jquery.themepunch.revolution.js" type="text/javascript"></script> 
-<script src="/frontend/js1/jquery.themepunch.tools.min.js" type="text/javascript"></script> 
-<script src="/admin/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/frontend/js1/pages/core.js"></script>
-<script type="text/javascript" src="/frontend/js1/scripts.js"></script>
-<script type="text/javascript" src="/frontend/js1/pages/common.js"></script>
-
-<script type="text/javascript" src="/frontend/js1/pages/partials/project_search.js"></script>
-<script type="text/javascript" src="/frontend/js1/pages/partials/product_search.js"></script> -->
 
 {!! Minify::javascript(array('/frontend/js1/jquery.js','/frontend/js1/jquery-ui.js','/frontend/js1/bootstrap.js'
 , '/frontend/js1/bootstrap-multiselect.js', '/frontend/js1/jquery.appear.js', '/frontend/js1/owl.carousel.min.js'
 , '/frontend/js1/jquery.mixitup.min.js', '/frontend/js1/jquery.photobox.js', '/frontend/js1/jquery.themepunch.revolution.js'
-, '/frontend/js1/jquery.themepunch.tools.min.js'
+, '/frontend/js1/jquery.themepunch.tools.min.js', '/frontend/js1/jquery.lazy.min.js'
 , '/frontend/js1/pages/core.js', '/frontend/js1/scripts.js', '/frontend/js1/pages/common.js'
 , '/frontend/js1/pages/partials/project_search.js', '/frontend/js1/pages/partials/product_search.js')) !!}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-77761453-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 @yield('body.js')
 </body>
 </html>

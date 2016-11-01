@@ -41,14 +41,14 @@
 				<div class="sync1 property-carousel owl-carousel">
 				@foreach($attachments as $attachment)
 					<div class="item">
-						<div class="property-single-img"> <img src="{{Image::url($attachment->path,850,570,array('crop'))}}" class="img-responsive" alt="#" />
+						<div class="property-single-img"> <img class="lazy img-responsive" src="/frontend/images/spacer.gif" data-src="{{Image::url($attachment->path,850,570,array('crop'))}}" alt="#" />
 						</div>
 					</div>
 				@endforeach
 				</div>
 				<div class="sync2 property-carousel owl-carousel">
 				@foreach($attachments as $attachment)
-					<div class="item"> <img src="{{Image::url($attachment->path,145,105,array('crop'))}}" class="img-responsive" alt="#" /> </div>
+					<div class="item"> <img class="lazy img-responsive" src="/frontend/images/spacer.gif" data-src="{{Image::url($attachment->path,145,105,array('crop'))}}"  alt="#" /> </div>
 				@endforeach
 				</div>
 			</div>

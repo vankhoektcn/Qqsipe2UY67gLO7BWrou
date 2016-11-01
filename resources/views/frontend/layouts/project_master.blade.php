@@ -60,9 +60,9 @@
 		<div class="full container" style="background-color: #8BCA30;">
 			
 			<div id="logo" class="col-sm-3">
-				<h1 id="site_title"><a href="http://myvanland.com" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 65%;"></a></h1>
+				<h1 id="site_title"><a href="{{route('homepage')}}" style="background: #8BCA30 url(<?php echo $project->logo; ?>) center no-repeat;background-size: 90%;"></a></h1>
 			</div>
-			<div class="head-nav">
+			<div class="head-nav" style="max-width: 985px;">
 				<span class="menu"> </span>
 					<ul class="cl-effect-1" id="project-menu">
                         <li>
@@ -87,7 +87,7 @@
 		<ul class="slides">
             @foreach ($project_images as $key => $image)
 			<li>
-				<img src="{{$image->path}}" />
+				<img class="lazy" src="/frontend/images/spacer.gif" data-src="{{$image->path}}" alt="{{$image->caption}}" />
 				<p class="flex-caption">{{$image->caption}}</p>
 			</li>
             @endforeach
@@ -103,7 +103,7 @@
                 <div class="col-md-4 col-lg-4">
                     <form id="subscribe-form">
                         <div class="subscribe-form-heading-1">
-                            <h3>Đăng ký nhận thông tin</h3>
+                            <h3>Đăng ký đặt mua <a href="tel:0932622017" style="color: red;"> đt: 0932.622.017</a></h3>
                         </div>
                         <hr style="border-color: #fff;">
                         <fieldset class="form-group">
@@ -133,12 +133,22 @@
 
 <div class="container page-content" id="page-content">
 	<div class="page-content-mobile">
+        @if (Route::is('project_detail'))
+        <div class="col-md-12 bann-right pull-left">
+            @yield('body.content')
+        </div>
+        <div class="col-md-12 bann-left pull-right">
+            @include('frontend.layouts.project_bottom_box')
+        </div>
+        @else
 		<div class="col-md-9 bann-right pull-left">
 			@yield('body.content')
 		</div>
-		<div class="col-md-3 bann-left pull-right">
-			@include('frontend.layouts.project_rightbox')
-		</div>
+        <div class="col-md-3 bann-left pull-right">
+            @include('frontend.layouts.project_rightbox')
+        </div>
+        @endif
+        
 	</div>
 </div>
 <div id="footer-main">
@@ -210,8 +220,18 @@
 <script src="/frontend/js/bootstrap.min.js"></script>
 <script src="/frontend/js/crazyify.core.js"></script>
 <script src="/frontend/js/toastr.min.js"></script> -->
-{!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
+{!! Minify::javascript(array('/frontend/js/jquery1.11.3.min.js', '/frontend/js/jquery-ui.min.js', '/frontend/js1/jquery.lazy.min.js', '/frontend/js/bootstrap.min.js', '/frontend/js/crazyify.core.js', '/frontend/js/toastr.min.js'
 ,'/frontend/js/responsiveslides.min.js','/frontend/js/jquery.flexisel.js','/frontend/js/jquery.flexslider.js', '/frontend/js/masterpage.js')) !!}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77761453-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 @yield('body.js')
 </body>
 </html>

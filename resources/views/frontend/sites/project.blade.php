@@ -29,7 +29,7 @@
 			<h2>{{ $part->name }}</h2>
 			<h4>{{ $part->sumary }}</h4>
 			<div class="descript-content">
-				<?php echo $part->content;?>
+				{!!$part->content!!}
 			</div>
 		</div>
 	</div>

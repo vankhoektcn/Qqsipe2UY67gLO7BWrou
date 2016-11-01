@@ -575,7 +575,9 @@ $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('conten
 <script src="/admin/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="/admin/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <script src="/admin/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript" ></script>
+<script src="/admin/assets/global/plugins/moment.js" type="text/javascript" ></script>
 <script type="text/javascript" src="/frontend/js1/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="/frontend/js1/jquery.lazy.min.js"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 @yield('body.jsplugins')

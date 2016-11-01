@@ -11,6 +11,9 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
+	RewriteCond %{HTTP_HOST} ^www.vanland.com.vn [NC]
+	RewriteRule ^(.*)$ http://vanland.com.vn/$1 [L,R=301]
+
 	RewriteCond %{REQUEST_URI} !^public
 	RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>

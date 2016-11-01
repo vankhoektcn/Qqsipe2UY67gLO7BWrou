@@ -443,6 +443,11 @@ var CControl = function () {
 							item.value = opts.commonData[item.dbfieldname];	
 						}
 					}
+					else if(item.type == 'text' && item.cssclass == 'datepicker'){
+						if(opts.commonData[item.dbfieldname]){
+							item.value = moment(opts.commonData[item.dbfieldname]).format('DD/MM/YYYY');
+						}
+					}
 					else{
 						item.value = opts.commonData[item.dbfieldname];
 					}
