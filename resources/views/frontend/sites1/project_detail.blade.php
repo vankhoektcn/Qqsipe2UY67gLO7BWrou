@@ -38,7 +38,7 @@
 			@endif
 
 			@if(count($project_images) > 0)
-			<div class="property-single">
+			<!-- <div class="property-single">
 				<div class="sync1 property-carousel owl-carousel">
 				@foreach($project_images as $image)
 					<div class="item">
@@ -52,6 +52,11 @@
 					<div class="item"> <img src="{{Image::url($image->path,145,105,array('crop'))}}" class="img-responsive" alt="{{$image->title}}" /> </div>
 				@endforeach
 				</div>
+			</div> -->
+			<div class="fotorama" data-fit="cover" data-nav="thumbs" data-width="100%" data-thumbwidth="60" data-thumbheight="42"> <!-- data-height="240" data-thumbwidth="60" data-thumbheight="42" -->
+			  @foreach($project_images as $image)
+				  <img src="{{Image::url($image->path,850,570,array('crop'))}}" alt="{{$image->title}}" >
+			  @endforeach
 			</div>
 			@endif
 			<div class="property-description mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
