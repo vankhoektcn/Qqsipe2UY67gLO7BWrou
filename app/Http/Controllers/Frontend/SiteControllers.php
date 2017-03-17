@@ -835,7 +835,7 @@ class SiteControllers extends Controller
 
 			$project_parts = $project->project_parts()->where('active',1)->where('type','E')->orderBy('priority')->get();
 			$project_articles = $project->project_parts()->where('active',1)->where('type','A')->orderBy('priority')->get();
-			$project_images = $project->project_images()->take(5)->get();
+			$project_images = $project->project_images()->get();//->take(5)
 			//dd($project_images[0]->path);
 			/*$project_images = $project->project_images()->where('active',1)->where('path', '<>',$project->logo)->orderBy('priority')->take(5)->get();
 			dd($project_images);*/
