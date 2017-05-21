@@ -1,0 +1,91 @@
+
+  body {
+      position: relative;
+  }
+  .affix {
+      top: 20px;
+  }
+  div.col-sm-9 div {
+      height: 250px;
+      font-size: 28px;
+  }
+  #section1 {color: #fff; background-color: #1E88E5;}
+  #section2 {color: #fff; background-color: #673ab7;}
+  #section3 {color: #fff; background-color: #ff9800;}
+  #section41 {color: #fff; background-color: #00bcd4;}
+  #section42 {color: #fff; background-color: #009688;}
+  
+  @media screen and (max-width: 810px) {
+    #section1, #section2, #section3, #section41, #section42  {
+        margin-left: 150px;
+    }
+  }
+  #rightMenuScrollspy {
+    width: 90px !important;
+    height: 100%;
+    background-color: #fff !important;
+    position: fixed;
+    top: 0px;
+    left: -127px;
+    -webkit-transition: left 0.2s ease-in;
+    transition: left 0.2s ease-in;
+    -webkit-backface-visibility: hidden !important;
+    -webkit-box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);*/
+    /*box-shadow: -10px 0px 15px rgba(0, 0, 0, 0.15);*/
+    box-shadow: 10px 0px 30px rgba(0, 0, 0, 0.15);
+    display: block;
+    z-index: 100;
+    padding: 5px 0 0;
+}
+#rightMenuScrollspy ul {
+    width: 90px !important;
+    margin-top: 20px;
+}
+#rightMenuScrollspy.in {
+    left: 0px;
+}
+#rightMenuScrollspy ul li {
+    display: block;
+    list-style-type: none;
+    font-size: 14px;
+    padding: 5px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+#rightMenuScrollspy ul li i.fa {
+  color: #0277bd;
+  padding-bottom: 5px;
+}
+.no-padding {
+    padding: 0px !important;
+}
+#rightMenuScrollspy a:hover, #rightMenuScrollspy a.active {
+    background-color: #8BCA30;
+    color: #fff;
+}
+#rightMenuScrollspy a {
+    text-decoration: none;
+    display: block;
+    margin: 0 10px;
+    position: relative;
+    color: #808588;
+    text-align: center;
+}
+#rightMenuScrollspy a i {
+    font-size: 20px;
+    display: block;
+}
+a.smoothScroll span {
+    display: block;
+}
+#rightMenuScrollspy .nav-pills > li.active > a
+,#rightMenuScrollspy .nav-pills > li.active > a:hover
+,#rightMenuScrollspy .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #8BCA30;
+    background-color: #337ab7;
+}
+.fa-angle-double-right:before{content:"\f101";}
+.close-auto-menu{ position: absolute; top: 0; right: 0px; border-radius: 3px; padding: 0px 5px; color: #337AB7 !important;opacity: 1;}
+.close-auto-menu-out{right: -70px;}

@@ -1,4 +1,9 @@
 
+@media (max-width:1050px){
+	div.top-tabs{
+		display: none;
+	}
+}
 @media (min-width:1000px) and (max-width:1050px){
 
 .left-bar .social-media li,
@@ -698,6 +703,12 @@
 	display:inline-block;
 	margin-bottom:10px;
 }
+#main-menu{
+	height: 0px;
+}
+#main-left-bar{
+	display: none;
+}
 .navbar-toggle {
 	background-color:#09b9e5;
 }
@@ -707,6 +718,9 @@
 .nvabar-nav {
 	display:block;
 }
+.navbar-header .navbar-toggle {
+  display:inline-block;
+ }
 .navbar-header .navbar-toggle {
   display:inline-block;
  }

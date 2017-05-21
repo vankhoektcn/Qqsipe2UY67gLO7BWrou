@@ -308,7 +308,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
 
 	//PROJECT DETAIL QVRENTY &&  DISTRICT RELATED
-	Route::get('/{project_key}', [
+	Route::get('/{project_key}_{project_id}', [
 		'as' => 'project_detail_qvrenty',
 		'uses' => 'SiteControllers@project_detail_qvrenty'
 	]);

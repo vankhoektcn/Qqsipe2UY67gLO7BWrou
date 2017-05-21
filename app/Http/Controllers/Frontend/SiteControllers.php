@@ -802,9 +802,9 @@ class SiteControllers extends Controller
 
 
 	// FOR PROJECT DETAIL QVRENTY TEMPLATE
-	public function project_detail_qvrenty($project_key)
+	public function project_detail_qvrenty($project_key, $project_id)
 	{
-		$project = Project::findByKey($project_key)->first();
+		$project = Project::findOrFail($project_id);//Project::findByKey($project_key)->first();
 		if($project != null){
 	//dd($product);
 			
