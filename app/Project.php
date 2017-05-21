@@ -63,15 +63,15 @@ class Project extends BaseModel
 
     public function getLink()
     {
-        // $district_key = $this->district->key;
-        $link = route('project_detail', ['project_id' => $this->id, 'project_key' => $this->key]);
+        // $district_key = $this->district->key;        
+        $link = route('project_detail_qvrenty', ['project_key' => $this->key, 'project_id' => $this->id]);
         return $link;
     }
 
-    public function getLinkNew()
+    public function getLinkOld()
     {
-        // $district_key = $this->district->key;
-        $link = route('project_detail_qvrenty', ['project_key' => $this->key, 'project_id' => $this->id]);
+        // $district_key = $this->district->key;        
+        $link = route('project_detail', ['project_id' => $this->id, 'project_key' => $this->key]);
         return $link;
     }
 
