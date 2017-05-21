@@ -1,4 +1,9 @@
 @extends('frontend.layouts1.master')
+
+@section('body.css')
+{!! Minify::stylesheet(array('/frontend/css1/project-menu.css', '/frontend/css1/project.css')) !!}
+@endsection
+
 @section('body.content')
 
 <div id="fb-root"></div>
@@ -19,8 +24,26 @@
 	</div>
 </section>
 @endif
+<div class="menu-right">
+	<nav class="rightMenuScrollspy" id="rightMenuScrollspy">
+        <a class="close close-auto-menu dropdown-toggle">
+            <i class="fa fa-angle-double-left" title="Ẩn menu"></i>
+        </a>
+	  <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+        @if (!empty($project->content))
+            <li><a href="#project-about"><i class="fa fa-university"></i>Tổng quan</a></li>
+            <!-- {{Route::is('project') ? '' : $project->getLink()}} -->
+        @endif
+        @foreach ($project_parts as $key => $part)
+        	@if ($part->active && (!empty($part->summary) || !empty($part->content)))
+            <li><a href="#{{ $part->link }}"><i class="{{ $part->fa_icon }}"></i>{{ $part->name }}</a></li>
+            @endif
+        @endforeach
+	  </ul>
+	</nav>
+</div>
 <section>
-	<div class="container">
+	<div class="container" id="project-container">
 	<div class="row mrgt1x">
 		<div class="col-md-9 property-single-rightbar">
 			<div class="clearfix">
@@ -59,7 +82,7 @@
 			  @endforeach
 			</div>
 			@endif
-			<div class="property-description mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
+			<!-- <div class="property-description mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
 				<div class="property-heading">
 					<h4><span>Thông tin căn hộ</span></h4>
 				</div>
@@ -68,15 +91,40 @@
 						
 					</ul>
 				</div>
+			</div> -->
+			@if (!empty($project->content))
+			<div  id="project-about" class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
+				<div class="property-heading">
+					<h4><span>Tổng quan {{$project->name}}</span></h4>
+				</div>
+				<div class="description-text fs16">
+					{!!$project->content!!}
+				</div>
 			</div>
-			<div class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
+			@endif
+			@foreach ($project_parts as $key => $part)
+			@if ($part->active && (!empty($part->summary) || !empty($part->content)))
+			<div id="{{ $part->link }}" class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
+				<div class="property-heading">
+					<h4><span>{{ $part->name }}</span></h4>
+				</div>
+				<div class="description-text fs16">
+					@if(!empty($part->summary))
+					<p><span class="mrgl2x"></span>- {{ $part->summary }}</p>
+					@endif
+					{!!$part->content!!}
+				</div>
+			</div>
+			@endif
+			@endforeach
+			<!-- <div class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
 				<div class="property-heading">
 					<h4><span>Mô tả căn hộ</span></h4>
 				</div>
 				<div class="description-text fs16">
 					{!!$project->description!!}
 				</div>
-			</div>
+			</div> -->
 
 			<div class="property-features mrgt2x clearfix animated out comments full" id="fb-comments">
 				<div class="fb-comments" data-href="{{Request::url()}}" data-width="100%" data-numposts="10"></div>
@@ -102,5 +150,6 @@
 
 @endsection
 
-@section('body.js')	
+@section('body.js')
+{!! Minify::javascript('/frontend/js1/pages/project-menu.js') !!}
 @endsection

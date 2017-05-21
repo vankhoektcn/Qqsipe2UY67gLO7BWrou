@@ -61,7 +61,7 @@
 						</div>
 						<div class="property-text">
 							<div class="resort-name">
-								<h4><a href="{{$project->getLink()}}" target="_blank">{{$project->name}}</a></h4>
+								<h4><a href="{{$project->getLinkNew()}}" target="_blank">{{$project->name}}</a></h4>
 								<div class="rating"> <!-- <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> --> </div>
 								<div class="address">
 									<i class="fa fa-map-marker project-marker mrgr05"></i>
