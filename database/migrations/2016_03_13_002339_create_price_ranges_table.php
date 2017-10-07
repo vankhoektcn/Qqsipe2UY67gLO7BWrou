@@ -16,8 +16,8 @@ class CreatePriceRangesTable extends Migration
             $table->increments('id');
             $table->string('key', 250)->unique()->index();
             $table->string('name', 250);
-            $table->integer('from');
-            $table->integer('to');
+            $table->bigInteger('from');
+            $table->bigInteger('to');
             
             $table->integer('priority');
             $table->boolean('active');
