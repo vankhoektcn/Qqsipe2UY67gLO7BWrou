@@ -42,6 +42,35 @@
 	  </ul>
 	</nav>
 </div>
+
+<div id="call">
+<div class="call" style="
+    background: #A60A12;
+    /*background: #337ab7;*/
+    /* width: 140px; */
+    height: 33px;
+    /* border-radius: 2px; */
+    font-weight: bold;
+    line-height: 33px;
+    font-size: 15px;
+    padding: 0 5px;
+    bottom: 2px;
+    right: 0;
+    display: inline-block;
+    position: fixed;
+    z-index: 99999;
+    letter-spacing: 0.2px;
+    color: white;
+    margin: 0 5px 5px 0px;
+">
+<a href="tel:{{$project->hotline}}" class="iconcall" style="
+    color: #fff;
+"><span class="btnCall"></span><span class="fl">Hotline  </span>&nbsp;
+<i class="fa fa-phone" aria-hidden="true"></i>
+<u class="number_mobile">{{$project->hotline}}</u></a>
+</div>
+</div>
+
 <section>
 	<div class="container" id="project-container">
 	<div class="row mrgt1x">
@@ -147,6 +176,7 @@
 	</div>
 	</div>
 </section>
+
 
 @endsection
 
