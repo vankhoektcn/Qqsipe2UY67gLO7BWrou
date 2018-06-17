@@ -43,6 +43,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin.app'], 'names
 	{
 		Route::resource('products', 'ProductsController');
 		Route::resource('product_types', 'Product_typesController');
+		Route::post('/updateXuatBan', [
+			'as' => 'admin.products.updateXuatBan',
+			'uses' => 'ProductsController@updateXuatBan'
+		]);
 	});
 
 // PROJECT

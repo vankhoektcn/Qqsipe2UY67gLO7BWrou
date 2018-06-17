@@ -50,6 +50,28 @@ crazyify.common = {
 
 		$('.number').keyup(function(e){
 			if(/\D/g.test(this.value)) {this.value=this.value.replace(/\D/g,'');}
+		});		
+
+		$('a.action-xuatban').click(function () {
+			var _this = this;
+			var id = $(this).data('id');
+			var active = $(this).data('active'); 
+			active = active == 1 ? 0 : 1;
+			
+			var model = $(this).data('model');
+			bootbox.confirm("Bạn thật sự muốn "+ (active ? "MỞ" : "TẮT")+ " ?", function(result) {
+				if (result) {
+					$(_this).data('active', active);
+					if(active){
+						$('i',$(_this)).removeClass('fa-square-o').removeClass('font-yellow-crusta').addClass('fa-check-square').addClass('font-green-jungle');
+					} else {
+						$('i',$(_this)).removeClass('fa-check-square').removeClass('font-green-jungle').addClass('fa-square-o').addClass('font-yellow-crusta');
+					}
+					crazyify.common.updateXuatBan( model, id, active, function(err, result){
+						// _this
+					});
+				};
+			});
 		});
 	},
 	pageLoad: function(){
@@ -197,6 +219,20 @@ crazyify.common = {
 			query=query.substring(1);//escape(query.substring(1));
 		//console.log(query);
 		return query
+	},
+	updateXuatBan: function (mdName, id, active, callback) {
+		$.crazyifyAjax({
+			url: '/admin/updateXuatBan',
+			type: 'POST',
+			data: { mdName: mdName, id: id, active: active },
+			success: function (data, textStatus, jqXHR) {
+				toastr['success']("Cập nhật xuất bản thành công.", "Xuất bản");
+				return callback(null);
+			},
+			error: function (argument) {
+				toastr['error']("Cập nhật xuất bản không thành công.", "Xuất bản");
+			}
+		});
 	}
 
 };

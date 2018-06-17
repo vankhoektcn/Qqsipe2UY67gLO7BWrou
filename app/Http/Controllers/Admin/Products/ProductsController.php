@@ -7,6 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Product;
+use App\Article;
+use App\Project_part;
+use App\Project;
 use App\Language;
 use App\Common;
 use App\Attachment;
@@ -278,6 +281,47 @@ class ProductsController extends Controller
 		});
 
 		return redirect()->route('admin.products.index');
+	}
+
+	public function updateXuatBan(Request $request)
+	{
+		$json = json_decode('{"success":false, "message": "Không thành công"}');
+		try{		
+			// update XuatBan
+			$id = $request->input('id');
+			$mdName = $request->input('mdName');
+			switch ($mdName) {
+				case 'product':
+					$product = Product::findOrFail($id);			
+					$product->active = $request->input('active');
+					$product->save();
+					break;
+				case 'article':
+					$article = Article::findOrFail($id);	
+					$article->is_publish = $request->input('active');
+					$article->save();
+					break;
+				case 'project_part':
+					$project_part = Project_part::findOrFail($id);	
+					$project_part->active = $request->input('active');
+					$project_part->save();
+					break;
+				case 'project':
+					$project = Project::findOrFail($id);	
+					$project->active = $request->input('active');
+					$project->save();
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+		} catch(Exception $e){
+			return response()->json($json);
+		};
+		$json->success = true;
+		$json->message = 'Thành công.';
+		return response()->json($json);
 	}
 
 	/**

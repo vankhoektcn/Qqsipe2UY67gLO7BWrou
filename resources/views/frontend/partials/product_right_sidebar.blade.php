@@ -1,4 +1,16 @@
-			<div class="right-side-bar">				
+			<div class="right-side-bar">
+			@if(isset($relate_products))
+				<div class="property-features clearfix animated out mrgb2x" data-delay="0" data-animation="fadeInUp">
+					<div class="property-heading">
+						<h4><span>@if(isset($heading))<b>{{$heading}}</b>@else 'Căn hộ tương tự' @endif mới nhất</span></h4>
+					</div>
+					<div class="description-text">
+					@foreach ($relate_products as $product)
+						@include('frontend.partials.product_item')
+					@endforeach
+					</div>
+				</div>
+			@endif			
 			@if($search_type =='products'&& isset($product_types))
 			@foreach ($product_types as $product_type)	
 				<div class="rightbar-heading mrgb2x">
