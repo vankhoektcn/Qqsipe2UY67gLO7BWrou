@@ -59,10 +59,16 @@
 							</td>
 							<td>{{ $product->title }}</td>
 							<td class="text-right">{{ $product->priority }}</td>
-							<td class="text-center">{!! $product->is_publish == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}</td>
+							<td class="text-center">
+								<a class="action-xuatban" data-id="{{$product->id}}" data-model="product" data-active="{{$product->active}}">{!! $product->active == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}
+								</a>
+							</td>
 							<td>
 								<a href="{{ route('admin.products.edit', ['products' => $product->id]) }}" class="btn btn-xs green-jungle">
 									<i class="fa fa-edit"></i> Sửa
+								</a>
+								<a href="{{ $product->getLink() }}" target="_blank" class="btn btn-xs green-sharp" >
+									<i class="fa fa-eye"></i> View
 								</a>
 								<a href="javascript:;" class="btn btn-xs red-thunderbird action-delete" data-id="{{ $product->id }}">
 									<i class="fa fa-trash-o"></i> Xóa

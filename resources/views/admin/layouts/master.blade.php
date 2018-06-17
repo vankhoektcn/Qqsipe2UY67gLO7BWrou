@@ -332,7 +332,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/subjects*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/subjects*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-pin"></i>
 					<span class="title">Môn học</span>
@@ -351,7 +351,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/teachtimes*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/teachtimes*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-pin"></i>
 					<span class="title">Lịch học</span>
@@ -370,7 +370,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/newclass*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/newclass*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-pin"></i>
 					<span class="title">Lớp mới</span>
@@ -389,7 +389,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/tutors*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/tutors*') ? 'active open' : null }}">
 					<a href="{{ route('admin.tutors.index') }}">
 					<i class="icon-pin"></i>
 					<span class="title">Gia sư đăng ký</span>
@@ -401,7 +401,7 @@
 					<span class="title">Học viên đăng ký</span>
 					</a>
 				</li>
-				<li>
+				<li class="hide">
 					<a href="javascript:;">
 					<i class="icon-basket"></i>
 					<span class="title">Sản phẩm</span>
@@ -420,7 +420,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class="hide">
 					<a href="javascript:;">
 					<i class="icon-basket"></i>
 					<span class="title">Danh mục sản phẩm</span>
@@ -439,7 +439,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class="hide">
 					<a href="javascript:;">
 					<i class="icon-basket"></i>
 					<span class="title">Nhà sản xuất</span>
@@ -458,7 +458,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/navigations*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/navigations*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-link"></i>
 					<span class="title">Liên kết</span>
@@ -477,7 +477,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{ Request::is('admin/navigationcategories*') ? 'active open' : null }}">
+				<li class="hide {{ Request::is('admin/navigationcategories*') ? 'active open' : null }}">
 					<a href="javascript:;">
 					<i class="icon-link"></i>
 					<span class="title">Danh mục liên kết</span>

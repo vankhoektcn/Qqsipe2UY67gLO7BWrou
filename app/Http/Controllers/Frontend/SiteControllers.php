@@ -393,14 +393,18 @@ class SiteControllers extends Controller
 			if(isset($product->ward_id) && $product->ward_id > 0)
 			{
 				$link = route('product_type_province_district_ward',['product_type_key'=> $product->product_type->key, 'province_key'=> $product->province->key, 'district_key' =>$product->district->key, 'ward_key'=>$product->ward->key]);
-				$relate_products = $product->ward->products()->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+				$relate_products = $product->ward->products()->where('id', '<>', $product_id)->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
 				if(count($relate_products) ==0)
-					$relate_products = $product->district->products()->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+					$relate_products = $product->district->products()->where('id', '<>', $product_id)->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
 			}
 			else
 			{
 				$link = route('product_type_province_district',['product_type_key'=> $product->product_type->key, 'province_key'=> $product->province->key, 'district_key' =>$product->district->key]);
-				$relate_products = $product->district->products()->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+				$relate_products = $product->district->products()->where('id', '<>', $product_id)->where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+			}
+			if(count($relate_products) ==0){
+				$relate_products = Product::where('active',1)->where('id', '<>', $product_id)->orderBy('priority')->orderBy('created_at','desc')->take(5)->get();
+				$heading = 'Tin tương tự';
 			}
 
 			$breadcrumb = '<ul class="breadcrumb pull-left padl0"> 

@@ -67,7 +67,7 @@
 								<a href="{{ route('admin.project_parts.index', ['project_id' => $project->id]) }}" class="btn btn-xs yellow-gold" >
 									<i class="fa fa-edit"></i> Nội dung
 								</a>
-								<a href="{{ $project->getLink() }}" class="btn btn-xs green-sharp" >
+								<a href="{{ $project->getLink() }}" target="_blank" class="btn btn-xs green-sharp" >
 									<i class="fa fa-eye"></i> View
 								</a>
 								<a href="javascript:;" class="btn btn-xs red-thunderbird action-delete" data-id="{{ $project->id }}">

@@ -63,7 +63,11 @@
 							<td>{{ $project_part->summary }}</td>
 							<td>{{ $project_part->type == 'E' ? 'Thành phần' : 'Bài viết' }}</td>
 							<td class="text-right">{{ $project_part->priority }}</td>
-							<td class="text-center">{!! $project_part->active == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}</td>
+							<td class="text-center">
+								<a class="action-xuatban" data-id="{{$product->id}}" data-model="project_part" data-active="{{$product->active}}">
+								{!! $project_part->active == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}
+								</a>
+							</td>
 							<td>
 								<a href="{{ route('admin.project_parts.edit', ['project_parts' => $project_part->id]) }}" class="btn btn-xs green-jungle">
 									<i class="fa fa-edit"></i> Sửa

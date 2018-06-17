@@ -24,7 +24,7 @@
 	<div class="row mrgt1x">
 		<div class="col-md-9 property-single-rightbar">
 			<div class="clearfix">
-				<h4 class="fs20 mrgt0 cl-dark-blue fw-bold">{{$product->title}}</h4>
+				<h1 class="fs20 mrgt0 cl-dark-blue fw-bold"><a href="{{$product->getLink()}}">{{$product->title}}</a></h1>
 				<span class="title-detail cl-pink mrgr1x">Ngày đăng: {{$product->updated_at->format('d/m/Y')}}</span>
 				<!-- {{dd($product->expire_at)}} -->
 				<!-- @if(isset($product->expire_at))
@@ -47,9 +47,11 @@
 				@endforeach
 				</div>
 				<div class="sync2 property-carousel owl-carousel">
-				@foreach($attachments as $attachment)
+				@if(count($attachments) > 1)
+					@foreach($attachments as $attachment)
 					<div class="item"> <img class="lazy img-responsive" src="/frontend/images/spacer.gif" data-src="{{Image::url($attachment->path,145,105,array('crop'))}}"  alt="#" /> </div>
-				@endforeach
+					@endforeach				
+				@endif
 				</div>
 			</div>
 			@endif
@@ -83,7 +85,7 @@
 				<div class="fb-comments" data-href="{{Request::url()}}" data-width="100%" data-numposts="10"></div>
 			</div>
 
-			<div class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
+			<!-- <div class="property-features mrgt4x clearfix animated out" data-delay="0" data-animation="fadeInUp">
 				<div class="property-heading">
 					<h4><span>@if(isset($heading))<b>{{$heading}}</b>@else 'Căn hộ tương tự' @endif mới nhất</span></h4>
 				</div>
@@ -92,7 +94,7 @@
 					@include('frontend.partials.product_item')
 				@endforeach
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="col-md-3">
 			@include('frontend.partials.product_right_sidebar')

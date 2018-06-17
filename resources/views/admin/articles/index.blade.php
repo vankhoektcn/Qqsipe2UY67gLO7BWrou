@@ -59,7 +59,11 @@
 							</td>
 							<td>{{ $article->name }}</td>
 							<td class="text-right">{{ $article->priority }}</td>
-							<td class="text-center">{!! $article->is_publish == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}</td>
+							<td class="text-center">
+								<a class="action-xuatban" data-id="{{$article->id}}" data-model="article" data-active="{{$article->is_publish}}">
+								{!! $article->is_publish == 1 ? '<i class="fa fa-check-square font-green-jungle"></i>' : '<i class="fa fa-square-o font-yellow-crusta"></i>' !!}
+								</a>
+							</td>
 							<td>
 								<a href="{{ route('admin.articles.edit', ['articles' => $article->id]) }}" class="btn btn-xs green-jungle">
 									<i class="fa fa-edit"></i> Sửa
