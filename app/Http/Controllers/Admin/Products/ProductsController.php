@@ -190,7 +190,7 @@ class ProductsController extends Controller
 
 			// insert Product
 			$product = Product::findOrFail($id);
-			$product->key = Common::createKeyURL($request->input('Product.title'));
+			$product->key = $request->input('Product.key');//Common::createKeyURL($request->input('Product.title'));
 			
 			$product->title = $request->input('Product.title');
 			$product->product_type_id = $request->input('Product.product_type_id');

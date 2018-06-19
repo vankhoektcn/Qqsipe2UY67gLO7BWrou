@@ -8,6 +8,9 @@ a:hover {
     color: #EF5424;
     text-decoration: underline;
 }
+img{
+    max-width: 100%;
+}
 .text-nowrap{white-space: nowrap;} .full{width: 100%;}
 .hide-normal{display: none;}
 .error-label{display:none;}

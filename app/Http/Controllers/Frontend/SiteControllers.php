@@ -56,7 +56,7 @@ class SiteControllers extends Controller
 		$this->setMetadata();
 		$provinces = Province::where('is_publish',1)->get();
 		$projectCategory = new ProjectCategory;
-		$projectsSpecial = $projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 3);
+		$projectsSpecial = null;//$projectCategory->getProjectsByCategoryKey('du-an-noi-bat', 3);
 		$projectsNew = $projectCategory->getProjectsByCategoryKey('du-an-moi-nhat', 3);
 		$product_types = Product_type::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->get();
 		$agents = Agent::where('active',1)->orderBy('priority')->orderBy('created_at','desc')->take(4)->get();

@@ -273,12 +273,12 @@ span{
 	width:152px !important;
 }
 .property-single-rightbar .property-carousel .owl-controls .owl-next {
-	background:url(../images1/slider-2-nextbtn.jpg) no-repeat;
+	background:url(/frontend/images1/slider-2-nextbtn.jpg) no-repeat;
 	height:106px;
 	bottom:-30%;
 }
 .property-single-rightbar .property-carousel .owl-controls .owl-prev {
-	background:url(../images1/slider-2-prvbtn.jpg) no-repeat;
+	background:url(/frontend/images1/slider-2-prvbtn.jpg) no-repeat;
 	height:106px;
 	bottom:-30%;
 }
