@@ -83,10 +83,10 @@ class ProjectsController extends Controller
 			//dd($project_image_active);
 			$agents = $request->input('Project.agents');
 
-			if(empty($project_image_path) || empty($agents))
+			/*if(empty($project_image_path) || empty($agents))
 			{
 				return redirect()->back()->withErrors("Kiểm tra lại hình ảnh, nhân viên môi giới.");
-			}
+			}*/
 
 			$project->logo = $request->input('Project.logo');
 			$project->show_slide = $request->input('Project.show_slide');
@@ -118,20 +118,24 @@ class ProjectsController extends Controller
 			}
 
 			// push project_images
-			foreach ($project_image_path as $key => $value) {
-				array_push($project_images, new Project_image([
-					'project_id' => $project->id,
-					'path' => $project_image_path[$key],
-					'title' => $project_image_title[$key],
-					'caption' => $project_image_caption[$key],
-					'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
-				]));
+			if(!empty($project_image_path) && count($project_image_path) > 0){
+				foreach ($project_image_path as $key => $value) {
+					array_push($project_images, new Project_image([
+						'project_id' => $project->id,
+						'path' => $project_image_path[$key],
+						'title' => $project_image_title[$key],
+						'caption' => $project_image_caption[$key],
+						'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
+					]));
+				}
+				$project->project_images()->saveMany($project_images);
 			}
-			$project->project_images()->saveMany($project_images);
 			// sync categories
-			$arrAgents =  explode(",",$agents);
-			if (count($arrAgents) > 0) {
-				$project->agents()->attach($arrAgents);
+			if ($agents && $agents != ''){
+				$arrAgents =  explode(",",$agents);
+				if (count($arrAgents) > 0) {
+					$project->agents()->attach($arrAgents);
+				}
 			}
 
 			// Face project_part
@@ -218,79 +222,91 @@ class ProjectsController extends Controller
 
 		// sure execute success, if not success rollback
 		DB::transaction(function () use ($request, $id) {
-			$user = $request->user();
+			try{
+				$user = $request->user();
 
-			// insert Project
-			$project = Project::findOrFail($id);
-			$project->key = Common::createKeyURL($request->input('Project.name'));
-			$project->name = $request->input('Project.name');
-			$project->project_type_id = $request->input('Project.project_type_id');
-			$project->province_id = $request->input('Project.province_id');
-			$project->district_id = $request->input('Project.district_id');
-			$project->ward_id = $request->input('Project.ward_id');
-			$project->street_id = $request->input('Project.street_id');
-			$project->address = $request->input('Project.address');
-			$project->hotline = $request->input('Project.hotline');
-			$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');
-			$project->email = $request->input('Project.email');
+				// insert Project
+				$project = Project::findOrFail($id);
+				if($request->input('Project.key')){
+					$project->key = $request->input('Project.key');//Common::createKeyURL($request->input('Project.name'));
+				} else
+					$project->key = Common::createKeyURL($request->input('Project.name'));
+				$project->name = $request->input('Project.name');
+				$project->project_type_id = $request->input('Project.project_type_id');
+				$project->province_id = $request->input('Project.province_id');
+				$project->district_id = $request->input('Project.district_id');
+				$project->ward_id = $request->input('Project.ward_id');
+				$project->street_id = $request->input('Project.street_id');
+				$project->address = $request->input('Project.address');
+				$project->hotline = $request->input('Project.hotline');
+				$project->hotline_fa_icon = $request->input('Project.hotline_fa_icon');
+				$project->email = $request->input('Project.email');
 
-			$project_images = [];
-			$project_image_path = $request->input('project_image.path');
-			$project_image_title = $request->input('project_image.title');
-			$project_image_caption = $request->input('project_image.caption');
-			$project_image_active = $request->input('project_image.active');	
-			//dd($project_image_path);
-			$agents = $request->input('Project.agents');
+				$project_images = [];
+				$project_image_path = $request->input('project_image.path');
+				$project_image_title = $request->input('project_image.title');
+				$project_image_caption = $request->input('project_image.caption');
+				$project_image_active = $request->input('project_image.active');	
+				//dd($project_image_path);
+				$agents = $request->input('Project.agents');
 
-			if(empty($project_image_path) || empty($agents))
-			{
-				return redirect()->back()->withErrors("Kiểm tra lại hình ảnh, nhân viên môi giới.");
-			}
-
-			$project->logo = $request->input('Project.logo');
-			$project->show_slide = $request->input('Project.show_slide');
-			$project->summary = $request->input('Project.summary');
-			$project->content = $request->input('Project.content');
-			$project->map_latitude = $request->input('Project.map_latitude');
-			$project->map_longitude = $request->input('Project.map_longitude');
-
-			$project->meta_description = $request->input('Project.meta_description');
-			$project->meta_keywords = $request->input('Project.meta_keywords');
-			
-
-			$project->priority = $request->input('Project.priority');
-			$project->active = $request->input('Project.active');
-			$project->updated_by = $user->name;
-			$project->save();
-
-			// sync categories
-			$project->categories()->detach();
-			if ($request->input('Project.categories') != "") {
-				$categories =  explode(",",$request->input('Project.categories'));
-				if (count($categories) > 0) {
-					$project->categories()->attach($categories);
+				if(empty($project_image_path))
+				{
+					return redirect()->back()->withErrors("Kiểm tra lại hình ảnh");
 				}
-			}
 
-			// push project_images
-			foreach ($project_image_path as $key => $value) {
-				array_push($project_images, new Project_image([
-					'project_id' => $project->id,
-					'path' => $project_image_path[$key],
-					'title' => $project_image_title[$key],
-					'caption' => $project_image_caption[$key],
-					'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
-				]));
-			}
-			$project->project_images()->delete();
-			$project->project_images()->saveMany($project_images);
-			// sync categories
-			$arrAgents =  explode(",",$agents);
-			if (count($arrAgents) > 0) {
-				$project->agents()->sync($arrAgents);
-			}
+				$project->logo = $request->input('Project.logo');
+				$project->show_slide = $request->input('Project.show_slide');
+				$project->summary = $request->input('Project.summary');
+				$project->content = $request->input('Project.content');
+				$project->map_latitude = $request->input('Project.map_latitude');
+				$project->map_longitude = $request->input('Project.map_longitude');
 
-			$project->save();
+				$project->meta_description = $request->input('Project.meta_description');
+				$project->meta_keywords = $request->input('Project.meta_keywords');
+				
+
+				$project->priority = $request->input('Project.priority');
+				$project->active = $request->input('Project.active');
+				$project->updated_by = $user->name;
+				$project->save();
+
+				// sync categories
+				$project->categories()->detach();
+				if ($request->input('Project.categories') != "") {
+					$categories =  explode(",",$request->input('Project.categories'));
+					if (count($categories) > 0) {
+						$project->categories()->attach($categories);
+					}
+				}
+
+				// push project_images
+				if(!empty($project_image_path) && count($project_image_path) > 0){
+					foreach ($project_image_path as $key => $value) {
+						array_push($project_images, new Project_image([
+							'project_id' => $project->id,
+							'path' => $project_image_path[$key],
+							'title' => $project_image_title[$key],
+							'caption' => $project_image_caption[$key],
+							'active' => isset($project_image_active[$key]) ? $project_image_active[$key]: 0
+						]));
+					}
+					$project->project_images()->delete();
+					$project->project_images()->saveMany($project_images);
+				}
+				// sync categories
+				if ($agents && $agents != ''){
+					$arrAgents =  explode(",",$agents);
+					if (count($arrAgents) > 0) {
+						$project->agents()->sync($arrAgents);
+					}
+				}
+
+				$project->save();
+			} catch(Exception $e){
+				dd($e);
+				return redirect()->back()->withErrors($e);
+			};
 
 		});
 

@@ -29,12 +29,12 @@ crazyify.projects.entry = {
 			'label': 'Key',
 			'id': 'key',
 			'name': 'Project[key]',
-			'type': 'static',
+			'type': 'text',//'static',
 			'placeholder': '',
 			'cssclass': '',
 			'value': '',
-			'disabled': true,
-			'readonly': true,
+			'disabled': false,
+			'readonly': false,
 			'datas': [],
 			'help_block': '',
 			'input_icon': '',
@@ -154,14 +154,14 @@ crazyify.projects.entry = {
 			'dbfieldname': 'address'
 		},
 		{
-			'label': 'Hotlime',
+			'label': 'Hotline',
 			'id': 'hotline',
 			'name': 'Project[hotline]',
 			'type': 'text',
 			'required': true,
 			'placeholder': 'đường dây nóng',
 			'cssclass': '',
-			'value': '',
+			'value': '0932093221',
 			'disabled': false,
 			'readonly': false,
 			'datas': [],
@@ -169,7 +169,7 @@ crazyify.projects.entry = {
 			'input_icon': '',
 			'dbfieldname': 'hotline'
 		},
-		{
+		/*{
 			'label': 'Biểu tượng hotline',
 			'id': 'hotline_fa_icon',
 			'name': 'Project[hotline_fa_icon]',
@@ -184,7 +184,7 @@ crazyify.projects.entry = {
 			'help_block': '',
 			'input_icon': '',
 			'dbfieldname': 'hotline_fa_icon'
-		},
+		},*/
 		{
 			'label': 'Email',
 			'id': 'email',
@@ -193,7 +193,7 @@ crazyify.projects.entry = {
 			'required': true,
 			'placeholder': 'email liên hệ',
 			'cssclass': '',
-			'value': '',
+			'value': 'vanland09a@gmail.common',
 			'disabled': false,
 			'readonly': false,
 			'datas': [],
@@ -363,12 +363,12 @@ crazyify.projects.entry = {
 			'input_icon': '',
 			'dbfieldname': 'map_longitude'
 		},
-		{
+		/*{
 			'label': 'Nhân viên môi giới',
 			'id': 'agents',
 			'name': 'Project[agents]',
 			'type': 'treecheckbox',
-			'required': false,
+			'required': true,
 			'placeholder': '',
 			'cssclass': '',
 			'value': '',
@@ -379,7 +379,7 @@ crazyify.projects.entry = {
 			'help_block': '',
 			'input_icon': '',
 			'dbfieldname': 'agents'
-		},
+		},*/
 		{
 			'label': 'Meta Description',
 			'id': 'meta_description',

@@ -189,7 +189,7 @@ class ArticlesController extends Controller
 
 			// insert Article
 			$article = Article::findOrFail($id);
-			$article->key = Common::createKeyURL($request->input('ArticleTranslation.'.$languageDefault->code.'.name'));
+			$article->key = $request->input('Article.key');//Common::createKeyURL($request->input('ArticleTranslation.'.$languageDefault->code.'.name'));
 			$article->priority = $request->input('Article.priority');
 			$article->is_publish = $request->input('Article.is_publish');
 			$article->created_by = $user->name;
